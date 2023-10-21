@@ -1,0 +1,20 @@
+(defpoll time :interval "1s" `date +%H:%M:%S`)
+
+(defwindow top-bar
+  :monitor 0
+  :exclusive true
+  
+  :geometry (geometry
+	      :y "3"
+              :width "100%"
+	      :anchor "top center")
+  (test)
+)
+
+(defwidget test []
+  (box :class "white-text"
+    (label :halign "start" :text "")
+    (label :text time)
+    (label :halign "end" :text { EWW_BATTERY["BAT0"]["capacity"]+"%" })
+  )
+)

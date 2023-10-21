@@ -1,0 +1,19 @@
+source /usr/share/powerlevel10k/powerlevel10k.zsh-theme
+
+autoload -Uz compinit promptinit
+compinit -d ~/.cache/zcompdump
+promptinit; prompt gentoo
+
+alias vi=nano
+alias update="sudo emerge -NDuq @world"
+alias cupdate="update; sudo emerge --depclean; sudo eclean-dist -d"
+# alias full-eupdate="sudo emaint sync; cupdate"
+alias full-eupdate="sudo emaint sync -r gentoo; cupdate"
+alias full-update="full-eupdate; sudo flatpak update; rustup update"
+
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
+bindkey "^[[3~" delete-char
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh

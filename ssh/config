@@ -1,0 +1,7 @@
+Host aur.archlinux.org
+  IdentityFile ~/.ssh/aur
+  User aur
+
+Host github.com
+  IdentityFile ~/.ssh/github
+  User git

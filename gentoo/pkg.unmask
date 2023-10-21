@@ -1,0 +1,17 @@
+
+=sci-mathematics/geogebra-bin-5.0.752.0
+=dev-java/openjfx-11.0.11_p1-r1
+
+=gui-apps/eww-9999 **
+# =dev-lang/rust-1.73.0 # I kinda need to recompile this every time I want to update eww...
+
+=sys-libs/glibc-2.38-r5 # can't downgrade, waiting for stable to catch up
+
+>=app-admin/bitwarden-desktop-bin-2023.7.1
+>=gui-apps/packettracer-8.2.1
+>=app-admin/dotter-0.13.0-r2
+>=app-misc/macchina-6.1.8-r1
+>=app-backup/deja-dup-44.2
+>=gui-wm/hyprland-0.30.0
+>=dev-util/rustup-1.25.2
+>=gui-apps/fuzzel-1.9.2

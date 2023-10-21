@@ -1,0 +1,13 @@
+*/* CPU_FLAGS_X86: aes avx avx2 f16c fma3 mmx mmxext pclmul popcnt rdrand sha sse sse2 sse3 sse4_1 sse4_2 sse4a ssse3
+
+>=x11-drivers/nvidia-drivers-535.104.05 kernel-open
+>=media-video/pipewire-0.3.80 sound-server
+>=gnome-base/nautilus-44.2.1 -previewer
+
+>=x11-libs/libdrm-2.4.116 video_cards_radeon # mesa or smt idk
+>=media-libs/libsdl2-2.28.3 gles2 # X wayland compatibility
+>=dev-libs/libdbusmenu-16.04.0-r2 gtk3 # spotify
+>=x11-base/xorg-server-21.1.8-r2 xvfb # firefox
+>=media-libs/libmediaart-1.9.6-r1 -qt5 # totem
+>=gnome-base/gvfs-1.50.6 fuse # backup thingy
+>=dev-lang/rust-1.71.1 nightly # eww

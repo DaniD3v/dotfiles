@@ -1,0 +1,37 @@
+[default]
+depends = ["hyprland", "gentoo", "rclone", "zsh", "ssh"]
+
+[hyprland]
+depends = ["eww", "alacritty"]
+
+[hyprland.files]
+hyprland = "~/.config/hypr"
+
+[gentoo.files]
+"gentoo/world" =      { target="/var/lib/portage/world",  type="symbolic", owner="root" }
+"gentoo/make.conf" =  { target="/etc/portage/make.conf",  type="symbolic", owner="root" }
+"gentoo/repos.conf" = { target="/etc/portage/repos.conf", type="symbolic", owner="root" }
+
+"gentoo/pkg.use" =    { target="/etc/portage/package.use", type="symbolic", owner="root" }
+"gentoo/pkg.mask" =   { target="/etc/portage/package.mask", type="symbolic", owner="root" }
+"gentoo/pkg.unmask" = { target="/etc/portage/package.accept_keywords", type="symbolic", owner="root" }
+
+[zsh.files]
+"zsh/zshrc" = "~/.zshrc"
+zsh = "~/.config/zsh"
+
+[alacritty.files]
+alacritty = "~/.config/alacritty"
+
+[eww.files]
+eww = "~/.config/eww"
+
+[ssh.files]
+ssh = "~/.ssh"
+"secrets/ssh" = "~/.ssh"
+
+[rclone.files]
+"secrets/rclone.conf" = "~/.config/rclone/rclone.conf"
+
+[discord.files]
+"other/discord.json" = "~/.config/discord/settings.json"
