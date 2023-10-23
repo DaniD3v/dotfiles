@@ -1,5 +1,5 @@
 [default]
-depends = ["hyprland", "gentoo", "rclone", "zsh", "ssh"]
+depends = ["hyprland", "gentoo", "rclone", "zsh", "ssh", "git"]
 
 [hyprland]
 depends = ["eww", "alacritty"]
@@ -29,6 +29,9 @@ eww = "~/.config/eww"
 [ssh.files]
 ssh = "~/.ssh"
 "secrets/ssh" = "~/.ssh"
+
+[git.files]
+"other/git.ini" = "~/.gitconfig"
 
 [rclone.files]
 "secrets/rclone.conf" = "~/.config/rclone/rclone.conf"
