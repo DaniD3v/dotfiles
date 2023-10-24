@@ -11,6 +11,7 @@
 >=gui-apps/packettracer-8.2.1
 >=app-admin/dotter-0.13.0-r2
 >=app-misc/macchina-6.1.8-r1
+=gui-apps/tuigreet-0.8.0-r1
 >=app-backup/deja-dup-44.2
 >=gui-wm/hyprland-0.30.0
 >=dev-util/rustup-1.25.2

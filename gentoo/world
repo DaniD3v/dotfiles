@@ -9,7 +9,6 @@ app-editors/gnome-text-editor
 app-editors/nano
 app-editors/neovim
 app-eselect/eselect-repository
-app-misc/macchina
 app-office/libreoffice
 app-portage/gentoolkit
 app-shells/gentoo-zsh-completions
@@ -29,6 +28,7 @@ gui-apps/grim
 gui-apps/packettracer
 gui-apps/slurp
 gui-apps/swaylock
+gui-apps/tuigreet
 gui-apps/waybar
 gui-apps/wl-clipboard
 gui-libs/display-manager-init
@@ -59,5 +59,4 @@ www-client/firefox
 x11-apps/xrandr
 x11-base/xorg-server
 x11-drivers/nvidia-drivers
-x11-misc/sddm
 x11-terms/alacritty
