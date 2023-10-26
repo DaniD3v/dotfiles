@@ -1,3 +1,2 @@
 
 net-libs/webkit-gtk
-dev-lang/spidermonkey
