@@ -22,6 +22,7 @@ dev-util/rustup
 games-action/prismlauncher
 gnome-base/nautilus
 gnome-extra/gnome-calculator
+gnome-extra/gnome-characters
 gui-apps/eww
 gui-apps/fuzzel
 gui-apps/grim

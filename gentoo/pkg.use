@@ -10,4 +10,4 @@
 >=x11-base/xorg-server-21.1.8-r2 xvfb # firefox
 >=media-libs/libmediaart-1.9.6-r1 -qt5 # totem
 >=gnome-base/gvfs-1.50.6 fuse # backup thingy
->=dev-lang/rust-1.73.0 nightly # eww
+=dev-lang/rust-1.73.0 nightly # eww
