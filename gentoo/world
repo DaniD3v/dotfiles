@@ -15,6 +15,7 @@ app-shells/gentoo-zsh-completions
 app-shells/zsh
 app-shells/zsh-completions
 app-text/evince
+dev-dotnet/dotnet-sdk-bin:6.0
 dev-java/openjdk:8
 dev-lang/python
 dev-python/pip

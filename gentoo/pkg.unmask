@@ -5,7 +5,7 @@
 =gui-apps/eww-9999 **
 # =dev-lang/rust-1.73.0 # I kinda need to recompile this every time I want to update eww...
 
-=sys-libs/glibc-2.38-r5 # can't downgrade, waiting for stable to catch up
+=sys-libs/glibc-2.38-r7 # can't downgrade, waiting for stable to catch up
 
 >=app-admin/bitwarden-desktop-bin-2023.7.1
 >=gui-apps/packettracer-8.2.1
@@ -16,3 +16,5 @@
 >=gui-wm/hyprland-0.30.0
 >=dev-util/rustup-1.25.2
 >=gui-apps/fuzzel-1.9.2
+
+>=dev-dotnet/dotnet-sdk-bin-6.0.404-r1

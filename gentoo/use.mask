@@ -1,0 +1,2 @@
+
+>=dev-java/openjdk-11.0.18_p10 -javafx
