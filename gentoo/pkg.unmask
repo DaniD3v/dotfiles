@@ -17,4 +17,4 @@
 >=dev-util/rustup-1.25.2
 >=gui-apps/fuzzel-1.9.2
 
->=dev-dotnet/dotnet-sdk-bin-6.0.404-r1
+>=dev-dotnet/dotnet-sdk-bin-6.0.404-r1 # TODO make osu!lazer ebuild

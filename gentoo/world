@@ -1,6 +1,7 @@
 app-admin/bitwarden-desktop-bin
 app-admin/dotter
 app-admin/sudo
+app-admin/sysklogd
 app-admin/yadm
 app-backup/deja-dup
 app-containers/docker
