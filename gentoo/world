@@ -9,6 +9,7 @@ app-containers/docker-cli
 app-editors/gnome-text-editor
 app-editors/nano
 app-editors/neovim
+app-emulation/qemu
 app-eselect/eselect-repository
 app-office/libreoffice
 app-portage/gentoolkit
@@ -25,6 +26,7 @@ games-action/prismlauncher
 gnome-base/nautilus
 gnome-extra/gnome-calculator
 gnome-extra/gnome-characters
+gnome-extra/gnome-clocks
 gui-apps/eww
 gui-apps/fuzzel
 gui-apps/grim
@@ -37,6 +39,7 @@ gui-apps/wl-clipboard
 gui-libs/display-manager-init
 gui-libs/xdg-desktop-portal-wlr
 gui-wm/hyprland
+media-libs/gstreamer
 media-libs/libpulse
 media-libs/mesa
 media-sound/alsa-utils
@@ -46,9 +49,11 @@ net-im/discord
 net-misc/chrony
 net-misc/networkmanager
 net-misc/rclone
+net-misc/yt-dlp
 sci-mathematics/geogebra-bin
 sys-apps/baobab
 sys-apps/flatpak
+sys-apps/gnome-disk-utility
 sys-apps/xdg-desktop-portal
 sys-boot/grub
 sys-fs/btrfs-progs

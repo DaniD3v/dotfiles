@@ -13,13 +13,3 @@
 >=gnome-base/gvfs-1.50.6 fuse # backup thingy
 >=sys-libs/zlib-1.2.13-r1 minizip # idk
 =dev-lang/rust-1.73.0 nightly # eww
-
-# X support
->=app-text/poppler-23.09.0 cairo
->=x11-libs/libxkbcommon-1.5.0 X
->=media-libs/harfbuzz-8.2.0 icu
->=dev-qt/qtgui-5.15.10-r2 egl
->=dev-cpp/cairomm-1.14.4 X
->=dev-cpp/gtkmm-3.24.8 X
-
->=sys-auth/seatd-0.8.0 elogind # hyprland issue?
