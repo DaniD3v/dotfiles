@@ -7,11 +7,13 @@ promptinit; prompt gentoo
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 alias vi=nano
-alias update="sudo emerge -NDuq @world"
-alias cupdate="update; sudo emerge --depclean; sudo eclean-dist -d"
-# alias full-eupdate="sudo emaint sync; cupdate"
-alias full-eupdate="sudo emaint sync -r gentoo; cupdate"
-alias full-update="full-eupdate; sudo flatpak update; rustup update"
+alias yt-dlp="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
+
+alias update=          "sudo emerge -NDuq @world"
+alias cupdate=         "update; sudo emerge --depclean; sudo eclean-dist -d"
+#alias full-eupdate =  "sudo emaint sync; cupdate"
+alias full-eupdate=    "sudo emaint sync -r gentoo; cupdate"
+alias full-update=     "full-eupdate; sudo flatpak update -y; rustup update"
 
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word

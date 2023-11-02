@@ -10,6 +10,7 @@
 >=dev-java/openjdk-11.0.20.1_p1 javafx # geogebra
 >=x11-base/xorg-server-21.1.8-r2 xvfb # firefox
 >=media-libs/libmediaart-1.9.6-r1 -qt5 # totem
+>=media-video/ffmpeg-6.0-r9 opus # obs studio
 >=gnome-base/gvfs-1.50.6 fuse # backup thingy
 >=sys-libs/zlib-1.2.13-r1 minizip # idk
 =dev-lang/rust-1.73.0 nightly # eww

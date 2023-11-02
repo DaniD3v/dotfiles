@@ -8,7 +8,9 @@
 =sys-libs/glibc-2.38-r7 # can't downgrade, waiting for stable to catch up
 
 >=app-admin/bitwarden-desktop-bin-2023.7.1
+>=media-video/obs-studio-29.1.3-r2
 >=gui-apps/packettracer-8.2.1
+>=media-sound/amberol-0.10.3
 >=app-admin/dotter-0.13.0-r2
 >=app-misc/macchina-6.1.8-r1
 >=gui-apps/tuigreet-0.8.0-r1

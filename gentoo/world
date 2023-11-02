@@ -39,11 +39,13 @@ gui-apps/wl-clipboard
 gui-libs/display-manager-init
 gui-libs/xdg-desktop-portal-wlr
 gui-wm/hyprland
-media-libs/gstreamer
+media-fonts/mikachan-font-ttf
 media-libs/libpulse
 media-libs/mesa
 media-sound/alsa-utils
 media-sound/spotify
+media-video/ffmpeg
+media-video/obs-studio
 media-video/totem
 net-im/discord
 net-misc/chrony
@@ -57,7 +59,9 @@ sys-apps/gnome-disk-utility
 sys-apps/xdg-desktop-portal
 sys-boot/grub
 sys-fs/btrfs-progs
+sys-fs/dosfstools
 sys-fs/fuse:0
+sys-fs/ntfs3g
 sys-kernel/gentoo-kernel
 sys-kernel/installkernel-gentoo
 sys-kernel/linux-firmware
