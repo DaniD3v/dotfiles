@@ -6,6 +6,8 @@ app-admin/yadm
 app-backup/deja-dup
 app-containers/docker
 app-containers/docker-cli
+app-crypt/asleap
+app-dicts/seclists
 app-editors/gnome-text-editor
 app-editors/nano
 app-editors/neovim
@@ -49,10 +51,13 @@ media-video/ffmpeg
 media-video/obs-studio
 media-video/totem
 net-im/discord
+net-libs/nodejs
 net-misc/chrony
 net-misc/networkmanager
 net-misc/rclone
 net-misc/yt-dlp
+net-wireless/aircrack-ng
+net-wireless/hostapd-mana
 sci-mathematics/geogebra-bin
 sys-apps/baobab
 sys-apps/flatpak
