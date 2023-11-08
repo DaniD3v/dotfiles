@@ -1,0 +1,21 @@
+
+=sci-mathematics/geogebra-bin-5.0.752.0
+=dev-java/openjfx-11.0.11_p1-r1
+
+=gui-apps/eww-9999 **
+# >=dev-lang/rust-1.73.0 # I kinda need to recompile this every time I want to update eww...
+
+=sys-libs/glibc-2.38-r7 # can't downgrade, waiting for stable to catch up
+
+>=app-admin/bitwarden-desktop-bin-2023.7.1
+>=media-video/obs-studio-29.1.3-r2
+>=dev-util/insomnia-bin-2023.5.8
+>=gui-apps/packettracer-8.2.1
+>=app-admin/dotter-0.13.0-r2
+>=gui-apps/tuigreet-0.8.0-r1
+>=app-backup/deja-dup-44.2
+>=gui-wm/hyprland-0.30.0
+>=dev-util/rustup-1.25.2
+>=gui-apps/fuzzel-1.9.2
+
+>=dev-dotnet/dotnet-sdk-bin-6.0.404-r1 # TODO make osu!lazer ebuild

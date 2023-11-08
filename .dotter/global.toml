@@ -18,7 +18,8 @@ depends = ["openrc"]
 "gentoo/pkg.use" =    { target="/etc/portage/package.use", type="symbolic", owner="root" }
 "gentoo/pkg.mask" =   { target="/etc/portage/package.mask", type="symbolic", owner="root" }
 "gentoo/use.mask" =   { target="/etc/portage/profile/package.use.mask", type="symbolic", owner="root" }
-"gentoo/pkg.unmask" = { target="/etc/portage/package.accept_keywords", type="symbolic", owner="root" }
+"gentoo/pkg.unmask" = { target="/etc/portage/package.unmask", type="symbolic", owner="root" }
+"gentoo/pkg.accept" = { target="/etc/portage/package.accept_keywords", type="symbolic", owner="root" }
 
 [openrc.files]
 "other/rc.conf" = { target="/etc/rc.conf", type="symbolic", owner="root" }

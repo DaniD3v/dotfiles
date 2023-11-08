@@ -23,6 +23,9 @@ dev-dotnet/dotnet-sdk-bin:6.0
 dev-java/openjdk:8
 dev-lang/python
 dev-python/pip
+dev-util/insomnia-bin
+dev-util/pkgcheck
+dev-util/pkgdev
 dev-util/rustup
 games-action/prismlauncher
 gnome-base/nautilus

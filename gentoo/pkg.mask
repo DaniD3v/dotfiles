@@ -1,2 +1,5 @@
 
 net-libs/webkit-gtk
+
+*/*::pentoo
+*/*::supertux88
