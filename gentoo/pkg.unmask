@@ -1,6 +1,8 @@
 
 >=net-wireless/hostapd-mana-2.6.5_p20230803::pentoo
->=app-dicts/seclists-2023.2::pentoo
 >=app-crypt/asleap-2.2_p20201128-r1::pentoo
+>=net-proxy/burpsuite-2023.10.2.5::pentoo
+>=app-dicts/seclists-2023.2::pentoo
+>=net-proxy/zaproxy-2.13.0::pentoo
 
->=app-admin/dotter-0.13.0-r2
+>=app-admin/dotter-0.13.0-r2::supertux88

@@ -35,9 +35,10 @@ gnome-extra/gnome-clocks
 gui-apps/eww
 gui-apps/fuzzel
 gui-apps/grim
+gui-apps/hyprpicker
 gui-apps/packettracer
 gui-apps/slurp
-gui-apps/swaylock
+gui-apps/swaylock-effects
 gui-apps/tuigreet
 gui-apps/waybar
 gui-apps/wl-clipboard
@@ -46,6 +47,7 @@ gui-libs/xdg-desktop-portal-wlr
 gui-wm/hyprland
 media-fonts/fonts-meta
 media-fonts/mikachan-font-ttf
+media-gfx/gimp
 media-libs/libpulse
 media-libs/mesa
 media-sound/alsa-utils
@@ -59,6 +61,7 @@ net-misc/chrony
 net-misc/networkmanager
 net-misc/rclone
 net-misc/yt-dlp
+net-proxy/burpsuite
 net-wireless/aircrack-ng
 net-wireless/hostapd-mana
 sci-mathematics/geogebra-bin
