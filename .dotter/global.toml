@@ -23,6 +23,7 @@ depends = ["openrc"]
 
 [openrc.files]
 openrc = { target="/etc", type="symbolic", owner="root" }
+"openrc/power.start" = { target="/etc/local.d/power.start", type="symbolic", owner="root" }
 
 [grub.files]
 "other/grub" = { target="/etc/default/grub", type="symbolic", owner="root" }

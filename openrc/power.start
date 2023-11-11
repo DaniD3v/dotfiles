@@ -1,0 +1,6 @@
+#!bin/sh -e
+
+chgrp power /sys/power/state
+chmod g+w /sys/power/state
+
+exit 0

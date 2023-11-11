@@ -1,6 +1,0 @@
-#!bin/sh -e
-
-chgrp power /etc/power/state
-chmod g+w /etc/power/state
-
-exit 0

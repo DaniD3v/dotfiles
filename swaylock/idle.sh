@@ -2,4 +2,4 @@
 
 swayidle \
   timeout 300 "lock -g" \
-  timeout 330 "loginctl hibernate"
+  timeout 330 "echo mem > /sys/power/state"
