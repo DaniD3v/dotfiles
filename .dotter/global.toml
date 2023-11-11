@@ -2,7 +2,7 @@
 depends = ["hyprland", "grub", "gentoo", "greetd", "rclone", "zsh", "ssh", "git"]
 
 [hyprland]
-depends = ["eww", "alacritty"]
+depends = ["eww", "alacritty", "swaylock"]
 
 [hyprland.files]
 hyprland = "~/.config/hypr"
@@ -22,7 +22,7 @@ depends = ["openrc"]
 "gentoo/pkg.accept" = { target="/etc/portage/package.accept_keywords", type="symbolic", owner="root" }
 
 [openrc.files]
-"other/rc.conf" = { target="/etc/rc.conf", type="symbolic", owner="root" }
+openrc = { target="/etc", type="symbolic", owner="root" }
 
 [grub.files]
 "other/grub" = { target="/etc/default/grub", type="symbolic", owner="root" }
@@ -37,6 +37,11 @@ alacritty = "~/.config/alacritty"
 [greetd.files]
 "other/greetd.toml" = { target="/etc/greetd/config.toml", type="symbolic", owner="root" }
 
+[swaylock.files]
+swaylock = "~/.config/swaylock"
+"swaylock/lock.sh" = { target="/usr/bin/lock", type="symbolic", owner="root" }
+"swaylock/idle.sh" = { target="/usr/bin/swayidle-daemon", type="symbolic", owner="root" }
+
 [eww.files]
 eww = "~/.config/eww"
 
@@ -49,6 +54,3 @@ ssh = "~/.ssh"
 
 [rclone.files]
 "secrets/rclone.conf" = "~/.config/rclone/rclone.conf"
-
-[discord.files]
-"other/discord.json" = "~/.config/discord/settings.json"

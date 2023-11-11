@@ -38,6 +38,7 @@ gui-apps/grim
 gui-apps/hyprpicker
 gui-apps/packettracer
 gui-apps/slurp
+gui-apps/swayidle
 gui-apps/swaylock-effects
 gui-apps/tuigreet
 gui-apps/waybar
@@ -83,4 +84,5 @@ www-client/firefox
 x11-apps/xrandr
 x11-base/xorg-server
 x11-drivers/nvidia-drivers
+x11-misc/dunst
 x11-terms/alacritty
