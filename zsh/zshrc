@@ -6,8 +6,6 @@ promptinit; prompt gentoo
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
-
-alias asleap="asleap -W /usr/share/dict/seclists/Passwords/xato-net-10-million-passwords-1000000.txt"
 alias yt-dlp="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 alias yoink="git clone --depth 1 --recurse-submodules"
 alias reload="source ~/.zshrc; rehash"

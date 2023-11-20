@@ -16,8 +16,8 @@
 >=gui-apps/tuigreet-0.8.0-r1
 >=gui-apps/hyprpicker-0.1.1
 >=app-backup/deja-dup-44.2
->=gui-wm/hyprland-0.30.0
 >=dev-util/rustup-1.25.21
+>=gui-wm/hyprland-0.30.0
 >=gui-apps/fuzzel-1.9.2
 
 >=dev-dotnet/dotnet-sdk-bin-6.0.404-r1 # TODO make osu!lazer ebuild
