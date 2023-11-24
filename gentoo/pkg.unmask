@@ -3,4 +3,6 @@
 >=net-proxy/burpsuite-2023.10.2.5::pentoo
 >=net-proxy/zaproxy-2.13.0::pentoo
 
+>=app-shells/powerlevel10k-1.19.0::supertux88
+>=app-shells/gitstatus-1.5.4::supertux88
 >=app-admin/dotter-0.13.0-r2::supertux88

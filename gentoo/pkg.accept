@@ -10,13 +10,15 @@
 >=app-admin/bitwarden-desktop-bin-2023.7.1
 >=gui-apps/swaylock-effects-9999 **
 >=media-video/obs-studio-29.1.3-r2
+>=app-shells/powerlevel10k-1.19.0
 >=dev-util/insomnia-bin-2023.5.8
 >=gui-apps/packettracer-8.2.1
+>=app-shells/gitstatus-1.5.4
 >=app-admin/dotter-0.13.0-r2
 >=gui-apps/tuigreet-0.8.0-r1
 >=gui-apps/hyprpicker-0.1.1
 >=app-backup/deja-dup-44.2
->=dev-util/rustup-1.25.21
+>=dev-util/rustup-1.25.2
 >=gui-wm/hyprland-0.30.0
 >=gui-apps/fuzzel-1.9.2
 

@@ -1,4 +1,4 @@
-source /usr/share/powerlevel10k/powerlevel10k.zsh-theme
+source /usr/share/zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 autoload -Uz compinit promptinit
 compinit -d ~/.cache/zcompdump
