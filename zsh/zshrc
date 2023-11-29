@@ -5,6 +5,7 @@ compinit -d ~/.cache/zcompdump
 promptinit; prompt gentoo
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export PATH="$HOME/.local/bin:$PATH"
 
 alias yt-dlp="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 alias yoink="git clone --depth 1 --recurse-submodules"

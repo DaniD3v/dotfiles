@@ -1,6 +1,0 @@
-
-net-libs/webkit-gtk
-dev-qt/qtwebengine
-
-*/*::pentoo
-*/*::supertux88

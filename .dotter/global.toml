@@ -1,47 +1,26 @@
 [default]
-depends = ["hyprland", "grub", "gentoo", "greetd", "rclone", "zsh", "ssh", "git"]
+depends = ["hyprland", "rclone", "zsh", "ssh", "git"]
 
 [hyprland]
-depends = ["eww", "alacritty", "swaylock"]
+depends = ["eww", "kitty", "swaylock"]
 
 [hyprland.files]
 hyprland = "~/.config/hypr"
-
-[gentoo]
-depends = ["openrc"]
-
-[gentoo.files]
-"gentoo/world" =      { target="/var/lib/portage/world",  type="symbolic", owner="root" }
-"gentoo/make.conf" =  { target="/etc/portage/make.conf",  type="symbolic", owner="root" }
-"gentoo/repos.conf" = { target="/etc/portage/repos.conf", type="symbolic", owner="root" }
-
-"gentoo/pkg.use" =    { target="/etc/portage/package.use", type="symbolic", owner="root" }
-"gentoo/pkg.mask" =   { target="/etc/portage/package.mask", type="symbolic", owner="root" }
-"gentoo/use.mask" =   { target="/etc/portage/profile/package.use.mask", type="symbolic", owner="root" }
-"gentoo/pkg.unmask" = { target="/etc/portage/package.unmask", type="symbolic", owner="root" }
-"gentoo/pkg.accept" = { target="/etc/portage/package.accept_keywords", type="symbolic", owner="root" }
-
-[openrc.files]
-openrc = { target="/etc", type="symbolic", owner="root" }
-"openrc/power.start" = { target="/etc/local.d/power.start", type="symbolic", owner="root" }
-
-[grub.files]
-"other/grub" = { target="/etc/default/grub", type="symbolic", owner="root" }
 
 [zsh.files]
 "zsh/zshrc" = "~/.zshrc"
 zsh = "~/.config/zsh"
 
 [alacritty.files]
-alacritty = "~/.config/alacritty"
+"term-emulators/alacritty.yml" = "~/.config/alacritty/alacritty.yml"
 
-[greetd.files]
-"other/greetd.toml" = { target="/etc/greetd/config.toml", type="symbolic", owner="root" }
+[kitty.files]
+"term-emulators/kitty.conf" = { target="~/.config/kitty/kitty.conf", type="symbolic" }
 
 [swaylock.files]
-swaylock = "~/.config/swaylock"
-"swaylock/lock.sh" = { target="/usr/bin/lock", type="symbolic", owner="root" }
-"swaylock/idle.sh" = { target="/usr/bin/swayidle-daemon", type="symbolic", owner="root" }
+"swaylock/config" = "~/.config/swaylock"
+"swaylock/lock.sh" = "~/.local/bin/lock"
+"swaylock/idle.sh" = "~/.local/bin/swayidle-daemon"
 
 [eww.files]
 eww = "~/.config/eww"
