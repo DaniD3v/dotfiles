@@ -1,5 +1,5 @@
 [default]
-depends = ["hyprland", "rclone", "zsh", "ssh", "git"]
+depends = ["hyprland", "zsh", "git"]
 
 [hyprland]
 depends = ["eww", "kitty", "swaylock"]
@@ -18,7 +18,7 @@ zsh = "~/.config/zsh"
 "term-emulators/kitty.conf" = { target="~/.config/kitty/kitty.conf", type="symbolic" }
 
 [swaylock.files]
-"swaylock/config" = "~/.config/swaylock"
+"swaylock/config" = "~/.config/swaylock/config"
 "swaylock/lock.sh" = "~/.local/bin/lock"
 "swaylock/idle.sh" = "~/.local/bin/swayidle-daemon"
 
