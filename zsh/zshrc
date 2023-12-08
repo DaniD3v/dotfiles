@@ -20,6 +20,11 @@ alias emerge-clean="sudo emerge --depclean; sudo eclean-dist -d"
 alias emerge-full="emerge-sync; emerge-update; emerge-clean"
 alias update="emerge-full; sudo flatpak update -y"
 
+HISTFILE=~/.local/state/zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt INC_APPEND_HISTORY_TIME
+
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
 bindkey "^[[3~" delete-char
