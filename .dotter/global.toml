@@ -1,5 +1,5 @@
 [default]
-depends = ["hyprland", "zsh", "git"]
+depends = ["hyprland", "zsh", "git", "nvim"]
 
 [hyprland]
 depends = ["eww", "kitty", "swaylock"]
@@ -24,6 +24,9 @@ zsh = "~/.config/zsh"
 
 [eww.files]
 eww = "~/.config/eww"
+
+[nvim.files]
+nvim = "~/.config/nvim"
 
 [ssh.files]
 ssh = "~/.ssh"
