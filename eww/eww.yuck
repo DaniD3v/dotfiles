@@ -13,7 +13,7 @@
 
 (defwidget test []
   (box :class "white-text"
-    (label :halign "start" :text "")
+    (label :halign "start" :text "	Super AI optimizations")
     (label :text time)
     (label :halign "end" :text { EWW_BATTERY["BAT0"]["capacity"]+"%" })
   )

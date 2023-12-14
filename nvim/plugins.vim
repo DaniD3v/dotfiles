@@ -10,7 +10,7 @@ Plug 'ms-jpq/coq.artifacts'
 Plug 'windwp/nvim-autopairs'
 
 " Plug 'github/copilot.vim'
-" Plug 'gentoo/gentoo-syntax' " no mason support
+Plug 'gentoo/gentoo-syntax' " no mason support
 
 Plug 'ahmedkhalf/project.nvim'
 Plug 'scrooloose/nerdtree'
