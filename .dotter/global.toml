@@ -6,6 +6,7 @@ depends = ["eww", "kitty", "swaylock"]
 
 [hyprland.files]
 hyprland = "~/.config/hypr"
+"hyprland/toggle_touchpad.sh" = "~/.local/bin/toggle_touchpad"
 
 [zsh.files]
 "zsh/zshrc" = "~/.zshrc"
