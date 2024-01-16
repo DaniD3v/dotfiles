@@ -9,16 +9,20 @@ export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 
 alias yt-dlp="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
-alias compress="GZIP=-9 tar cvzf compressed.tar.xz"
+alias compress="GZIP=-9 tar cvzf compressed.tar.gz"
 alias yoink="git clone --depth 1 --recurse-submodules"
 alias reload="source ~/.zshrc; rehash"
+alias nano="nvim"
 
 alias emerge-sync="sudo emaint sync -a"
 alias emerge-update="sudo emerge -NDuq @world --keep-going"
 alias emerge-clean="sudo emerge --depclean; sudo eclean-dist -d"
 
-alias emerge-full="emerge-sync; emerge-update; emerge-clean"
-alias update="emerge-full; sudo flatpak update -y"
+alias flatpak-update="sudo flatpak update -y"
+alias flatpak-clean="flatpak uninstall --unused"
+
+alias emerge-full="emerge-sync; emerge-update"
+alias update="emerge-full; flatpak-update"
 
 HISTFILE=~/.local/state/zsh_history
 HISTSIZE=1000
