@@ -11,8 +11,9 @@ export EDITOR="nvim"
 alias yt-dlp-mp4="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'"
 alias yt-dlp-mp3="yt-dlp -x --audio-format mp3 --audio-quality 0"
 
-alias compress="GZIP=-9 tar cvzf compressed.tar.gz"
+alias compress="tar --use-compress-program='gzip -9' -cf compressed.tar.gz"
 alias yoink="git clone --depth 1 --recurse-submodules"
+alias nmwifi="nmcli d wifi connect"
 alias reload="source ~/.zshrc; rehash"
 alias nano="nvim"
 
@@ -38,3 +39,4 @@ bindkey '^H' backward-kill-word
 bindkey '5~' kill-word
 
 [[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
+
