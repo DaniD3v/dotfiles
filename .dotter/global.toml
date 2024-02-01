@@ -41,5 +41,5 @@ ssh = "~/.ssh"
 
 [rclone.files]
 "secrets/rclone.conf" = "~/.config/rclone/rclone.conf"
-"rclone/onedrive.service" = "~/.config/systemd/user/onedrive.service"
+"rclone/onedrive.service" = "~/.config/systemd/user/onedrive@onedrive.service"
 
