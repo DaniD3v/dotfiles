@@ -1,3 +1,3 @@
-{
-  "notyou" = import ./notyou.nix;
+{...} @ inputs: {
+  "notyou" = import ./notyou.nix inputs;
 }
