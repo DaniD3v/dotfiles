@@ -2,30 +2,51 @@
   config,
   pkgs,
   lib,
+  dLib,
   ...
 }:
 with lib; let
   cfg = config.dotfiles.helix;
+
   tomlFormat = pkgs.formats.toml {};
+  inherit (dLib) mkBookmarkOption;
 in {
   options.dotfiles.helix = {
     enable = mkEnableOption "Helix Editor";
 
-    alternativeXSelection = mkOption {
-      type = types.bool;
-      default = true;
+    settings = {
+      alternativeXSelection = mkOption {
+        type = types.bool;
+        default = true;
 
-      description = "Force the first x selection to stay on the same line.";
+        description = "Force the first x selection to stay on the same line.";
+      };
+
+      autoFormat = mkOption {
+        type = types.bool;
+        default = true;
+
+        description = "Whether to enable formatting on save for all languages by default";
+      };
     };
 
     language = mkOption {
-      type = tomlFormat.type;
+      inherit (tomlFormat) type;
       default = {};
 
       example = {
         "nix".auto-pairs = {
           "{" = "}";
         };
+      };
+      description = "Pass-through of the helix language config";
+    };
+
+    browserBookmarks = mkBookmarkOption "Helix" {
+      "Helix".bookmarks = {
+        "Config - Editor".url = "https://docs.helix-editor.com/editor.html";
+        "Config - Lsp".url = "https://github.com/helix-editor/helix/wiki/Language-Server-Configurations";
+        "Shortcut Quiz".url = "https://tomgroenwoldt.github.io/helix-shortcut-quiz/";
       };
     };
   };
@@ -47,11 +68,9 @@ in {
 
           indent-guides.render = true;
           cursor-shape.insert = "bar";
-
-          auto-save.focus-lost = true;
         };
 
-        keys = mkIf cfg.alternativeXSelection {
+        keys = mkIf cfg.settings.alternativeXSelection {
           # Make `x` not skip an empty newline
           normal.x = ["extend_to_line_bounds" "select_mode"];
           select.x = ["extend_line"];
@@ -75,6 +94,7 @@ in {
         lib.attrValues (lib.mapAttrs (name: value:
           {
             inherit name;
+            auto-format = cfg.settings.autoFormat;
           }
           // value) ({
             rust.auto-pairs =
@@ -91,5 +111,9 @@ in {
           }
           // cfg.language));
     };
+
+    dotfiles.programs.librewolf.bookmarks
+    ."Toolbar".bookmarks."Ricing".bookmarks =
+      mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;
   };
 }

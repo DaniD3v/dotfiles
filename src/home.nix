@@ -1,8 +1,10 @@
 {
-  pkgs,
   home-manager,
+  pkgs,
+  flakeInputs,
   currentVersion,
   stateVersion,
+  nixFormatter,
   ...
 } @ inputs:
 builtins.mapAttrs (username: config:
@@ -24,6 +26,7 @@ builtins.mapAttrs (username: config:
         ];
 
       extraSpecialArgs = {
-        inherit currentVersion;
+        inherit flakeInputs currentVersion nixFormatter;
+        dLib = import ./lib flakeInputs.nixpkgs.lib;
       };
     }) (import ./user inputs)

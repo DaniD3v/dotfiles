@@ -116,7 +116,7 @@
   fhs-env = buildFHSEnv {
     name = "packetTracer-fhs-env";
     runScript = lib.getExe' unwrapped "packettracer8";
-    targetPkgs = pkgs: [libudev0-shim];
+    targetPkgs = _: [libudev0-shim];
   };
 in
   stdenvNoCC.mkDerivation {
@@ -140,15 +140,25 @@ in
 
     desktopItems = [
       (makeDesktopItem {
-        name = "cisco-pt8.desktop";
-        desktopName = "Cisco Packet Tracer 8";
+        name = "cisco-pt";
+        desktopName = "Packet Tracer";
         icon = "${unwrapped}/opt/pt/art/app.png";
+
         exec = "packettracer8 %f";
         mimeTypes = [
-          "x-scheme-handler/pttp" # patch: enable pttp protocol
           "application/x-pkt"
           "application/x-pka"
           "application/x-pkz"
+        ];
+      })
+      (makeDesktopItem {
+        name = "cisco-ptsa";
+        desktopName = "Packet Tracer";
+        noDisplay = true;
+
+        exec = "packettracer8 %u";
+        mimeTypes = [
+          "x-scheme-handler/pttp" # patch: enable pttp protocol
         ];
       })
     ];

@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  nixFormatter,
   ...
 }:
 with lib; let
@@ -19,6 +20,7 @@ in {
       mkIf cfg.javascript.enable {
         programs.helix.extraPackages = [
           pkgs.typescript-language-server
+          pkgs.vscode-langservers-extracted
         ];
       }
     )
@@ -29,8 +31,7 @@ in {
 
       dotfiles.helix.language.nix = {
         language-servers = ["nixd"];
-        # TODO
-        # formatter.command = "${pkgs.nix}/bin/nix fmt";
+        formatter.command = lib.getExe nixFormatter;
       };
     })
     (mkIf cfg.angular.enable {

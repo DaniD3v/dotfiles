@@ -3,10 +3,10 @@
     ./work
     ./shell
     ./editor
+    ./desktop
     ./programs
     ./language
 
     ./unfree.nix
-    ./hyprland.nix
   ];
 }

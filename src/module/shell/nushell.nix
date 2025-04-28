@@ -40,6 +40,10 @@ in {
             }
         }
 
+        def --env tmp [] {
+          cd (mktemp -d -t tmp-XXXXXXXXXX)
+        }
+
         sleep 30ms # make sure alacritty resizes before running the prompt
                    # nushell is too damn fasttttt
       '';

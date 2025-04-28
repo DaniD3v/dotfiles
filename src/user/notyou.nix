@@ -1,10 +1,17 @@
 {pkgs, ...}: {
   programs = {
     alacritty.enable = true;
-    librewolf.enable = true;
+
+    librewolf = {
+      enable = true;
+
+      extensions = with pkgs.firefox-extensions; [
+        bitwarden
+      ];
+    };
   };
 
-  work = {
+  work.school = {
     nscs.enable = true;
     wmc.enable = true;
   };
@@ -18,23 +25,23 @@
 
   language = {
     javascript.enable = true;
+    nix.enable = true;
   };
 
-  # TODO replace with languages.nix.enable
-  lsp.nix.enable = true;
-
-  hyprland = {
+  desktop = {
     enable = true;
 
-    mainMonitor = "eDP-1";
+    hyprland = {
+      mainMonitor = "eDP-1";
 
-    monitors = [
-      "HDMI-A-1, preferred, auto, 1, mirror, eDP-1"
-    ];
+      monitors = [
+        "HDMI-A-1, preferred, auto, 1, mirror, eDP-1"
+      ];
 
-    input = {
-      kb_layout = "us,de";
-      kb_options = "grp:win_space_toggle";
+      input = {
+        kb_layout = "us,de";
+        kb_options = "grp:win_space_toggle";
+      };
     };
   };
 }

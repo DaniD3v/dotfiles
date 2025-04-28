@@ -2,12 +2,14 @@
   config,
   pkgs,
   lib,
+  dLib,
   ...
 }:
 with lib; let
-  cfg = config.dotfiles.hyprland;
+  cfg = config.dotfiles.desktop.hyprland;
+  inherit (dLib) mkBookmarkOption;
 in {
-  options.dotfiles.hyprland = {
+  options.dotfiles.desktop.hyprland = {
     enable = mkEnableOption "Hyprland window manager";
 
     mainMonitor = mkOption {
@@ -59,6 +61,13 @@ in {
         default = [];
         example = [];
       };
+
+    browserBookmarks = mkBookmarkOption "Hyprland" {
+      "Hyprland".bookmarks = {
+        "Wiki".url = "https://wiki.hyprland.org/Configuring";
+        "Github".url = "https://github.com/hyprwm/Hyprland";
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -151,7 +160,8 @@ in {
         in
           [
             "$mainMod, C, killactive"
-            # "$mainMod, F, forcekillactive"
+            # "$mainMod, F, forcekillactive" # TODO
+            "$mainMod, V, togglefloating"
 
             ", XF86AudioMute,        execr, ${pkgs.alsa-utils}/bin/amixer set Master toggle"
             ", XF86AudioMicMute,     execr, ${pkgs.alsa-utils}/bin/amixer set Capture toggle"
@@ -166,6 +176,7 @@ in {
             ", XF86AudioNext, execr, ${pkgs.playerctl}/bin/playerctl next"
             ", XF86AudioPrev, execr, ${pkgs.playerctl}/bin/playerctl previous"
 
+            ", F11, fullscreen"
             "$mainMod SHIFT, M, execr, ${pkgs.uwsm}/bin/uwsm stop"
           ]
           ++ windowMovement
@@ -182,5 +193,9 @@ in {
         ];
       };
     };
+
+    dotfiles.programs.librewolf.bookmarks
+    ."Toolbar".bookmarks."Ricing".bookmarks =
+      mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;
   };
 }

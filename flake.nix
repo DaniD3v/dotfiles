@@ -2,11 +2,22 @@
   description = "DaniD3v's corn-flakes V2";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:DaniD3v/nixpkgs/librewolf-fix-backport";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    firefox-extensions = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprpanel = {
+      url = "github:jas-singhfsu/hyprpanel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -28,7 +39,7 @@
         overlays = [
           (
             # expose flake packages directly
-            final: prev:
+            _: prev:
               builtins.mapAttrs (
                 name: value:
                   if value ? packages
@@ -46,15 +57,18 @@
               )
               inputs
           )
-          (final: prev: import src/pkgs prev)
-          (final: prev: {
+          (_: prev: import src/pkgs prev)
+          (_: _: {
             unstable = import nixpkgs-unstable {inherit system;};
           })
         ];
       };
-    in {
+    in rec {
       packages.homeConfigurations = import src/home.nix {
-        inherit home-manager currentVersion stateVersion pkgs;
+        inherit home-manager pkgs currentVersion stateVersion;
+
+        flakeInputs = inputs;
+        nixFormatter = formatter;
       };
 
       formatter = pkgs.alejandra;
