@@ -6,8 +6,8 @@
   stateVersion,
   nixFormatter,
   ...
-} @ inputs:
-builtins.mapAttrs (username: config:
+}:
+builtins.mapAttrs (username: userConfig:
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
@@ -20,13 +20,12 @@ builtins.mapAttrs (username: config:
               inherit username stateVersion;
               homeDirectory = "/home/${username}";
             };
-
-            dotfiles = config;
           }
+          userConfig
         ];
 
       extraSpecialArgs = {
         inherit flakeInputs currentVersion nixFormatter;
         dLib = import ./lib flakeInputs.nixpkgs.lib;
       };
-    }) (import ./user inputs)
+    }) (import ./user)

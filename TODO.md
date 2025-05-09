@@ -13,6 +13,7 @@
 - [ ] add assert that hyprland is ran with UWSM
 - [ ] add assert that bindApp.bind always contains at least one ,
 
+- [ ] hyprland make windows not go into horizontal mode automatically
 - [ ] add helix formatter for angular/js
 - [ ] go below brightness with `sdrbrightness`
 - [ ] lid switch with hyprland switch device

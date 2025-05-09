@@ -1,5 +1,4 @@
 {
-  currentVersion,
   config,
   pkgs,
   lib,

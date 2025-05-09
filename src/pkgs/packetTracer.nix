@@ -22,9 +22,11 @@
   nss,
   xorg,
   dpkg,
+  unixtools,
   buildFHSEnv,
   copyDesktopItems,
   makeDesktopItem,
+  fetchFromGitHub,
   version ? "8.2.2",
   packetTracerSource ? null,
 }: let
@@ -94,6 +96,21 @@
         xcbutilwm
       ]);
 
+    nativeBuildInputs = [
+      unixtools.xxd
+    ];
+
+    # patch.sh has a bad /bin/bash shebang => run with sh
+    patchPhase = ''
+      sh ${fetchFromGitHub {
+        owner = "hannahfluch";
+        repo = "patchpt";
+
+        rev = "5cb6183840a5f55d199bb4242d3b335d11c7efff";
+        hash = "sha256-FFdXs2hVn8Ug4FQGfzjanlr2rn3JkbNHyqYGL2CosNE=";
+      }}/patch.sh "$out/opt/pt/bin/PacketTracer"
+    '';
+
     unpackPhase = ''
       runHook preUnpack
 
@@ -144,21 +161,12 @@ in
         desktopName = "Packet Tracer";
         icon = "${unwrapped}/opt/pt/art/app.png";
 
-        exec = "packettracer8 %f";
-        mimeTypes = [
-          "application/x-pkt"
-          "application/x-pka"
-          "application/x-pkz"
-        ];
-      })
-      (makeDesktopItem {
-        name = "cisco-ptsa";
-        desktopName = "Packet Tracer";
-        noDisplay = true;
-
         exec = "packettracer8 %u";
         mimeTypes = [
           "x-scheme-handler/pttp" # patch: enable pttp protocol
+          "application/x-pkt"
+          "application/x-pka"
+          "application/x-pkz"
         ];
       })
     ];

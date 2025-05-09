@@ -16,10 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprpanel = {
-      url = "github:jas-singhfsu/hyprpanel";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -64,12 +61,16 @@
         ];
       };
     in rec {
-      packages.homeConfigurations = import src/home.nix {
-        inherit home-manager pkgs currentVersion stateVersion;
+      packages =
+        import src/pkgs pkgs
+        // {
+          homeConfigurations = import src/home.nix {
+            inherit home-manager pkgs currentVersion stateVersion;
 
-        flakeInputs = inputs;
-        nixFormatter = formatter;
-      };
+            flakeInputs = inputs;
+            nixFormatter = formatter;
+          };
+        };
 
       formatter = pkgs.alejandra;
     });

@@ -3,12 +3,12 @@
   pkgs,
   lib,
   dLib,
+  nixFormatter,
   currentVersion,
   ...
 }:
 with lib; let
   cfg = config.dotfiles.language.nix;
-  inherit (dLib) mkBookmarkOption;
 in {
   options.dotfiles.language.nix = {
     enable = mkEnableOption "nix developement tools";
@@ -18,7 +18,7 @@ in {
         "https://search.nixos.org/${type}"
         + "?query=%s&channel=${currentVersion}";
     in
-      mkBookmarkOption "Nix" {
+      dLib.mkBookmarkOption "Nix" {
         "Nix".bookmarks = {
           "NixOS Packages" = {
             url = nixOSSearch "packages";
@@ -34,6 +34,7 @@ in {
             url = nixOSSearch "options";
             keyword = "@no";
           };
+
           "Nixpkgs".url = "https://github.com/NixOS/nixpkgs";
           "Home manager".url = "https://github.com/nix-community/home-manager";
         };
@@ -43,12 +44,12 @@ in {
   config = mkIf cfg.enable {
     dotfiles.lsp.nix.enable = true;
 
-    home.packages = with pkgs; [
-      alejandra
-
-      deadnix
-      statix
-    ];
+    home.packages =
+      (with pkgs; [
+        deadnix
+        statix
+      ])
+      ++ [nixFormatter];
 
     dotfiles.programs.librewolf.bookmarks
     ."Toolbar".bookmarks."Languages".bookmarks =
