@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    bash-env-json = {
+      url = "github:tesujimath/bash-env-json";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     fenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 

@@ -12,8 +12,17 @@ in {
   options.dotfiles.shells.nushell = {
     enable = mkEnableOption "Nushell";
 
-    nixIntegration.enable = mkOption {
+    fixHomeSessionVariables = mkOption {
+      type = types.bool;
       default = true;
+
+      description = "Whether to fix the `home.sessionVariables` option for nushell";
+    };
+
+    nixIntegration.enable = mkOption {
+      type = types.bool;
+      default = true;
+
       description = ''
         Makes nix integrate nicely with nushell.
 
@@ -23,14 +32,24 @@ in {
     };
 
     commandNotFound.enable = mkOption {
+      type = types.bool;
       default = true;
-      description = "Whether to print which packages provide a not installed command.";
+
+      description = "Whether to print which packages provide a not installed command";
     };
   };
 
   config = mkIf cfg.enable {
     programs.nushell = {
       enable = true;
+
+      extraEnv =
+        mkIf cfg.fixHomeSessionVariables
+        ''          ${lib.getExe pkgs.bash-env-json} ${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh
+                      | from json
+                      | get env
+                      | load-env
+        '';
 
       extraConfig = mkMerge [
         ''
@@ -41,20 +60,17 @@ in {
 
           $env.SHELL = "${lib.getExe config.programs.nushell.package}"
 
-          def "input opt-list" [list: list, msg?: string = ""] {
-            if (($list | length) == 1) {$list | get 0}
-              else ($list | input list $msg)
-          }
-
           def --env tmp [] {
             cd (mktemp -d -t tmp-XXXXXXXXXX)
           }
         ''
 
         (mkIf cfg.commandNotFound.enable ''
-          $env.config.hooks.command_not_found = {
-            |command_name|
-            print (command-not-found $command_name | str trim)
+          $env.config.hooks.command_not_found = { |command_name|
+            print (
+              command-not-found $command_name | complete | get stderr
+                | str trim | str replace -a "nix-shell -p" "ni"
+            )
           }
         '')
 
@@ -77,12 +93,6 @@ in {
               | transpose package data | par-each {|p|
                 $p | update package {$in | str replace -r "legacyPackages\\..*?\\." ""}
               }
-          }
-
-          def "ns pkg-config" [lib_filename, --include-deps (-i)] {
-            ${lib.getExe' pkgs.nix-index "nix-locate"} -w "/lib/pkgconfig/$lib_filename"
-              | lines | each {$in | split row " " | first}
-              | filter {$include_deps or not ($in | str starts-with "(")}
           }
         '')
 

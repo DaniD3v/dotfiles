@@ -3,6 +3,20 @@
   lib,
   ...
 }: {
+  xdg.userDirs.enable = true;
+
+  programs.ashell = {
+    enable = true;
+
+    settings = {
+      modules = {
+        left = [["Workspaces" "WindowTitle"]];
+        center = ["Clock"];
+        right = [["SystemInfo" "Settings"]];
+      };
+    };
+  };
+
   dotfiles = {
     programs = {
       alacritty.enable = true;
@@ -20,19 +34,22 @@
       enable = true;
 
       nscs.enable = true;
+      pos.enable = true;
       wmc.enable = true;
     };
 
     unfree.whiteList = [
       "packetTracer"
       "datagrip"
+      "spotify"
+
+      "geogebra"
       "obsidian"
     ];
 
-    helix.enable = true;
-
     language = {
       javascript.enable = true;
+      python.enable = true;
       rust.enable = true;
       nix.enable = true;
     };
@@ -52,17 +69,10 @@
           kb_options = "grp:win_space_toggle";
         };
 
-        bindApp = let
-          rofi = "${lib.getExe pkgs.rofi-wayland} -show-icons";
-        in [
+        bindApp = [
           {
             bind = "$mainMod, E";
             run = "${lib.getExe pkgs.nautilus} --new-window";
-          }
-
-          {
-            bind = "$mainMod, R";
-            run = "${rofi} -show drun";
           }
         ];
       };
@@ -72,14 +82,26 @@
   home.packages = with pkgs; [
     docker
 
+    wl-clipboard-rs
+    pkg-shell
     nix-index
     ripgrep
     tokei
 
+    libreoffice
     nautilus
-    obsidian
+    geogebra6
+    baobab
+    warp
     gimp
     eog
+
+    jetbrains.datagrip
+    obsidian
+    spotify
+
+    whatsie
+    vesktop
 
     adwaita-icon-theme
   ];

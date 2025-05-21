@@ -6,6 +6,7 @@
     ./desktop
     ./programs
     ./language
+    ./low-level
 
     ./unfree.nix
   ];

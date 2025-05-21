@@ -35,8 +35,14 @@ in {
             keyword = "@no";
           };
 
-          "Nixpkgs".url = "https://github.com/NixOS/nixpkgs";
-          "Home manager".url = "https://github.com/nix-community/home-manager";
+          "Nixpkgs" = {
+            url = "https://github.com/NixOS/nixpkgs";
+            keyword = "home-manager";
+          };
+          "Home manager" = {
+            url = "https://github.com/nix-community/home-manager";
+            keyword = "nixpkgs";
+          };
         };
       };
   };

@@ -25,12 +25,5 @@ in {
     home.packages = [
       toolchain
     ];
-
-    programs.nushell.extraConfig = ''
-      def "cargo-missing-system-deps" [] {
-        cargo b --keep-going | complete | get stderr | split row " "
-          | parse -r "`(.*\\.pc)`" | get "capture0" | uniq
-      }
-    '';
   };
 }

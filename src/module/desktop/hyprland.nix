@@ -12,6 +12,20 @@ in {
   options.dotfiles.desktop.hyprland = {
     enable = mkEnableOption "Hyprland window manager";
 
+    screenshots.enable = mkOption {
+      type = types.bool;
+      default = true;
+
+      description = "Whether to enable screenshots using hyprshot";
+    };
+
+    appLauncher.enable = mkOption {
+      type = types.bool;
+      default = true;
+
+      description = "Whether to enable an application launcher using rofi";
+    };
+
     mainMonitor = mkOption {
       type = types.str;
       default = "";
@@ -157,34 +171,57 @@ in {
             )
             (lib.range 1 10)
           );
+
+          uwsmApp = "${lib.getExe pkgs.uwsm} app --";
         in
-          [
-            "$mainMod, C, killactive"
-            # "$mainMod, F, forcekillactive" # TODO
-            "$mainMod, V, togglefloating"
+          mkMerge [
+            [
+              "$mainMod, C, killactive"
+              # "$mainMod, F, forcekillactive" # TODO
+              "$mainMod, V, togglefloating"
 
-            ", XF86AudioMute,        execr, ${pkgs.alsa-utils}/bin/amixer set Master toggle"
-            ", XF86AudioMicMute,     execr, ${pkgs.alsa-utils}/bin/amixer set Capture toggle"
-            ", XF86AudioRaiseVolume, execr, ${pkgs.alsa-utils}/bin/amixer set Master 5%+"
-            ", XF86AudioLowerVolume, execr, ${pkgs.alsa-utils}/bin/amixer set Master 5%-"
+              ", XF86AudioMute,        execr, ${pkgs.alsa-utils}/bin/amixer set Master toggle"
+              ", XF86AudioMicMute,     execr, ${pkgs.alsa-utils}/bin/amixer set Capture toggle"
+              ", XF86AudioRaiseVolume, execr, ${pkgs.alsa-utils}/bin/amixer set Master 5%+"
+              ", XF86AudioLowerVolume, execr, ${pkgs.alsa-utils}/bin/amixer set Master 5%-"
 
-            ", XF86MonBrightnessUp,   execr, ${pkgs.brightnessctl}/bin/brightnessctl s 10%+"
-            ", XF86MonBrightnessDown, execr, ${pkgs.brightnessctl}/bin/brightnessctl s 10%-"
+              ", XF86MonBrightnessUp,   execr, ${pkgs.brightnessctl}/bin/brightnessctl s 10%+"
+              ", XF86MonBrightnessDown, execr, ${pkgs.brightnessctl}/bin/brightnessctl s 10%-"
 
-            ", XF86AudioPlay, execr, ${pkgs.playerctl}/bin/playerctl play"
-            ", XF86AudioStop, execr, ${pkgs.playerctl}/bin/playerctl stop"
-            ", XF86AudioNext, execr, ${pkgs.playerctl}/bin/playerctl next"
-            ", XF86AudioPrev, execr, ${pkgs.playerctl}/bin/playerctl previous"
+              ", XF86AudioPlay, execr, ${pkgs.playerctl}/bin/playerctl play"
+              ", XF86AudioStop, execr, ${pkgs.playerctl}/bin/playerctl stop"
+              ", XF86AudioNext, execr, ${pkgs.playerctl}/bin/playerctl next"
+              ", XF86AudioPrev, execr, ${pkgs.playerctl}/bin/playerctl previous"
 
-            ", F11, fullscreen"
-            "$mainMod SHIFT, M, execr, ${pkgs.uwsm}/bin/uwsm stop"
-          ]
-          ++ windowMovement
-          ++ workSpaceMovement
-          ++ map (
-            bindApp: "${bindApp.bind}, execr, ${pkgs.uwsm}/bin/uwsm app -- ${bindApp.run}"
-          )
-          cfg.bindApp;
+              ", F11, fullscreen"
+              "$mainMod SHIFT, M, execr, ${pkgs.uwsm}/bin/uwsm stop"
+            ]
+            windowMovement
+            workSpaceMovement
+
+            (let
+              hyprshot = "${lib.getExe pkgs.hyprshot} -o ~/screenshots";
+            in
+              mkIf cfg.screenshots.enable [
+                ",      PRINT, execr, ${hyprshot} -m output --current"
+                "CTRL,  PRINT, execr, ${hyprshot} -m window"
+                "SHIFT, PRINT, execr, ${hyprshot} -m region"
+              ])
+
+            (let
+              rofi = "${lib.getExe pkgs.rofi-wayland} -show-icons -run-command '${uwsmApp} {cmd}'";
+            in
+              mkIf cfg.appLauncher.enable [
+                "$mainMod, R, execr, ${rofi} -show drun"
+              ])
+
+            (
+              map (
+                bindApp: "${bindApp.bind}, execr, ${uwsmApp} ${bindApp.run}"
+              )
+              cfg.bindApp
+            )
+          ];
 
         # mouse binds
         bindm = [

@@ -11,47 +11,67 @@ with lib; let
 in {
   options.dotfiles.lsp = {
     javascript.enable = mkLspEnableOption "Javascript";
-    nix.enable = mkLspEnableOption "Nix";
     angular.enable = mkLspEnableOption "Angular";
+    python.enable = mkLspEnableOption "Python";
+    csharp.enable = mkLspEnableOption "Csharp";
+    rust.enable = mkEnableOption "Rust";
+    nix.enable = mkLspEnableOption "Nix";
   };
 
   config = lib.mkMerge [
-    (
-      mkIf cfg.javascript.enable {
-        programs.helix.extraPackages = [
-          pkgs.typescript-language-server
-          pkgs.vscode-langservers-extracted
-        ];
-      }
-    )
-    (mkIf cfg.nix.enable {
+    (mkIf cfg.javascript.enable {
+      programs.helix.extraPackages = with pkgs; [
+        typescript-language-server
+        vscode-langservers-extracted
+      ];
+    })
+
+    (mkIf cfg.angular.enable {
+      programs.helix.extraPackages = with pkgs; [
+        angular-language-server
+      ];
+
       programs.helix
         .languages.language-server
-        .nixd.command = "${pkgs.nixd}/bin/nixd";
+        .angular.roots = ["angular.json"];
 
-      dotfiles.helix.language.nix = {
+      dotfiles.editors.helix.language = {
+        html.language-servers = ["angular"];
+        typescript.language-servers = ["angular"]; # for inline templates
+      };
+    })
+
+    (mkIf cfg.python.enable {
+      programs.helix.extraPackages = with pkgs; [
+        basedpyright
+        ruff
+        ruff-lsp
+      ];
+
+      dotfiles.editors.helix.language.python.language-servers = ["basedpyright" "ruff"];
+    })
+
+    (mkIf cfg.csharp.enable {
+      programs.helix.extraPackages = with pkgs; [
+        omnisharp-roslyn
+        csharpier
+      ];
+    })
+
+    (mkIf cfg.nix.enable {
+      programs.helix.extraPackages = with pkgs; [
+        nixd
+      ];
+
+      dotfiles.editors.helix.language.nix = {
         language-servers = ["nixd"];
         formatter.command = lib.getExe nixFormatter;
       };
     })
-    (mkIf cfg.angular.enable {
-      programs.helix
-        .languages.language-server
-        .angular-lsp = {
-        command = "${pkgs.angular-language-server}/bin/ngserver";
-        args = ["--stdio"];
 
-        roots = ["angular.json"];
-      };
-
-      dotfiles.helix.language = {
-        html.language-servers = ["angular-lsp"];
-        typescript.language-servers = ["angular-lsp"]; # for inline templates
-      };
-    })
+    # Re-add default LSPS.
     {
-      # Re-add default LSPS.
-      dotfiles.helix.language = {
+      dotfiles.editors.helix.language = {
         html.language-servers = ["vscode-html-language-server"];
         typescript.language-servers = ["typescript-language-server"];
       };

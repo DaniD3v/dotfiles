@@ -15,14 +15,18 @@ in {
     default = mkOption {
       type = types.enum ["nushell"];
       default = "nushell";
+
+      description = "Default shell to use";
     };
 
-    defaultPackage = mkOption {
-      type = types.package;
-      readOnly = true;
+    completions.enable = mkOption {
+      type = types.bool;
+      default = true;
 
-      default = config.programs.${cfg.default}.package;
+      description = "Whether to enable completitions using carapace";
     };
+
+    zoxide.enable = mkEnableOption "Zoxide";
   };
 
   config = {
@@ -30,8 +34,8 @@ in {
     dotfiles.shells.${cfg.default}.enable = true;
 
     programs = {
-      zoxide.enable = true;
-      carapace.enable = true;
+      zoxide.enable = cfg.zoxide.enable;
+      carapace.enable = cfg.completions.enable;
     };
   };
 }

@@ -10,7 +10,7 @@ in {
     ./wallpaper.nix
 
     ./hyprland.nix
-    ./shell.nix
+    ./ashell.nix
   ];
 
   options.dotfiles.desktop.enable = mkOption {
@@ -23,6 +23,7 @@ in {
   config = mkIf cfg.enable {
     dotfiles.desktop = {
       hyprland.enable = true;
+      ashell.enable = true;
     };
   };
 }

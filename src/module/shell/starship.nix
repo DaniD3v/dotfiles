@@ -22,6 +22,14 @@ in {
       description = "Whether to enable the starship shell prompt";
     };
 
+    # HACK: this should be fixed upstream
+    fixNuVirtualenvPrompt.enable = mkOption {
+      type = types.bool;
+      default = config.dotfiles.shells.nushell.enable;
+
+      description = "Whether to fix a duplicate prompt when in a virtualenv";
+    };
+
     theme = {
       fg = mkColorOption "#87875F" "foreground color";
       bg = mkColorOption "#303030" "background color";
@@ -45,6 +53,10 @@ in {
   };
 
   config = mkIf cfg.enable {
+    home.sessionVariables = mkIf cfg.fixNuVirtualenvPrompt.enable {
+      VIRTUAL_ENV_DISABLE_PROMPT = 1;
+    };
+
     programs.starship = {
       enable = true;
 
@@ -131,7 +143,10 @@ in {
         package.format = "[󰏗 $version](fg:package bg:bg)";
 
         rust.format = "[ $version](fg:rust bg:bg)";
-        python.format = "[ $version](fg:python bg:bg)";
+        python = {
+          format = "[ $version(via $pyenv_prefix)](fg:python bg:bg)";
+          pyenv_prefix = "venv";
+        };
         dotnet.format = "[ $version](fg:dotnet bg:bg)";
       };
     };

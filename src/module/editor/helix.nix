@@ -6,12 +6,12 @@
   ...
 }:
 with lib; let
-  cfg = config.dotfiles.helix;
+  cfg = config.dotfiles.editors.helix;
 
   tomlFormat = pkgs.formats.toml {};
   inherit (dLib) mkBookmarkOption;
 in {
-  options.dotfiles.helix = {
+  options.dotfiles.editors.helix = {
     enable = mkEnableOption "Helix Editor";
 
     settings = {

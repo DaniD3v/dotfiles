@@ -5,8 +5,13 @@
 
 ## TODO
 
+- [ ] fix sddm upstream
+- [ ] proper pkg-shell PATH
+- [ ] fix python duplicate lsp errors
+- [ ] add starship browserbookmarks
+- [ ] add cursor module
+- [ ] auto-run nix-index
 - [ ] automatically import all flake hm-modules?
-- [ ] set helix default editor (similar to the default shell selection)
 - [ ] default monitor "" ???
 
 - [ ] add assert for nixOS modules that need to be enabled with home-manager modules
