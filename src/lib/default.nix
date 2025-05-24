@@ -3,7 +3,7 @@ with lib; {
   recursiveMergeAttrs = attrs:
     builtins.foldl' (acc: elem: lib.recursiveUpdate acc elem) {} attrs;
 
-  inherit (import ../module/programs/librewolf/bookmark.nix {inherit lib;}) mkBookmarkOption;
+  inherit (import ../hm-module/programs/librewolf/bookmark.nix {inherit lib;}) mkBookmarkOption;
 
   mkWaylandService = {
     systemdTarget,

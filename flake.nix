@@ -27,7 +27,6 @@
   outputs = {
     nixpkgs,
     nixpkgs-unstable,
-    home-manager,
     flake-utils,
     ...
   } @ inputs:
@@ -35,7 +34,12 @@
       currentVersion = "24.11";
       stateVersion = "23.11";
 
-      pkgs = import nixpkgs {
+      pkgs =
+        pkgsExternal.extend
+        (_: prev: import src/pkgs prev);
+
+      # Extra variable to avoid calling src/pkgs with its own overlay already applied
+      pkgsExternal = import nixpkgs {
         inherit system;
 
         overlays = [
@@ -59,24 +63,42 @@
               )
               inputs
           )
-          (_: prev: import src/pkgs prev)
           (_: _: {
             unstable = import nixpkgs-unstable {inherit system;};
           })
         ];
       };
-    in rec {
-      packages =
-        import src/pkgs pkgs
-        // {
-          homeConfigurations = import src/home.nix {
-            inherit home-manager pkgs currentVersion stateVersion;
 
-            flakeInputs = inputs;
-            nixFormatter = formatter;
-          };
-        };
+      systemConfig = import src/system.nix {
+        inherit pkgs system stateVersion;
+        flakeInputs = inputs;
+      };
+
+      homeConfig = import src/home.nix {
+        inherit pkgs currentVersion stateVersion;
+
+        flakeInputs = inputs;
+        self = ./.;
+
+        nixFormatter = formatter;
+      };
 
       formatter = pkgs.alejandra;
+    in {
+      packages =
+        import src/pkgs pkgsExternal
+        // {
+          homeConfigurations = homeConfig.users;
+          nixosConfigurations = systemConfig.hosts;
+        };
+
+      nixdOptions = {
+        expr = ''(builtins.getFlake "${./.}").nixdOptions.${pkgs.system}'';
+
+        home-manager = (homeConfig.buildUser "module-export" {}).options;
+        nixos = (systemConfig.buildHost "module-export" {}).options;
+      };
+
+      inherit formatter;
     });
 }

@@ -86,6 +86,7 @@
     pkg-shell
     nix-index
     ripgrep
+    tldr
     tokei
 
     libreoffice
@@ -100,7 +101,7 @@
     obsidian
     spotify
 
-    whatsie
+    whatsapp-for-linux
     vesktop
 
     adwaita-icon-theme

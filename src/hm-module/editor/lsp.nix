@@ -3,6 +3,7 @@
   pkgs,
   lib,
   nixFormatter,
+  self,
   ...
 }:
 with lib; let
@@ -62,6 +63,17 @@ in {
       programs.helix.extraPackages = with pkgs; [
         nixd
       ];
+
+      programs.helix
+        .languages.language-server
+        .nixd.config.options = let
+        optionsPath = export: ''
+          (builtins.getFlake "${self}").nixdOptions.${pkgs.system}.${export}
+        '';
+      in {
+        nixos.expr = optionsPath "home-manager";
+        home-manager.expr = optionsPath "nixos";
+      };
 
       dotfiles.editors.helix.language.nix = {
         language-servers = ["nixd"];

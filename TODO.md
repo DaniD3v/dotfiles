@@ -5,6 +5,7 @@
 
 ## TODO
 
+- [ ] system config continue at nix-settings.nix
 - [ ] fix sddm upstream
 - [ ] proper pkg-shell PATH
 - [ ] fix python duplicate lsp errors

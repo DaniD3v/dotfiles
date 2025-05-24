@@ -1,19 +1,21 @@
 {
-  home-manager,
   pkgs,
   flakeInputs,
   currentVersion,
   stateVersion,
   nixFormatter,
+  self,
   ...
-}:
-builtins.mapAttrs (username: userConfig:
-    home-manager.lib.homeManagerConfiguration {
+}: rec {
+  buildUser = username: userConfig:
+    flakeInputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
       modules =
-        (import ./module).home-manager
+        (import ./hm-module)
         ++ [
+          userConfig
+
           {
             programs.home-manager.enable = true;
             home = {
@@ -21,11 +23,13 @@ builtins.mapAttrs (username: userConfig:
               homeDirectory = "/home/${username}";
             };
           }
-          userConfig
         ];
 
       extraSpecialArgs = {
-        inherit flakeInputs currentVersion nixFormatter;
+        inherit flakeInputs currentVersion nixFormatter self;
         dLib = import ./lib flakeInputs.nixpkgs.lib;
       };
-    }) (import ./user)
+    };
+
+  users = builtins.mapAttrs buildUser (import ./user);
+}
