@@ -45,8 +45,7 @@ in {
     (mkIf cfg.python.enable {
       programs.helix.extraPackages = with pkgs; [
         basedpyright
-        ruff
-        ruff-lsp
+        ruff # TODO check if ruff without ruff-lsp still works
       ];
 
       dotfiles.editors.helix.language.python.language-servers = ["basedpyright" "ruff"];

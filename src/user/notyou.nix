@@ -82,12 +82,14 @@
   home.packages = with pkgs; [
     docker
 
+    nix-index
+    nh
+
     wl-clipboard-rs
     pkg-shell
-    nix-index
     ripgrep
-    tldr
     tokei
+    tldr
 
     libreoffice
     nautilus

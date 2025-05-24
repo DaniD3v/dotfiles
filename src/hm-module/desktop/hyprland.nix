@@ -177,7 +177,7 @@ in {
           mkMerge [
             [
               "$mainMod, C, killactive"
-              # "$mainMod, F, forcekillactive" # TODO
+              "$mainMod, F, forcekillactive"
               "$mainMod, V, togglefloating"
 
               ", XF86AudioMute,        execr, ${pkgs.alsa-utils}/bin/amixer set Master toggle"

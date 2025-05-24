@@ -60,17 +60,20 @@ in {
           "ui.highlighttext" = "#404040";
         };
 
-        extensions = [
-          pkgs.firefox-extensions.re-enable-right-click
-          (pkgs.ccnace.override {
-            overrideManifest = {
-              name = "Dark Reader";
-              version = "4.9.106";
+        extensions = {
+          force = true;
+          packages = [
+            pkgs.firefox-extensions.re-enable-right-click
+            (pkgs.ccnace.override {
+              overrideManifest = {
+                name = "Dark Reader";
+                version = "4.9.106";
 
-              description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing";
-            };
-          })
-        ];
+                description = "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing";
+              };
+            })
+          ];
+        };
       };
 
       home.packages = with pkgs; [

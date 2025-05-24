@@ -26,19 +26,27 @@ in {
     search = {
       default = mkOption {
         type = types.str;
-        default = "DuckDuckGo";
+        default = "ddg";
+
+        # IDs can be fetched with
+        # `mozlz4a -d ~/.librewolf/default/search.json.mozlz4 | from json`
+        description = "Default search engine to use. Referenced by search engine id.";
       };
 
       disableSearchEngines = mkOption {
         type = with types; listOf str;
-        default = [
-          "Bing"
-          "DuckDuckGo Lite"
-          "MetaGer"
-          "Mojeek"
-          "SearXNG - searx.be"
-          "StartPage"
-        ];
+        default =
+          [
+            # "google"
+            "wikipedia"
+          ]
+          ++ map (s: "policy-${s}") [
+            "DuckDuckGo Lite"
+            "MetaGer"
+            "Mojeek"
+            "SearXNG - searx.be"
+            "StartPage"
+          ];
       };
 
       includeCustom = mkOption {
@@ -89,11 +97,10 @@ in {
           "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
         };
 
-        extensions =
-          [
-            pkgs.firefox-extensions.canvasblocker
-          ]
-          ++ cfg.extensions;
+        extensions = {
+          force = true;
+          packages = [pkgs.firefox-extensions.canvasblocker] ++ cfg.extensions;
+        };
 
         # TODO: icons are currently bugged upstream => no icons
         search = {
@@ -104,16 +111,20 @@ in {
             mkSearchEngine = alias: {
               url,
               params ? {},
-            }: {
+              ...
+            } @ searchEngineInputs: {
               urls = [
-                {
-                  template = url;
-                  params =
-                    mapAttrsToList (name: value: {
-                      inherit name value;
-                    })
-                    params;
-                }
+                (
+                  filterAttrs (name: _: name != "url") searchEngineInputs
+                  // {
+                    template = url;
+                    params =
+                      mapAttrsToList (name: value: {
+                        inherit name value;
+                      })
+                      params;
+                  }
+                )
               ];
 
               definedAliases = ["@${alias}"];
@@ -127,6 +138,22 @@ in {
                   params = {
                     "q" = "{searchTerms}";
                     "type" = "repositories";
+                  };
+
+                  icon = pkgs.fetchurl {
+                    # TODO search engine icons broken upstream
+                    url = "https://github.com/favicon.ico";
+                    hash = "sha256-LuQyN9GWEAIQ8Xhue3O1fNFA9gE8Byxw29/9npvGlfg=";
+                  };
+                };
+
+                "Noogle" = mkSearchEngine "ng" {
+                  url = "https://noogle.dev/q";
+                  params.term = "{searchTerms}";
+
+                  icon = pkgs.fetchurl {
+                    url = "https://noogle.dev/favicon.png";
+                    hash = "sha256-5VjB+MeP1c25DQivVzZe77NRjKPkrJdYAd07Zm0nNVM=";
                   };
                 };
               }
@@ -157,10 +184,12 @@ in {
                 else {}
               ))
             bookmarks);
-        in
-          mapBookmarks (
+        in {
+          force = true;
+          settings = mapBookmarks (
             lib.recursiveUpdate {Toolbar.toolbar = true;} cfg.bookmarks
           );
+        };
       };
     };
 

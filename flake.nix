@@ -3,11 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:DaniD3v/nixpkgs/librewolf-fix-backport";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -31,7 +31,7 @@
     ...
   } @ inputs:
     flake-utils.lib.eachDefaultSystem (system: let
-      currentVersion = "24.11";
+      currentVersion = "25.05";
       stateVersion = "23.11";
 
       pkgs =
