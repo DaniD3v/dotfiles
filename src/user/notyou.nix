@@ -17,6 +17,10 @@
     };
   };
 
+  wayland.windowManager.hyprland.settings = {
+    misc.force_default_wallpaper = 0;
+  };
+
   dotfiles = {
     programs = {
       alacritty.enable = true;
@@ -58,7 +62,9 @@
       enable = true;
 
       hyprland = {
-        mainMonitor = "eDP-1";
+        # mainMonitor = "eDP-1";
+        # HACK: Hyprland broken
+        mainMonitor = "desc:Najing CEC Panda FPD Technology CO. ltd";
 
         monitors = [
           "HDMI-A-1, preferred, auto, 1, mirror, eDP-1"

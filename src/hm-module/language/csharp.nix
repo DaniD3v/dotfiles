@@ -13,6 +13,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    dotfiles.lsp.csharp.enable = true;
+
     home.sessionVariables = mkIf (!cfg.enableTelemetry) {
       DOTNET_CLI_TELEMETRY_OPTOUT = 1;
     };

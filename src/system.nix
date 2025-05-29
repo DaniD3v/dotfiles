@@ -11,6 +11,7 @@
 
         modules =
           (import ./nixos-module)
+          ++ (import ./shared-module)
           ++ [
             hostConfig
 

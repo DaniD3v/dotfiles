@@ -30,6 +30,6 @@ in {
     networking.networkmanager.enable = true;
 
     # massivly improve boot time
-    systemd.services.NetworkManager-wait-online.enable = cfg.fixStartupTime;
+    systemd.services.NetworkManager-wait-online.enable = !cfg.fixStartupTime;
   };
 }

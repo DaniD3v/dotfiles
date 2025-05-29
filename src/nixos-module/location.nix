@@ -8,12 +8,12 @@ with lib; let
 in {
   options.dotfiles.location = {
     timezone = mkOption {
-      type = types.string;
+      type = types.str;
       description = "The time zone used when displaying times and dates.";
     };
 
     locale = mkOption {
-      type = types.string;
+      type = types.str;
       description = "The default locale. It determines the language for program messages.";
     };
   };

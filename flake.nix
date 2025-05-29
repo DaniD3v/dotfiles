@@ -93,8 +93,6 @@
         };
 
       nixdOptions = {
-        expr = ''(builtins.getFlake "${./.}").nixdOptions.${pkgs.system}'';
-
         home-manager = (homeConfig.buildUser "module-export" {}).options;
         nixos = (systemConfig.buildHost "module-export" {}).options;
       };

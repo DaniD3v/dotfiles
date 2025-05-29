@@ -1,22 +1,32 @@
 {
   imports = [
     ./hardware.nix
+    ./nvidia.nix
   ];
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    timeout = 0;
+  hardware.nvidia.prime = {
+    amdgpuBusId = "PCI:05:00:0";
+    nvidiaBusId = "PCI:01:00:0";
   };
 
   dotfiles = {
-    location = {
-      timezone = "Europe/Vienna";
-      locale = "en_US.UTF-8";
+    boot = {
+      animation.enable = true;
+      skipGenerationChooser = true;
     };
 
     desktop = {
       enable = true;
       default = "hyprland";
+    };
+
+    unfree.whiteList = [
+      "nvidia-x11"
+    ];
+
+    location = {
+      timezone = "Europe/Vienna";
+      locale = "en_US.UTF-8";
     };
   };
 }

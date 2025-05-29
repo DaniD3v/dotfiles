@@ -5,8 +5,9 @@
 
 ## TODO
 
-- [ ] system config continue at nix-settings.nix
-- [ ] fix sddm upstream
+- [ ] fix `systemctl hibernate`
+- [ ] system config continue at `sddm.nix`
+- [ ] fix sddm templates upstream
 - [ ] proper pkg-shell PATH
 - [ ] fix python duplicate lsp errors
 - [ ] add starship browserbookmarks

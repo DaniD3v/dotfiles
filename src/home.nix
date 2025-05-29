@@ -13,6 +13,7 @@
 
       modules =
         (import ./hm-module)
+        ++ (import ./shared-module)
         ++ [
           userConfig
 

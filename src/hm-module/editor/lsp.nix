@@ -54,6 +54,8 @@ in {
     (mkIf cfg.csharp.enable {
       programs.helix.extraPackages = with pkgs; [
         omnisharp-roslyn
+        dotnet-sdk
+
         csharpier
       ];
     })
