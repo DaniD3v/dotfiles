@@ -2,8 +2,7 @@
   description = "DaniD3v's corn-flakes V2";
 
   inputs = {
-    nixpkgs.url = "github:DaniD3v/nixpkgs/librewolf-fix-backport";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs";
 
     home-manager = {

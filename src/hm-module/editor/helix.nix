@@ -88,7 +88,6 @@ in {
           "{" = "}";
 
           "\"" = "\"";
-          "'" = "'";
         };
       in
         lib.attrValues (lib.mapAttrs (name: value:

@@ -12,10 +12,12 @@ with lib; let
 in {
   options.dotfiles.lsp = {
     javascript.enable = mkLspEnableOption "Javascript";
+    tailwind.enable = mkLspEnableOption "Tailwind CSS";
     angular.enable = mkLspEnableOption "Angular";
     python.enable = mkLspEnableOption "Python";
     csharp.enable = mkLspEnableOption "Csharp";
     rust.enable = mkEnableOption "Rust";
+    dot.enable = mkEnableOption "Graphviz dot";
     nix.enable = mkLspEnableOption "Nix";
   };
 
@@ -25,6 +27,24 @@ in {
         typescript-language-server
         vscode-langservers-extracted
       ];
+    })
+
+    (mkIf cfg.tailwind.enable {
+      programs.helix.extraPackages = with pkgs; [
+        tailwindcss-language-server
+      ];
+
+      programs.helix
+        .languages.langages-server
+        .tailwindcss = {
+        command = lib.getExe pkgs.tailwindcss-language-server;
+        args = ["--stdio"];
+      };
+
+      dotfiles.editors.helix.language = {
+        html.language-servers = ["tailwindcss"];
+        css.language-servers = ["tailwindcss"];
+      };
     })
 
     (mkIf cfg.angular.enable {
@@ -60,6 +80,12 @@ in {
       ];
     })
 
+    (mkIf cfg.dot.enable {
+      programs.helix.extraPackages = with pkgs; [
+        dot-language-server
+      ];
+    })
+
     (mkIf cfg.nix.enable {
       programs.helix.extraPackages = with pkgs; [
         nixd
@@ -85,8 +111,9 @@ in {
     # Re-add default LSPS.
     {
       dotfiles.editors.helix.language = {
-        html.language-servers = ["vscode-html-language-server"];
         typescript.language-servers = ["typescript-language-server"];
+        html.language-servers = ["vscode-html-language-server"];
+        css.language-servers = ["vscode-css-language-server"];
       };
     }
   ];

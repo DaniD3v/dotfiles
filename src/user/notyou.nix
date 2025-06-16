@@ -51,6 +51,10 @@
       "obsidian"
     ];
 
+    lsp = {
+      dot.enable = true;
+    };
+
     language = {
       javascript.enable = true;
       python.enable = true;

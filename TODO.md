@@ -5,6 +5,7 @@
 
 ## TODO
 
+- [ ] hyprland automatically make window go into fullscreen mode if there's only 1 window
 - [ ] fix `systemctl hibernate`
 - [ ] system config continue at `sddm.nix`
 - [ ] fix sddm templates upstream

@@ -121,16 +121,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1748082757,
-        "narHash": "sha256-3QdlDo7SIOG6rtT0Oz2AXRcWPdPUQNtMuT9liR7GS/4=",
-        "owner": "DaniD3v",
+        "lastModified": 1749727998,
+        "narHash": "sha256-mHv/yeUbmL91/TvV95p+mBVahm9mdQMJoqaTVTALaFw=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "969ba33f94b354a3f3f6456784d08260ed94f245",
+        "rev": "fd487183437963a59ba763c0cc4f27e3447dd6dd",
         "type": "github"
       },
       "original": {
-        "owner": "DaniD3v",
-        "ref": "librewolf-fix-backport",
+        "owner": "nixos",
+        "ref": "nixos-25.05",
         "repo": "nixpkgs",
         "type": "github"
       }

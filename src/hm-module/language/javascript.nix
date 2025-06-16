@@ -13,6 +13,7 @@ in {
 
   config = mkIf cfg.enable {
     dotfiles.lsp.javascript.enable = true;
+    dotfiles.lsp.tailwind.enable = true;
 
     home.packages = with pkgs; [
       nodejs-slim

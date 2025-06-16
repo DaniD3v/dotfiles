@@ -13,17 +13,30 @@ with lib; let
     "rustc"
 
     "rust-analyzer"
+    "rust-src"
     "rustfmt"
     "clippy"
   ];
 in {
   options.dotfiles.language.rust = {
     enable = mkEnableOption "rust developement tools";
+
+    includeCommonDeps = mkOption {
+      type = types.bool;
+      default = true;
+
+      description = "Whether to install packages commonly required by rust projects.";
+    };
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
-      toolchain
-    ];
+    home.packages =
+      [
+        toolchain
+      ]
+      ++ (mkIf cfg.includeCommonDeps (with pkgs; [
+        clang
+        pkg-config
+      ]));
   };
 }
