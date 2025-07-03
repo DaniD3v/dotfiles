@@ -5,6 +5,16 @@
 }: {
   xdg.userDirs.enable = true;
 
+  programs.git = {
+    enable = true;
+
+    extraConfig.user = {
+      name = "DaniD3v";
+      email = "sch220233@spengergasse.at";
+    };
+  };
+
+  # TODO make this a wrapped dotfiles module
   programs.ashell = {
     enable = true;
 
@@ -52,7 +62,7 @@
     };
 
     work.school = {
-      enable = true;
+      # enable = true;
 
       nscs.enable = true;
       pos.enable = true;
