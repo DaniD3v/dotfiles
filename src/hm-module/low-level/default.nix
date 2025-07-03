@@ -4,5 +4,6 @@
 {
   imports = [
     ./ashell.nix
+    ./rustic.nix
   ];
 }

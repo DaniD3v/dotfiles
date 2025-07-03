@@ -21,6 +21,23 @@
     misc.force_default_wallpaper = 0;
   };
 
+  services.rustic = {
+    enable = true;
+
+    snapshots = {
+      "/etc".settings = {
+        git-ignore = true;
+      };
+      "/home/notyou" = {};
+    };
+
+    settings = {
+      repository = {
+        repository = "/backup/rustic";
+      };
+    };
+  };
+
   dotfiles = {
     programs = {
       alacritty.enable = true;
