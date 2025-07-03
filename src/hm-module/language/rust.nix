@@ -30,13 +30,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages =
+    home.packages = mkMerge [
       [
         toolchain
       ]
-      ++ (mkIf cfg.includeCommonDeps (with pkgs; [
+
+      (mkIf cfg.includeCommonDeps (with pkgs; [
         clang
         pkg-config
-      ]));
+      ]))
+    ];
   };
 }
