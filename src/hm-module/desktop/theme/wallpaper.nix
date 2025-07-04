@@ -14,4 +14,8 @@ in {
       description = "list of paths to wallpapers";
     };
   };
+
+  config = {
+    # TODO
+  };
 }

@@ -91,6 +91,7 @@
 
     desktop = {
       enable = true;
+      theme.mode = "dark";
 
       hyprland = {
         # mainMonitor = "eDP-1";

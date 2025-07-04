@@ -7,7 +7,7 @@ with lib; let
   cfg = config.dotfiles.desktop;
 in {
   imports = [
-    ./wallpaper.nix
+    ./theme
 
     ./hyprland.nix
     ./ashell.nix
