@@ -23,7 +23,7 @@ in {
 
       settings = {
         terminal = {
-          shell = "${pkgs.nushell}/bin/nu";
+          shell = getExe pkgs.nushell;
         };
 
         window = {
