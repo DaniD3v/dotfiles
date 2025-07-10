@@ -173,6 +173,9 @@ in {
           );
 
           uwsmApp = "${lib.getExe pkgs.uwsm} app --";
+          amixer = lib.getExe' pkgs.alsa-utils "amixer";
+          brightnessctl = lib.getExe pkgs.brithnessctl;
+          playerctl = lib.getExe pkgs.playerctl;
         in
           mkMerge [
             [
@@ -180,21 +183,21 @@ in {
               "$mainMod, F, forcekillactive"
               "$mainMod, V, togglefloating"
 
-              ", XF86AudioMute,        execr, ${pkgs.alsa-utils}/bin/amixer set Master toggle"
-              ", XF86AudioMicMute,     execr, ${pkgs.alsa-utils}/bin/amixer set Capture toggle"
-              ", XF86AudioRaiseVolume, execr, ${pkgs.alsa-utils}/bin/amixer set Master 5%+"
-              ", XF86AudioLowerVolume, execr, ${pkgs.alsa-utils}/bin/amixer set Master 5%-"
+              ", XF86AudioMute,        execr, ${amixer} set Master toggle"
+              ", XF86AudioMicMute,     execr, ${amixer} set Capture toggle"
+              ", XF86AudioRaiseVolume, execr, ${amixer} set Master 5%+"
+              ", XF86AudioLowerVolume, execr, ${amixer} set Master 5%-"
 
-              ", XF86MonBrightnessUp,   execr, ${pkgs.brightnessctl}/bin/brightnessctl s 10%+"
-              ", XF86MonBrightnessDown, execr, ${pkgs.brightnessctl}/bin/brightnessctl s 10%-"
+              ", XF86MonBrightnessUp,   execr, ${brightnessctl} s 10%+"
+              ", XF86MonBrightnessDown, execr, ${brightnessctl} s 10%-"
 
-              ", XF86AudioPlay, execr, ${pkgs.playerctl}/bin/playerctl play"
-              ", XF86AudioStop, execr, ${pkgs.playerctl}/bin/playerctl stop"
-              ", XF86AudioNext, execr, ${pkgs.playerctl}/bin/playerctl next"
-              ", XF86AudioPrev, execr, ${pkgs.playerctl}/bin/playerctl previous"
+              ", XF86AudioPlay, execr, ${playerctl} play"
+              ", XF86AudioStop, execr, ${playerctl} stop"
+              ", XF86AudioNext, execr, ${playerctl} next"
+              ", XF86AudioPrev, execr, ${playerctl} previous"
 
               ", F11, fullscreen"
-              "$mainMod SHIFT, M, execr, ${pkgs.uwsm}/bin/uwsm stop"
+              "$mainMod SHIFT, M, execr, ${lib.getExe pkgs.uwsm} stop"
             ]
             windowMovement
             workSpaceMovement
