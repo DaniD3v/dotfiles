@@ -7,7 +7,7 @@
 }:
 with lib; let
   cfg = config.programs.ashell;
-  yamlFormat = pkgs.formats.yaml {};
+  tomlFormat = pkgs.formats.toml {};
 in {
   options.programs.ashell = {
     enable = mkEnableOption "Ashell desktop shell";
@@ -30,7 +30,7 @@ in {
     };
 
     settings = mkOption {
-      type = yamlFormat.type;
+      type = tomlFormat.type;
       default = {};
 
       example = {
@@ -42,13 +42,13 @@ in {
   config = let
     configFile =
       if (cfg.settings != {})
-      then yamlFormat.generate "config.toml" cfg.settings
+      then tomlFormat.generate "config.toml" cfg.settings
       else null;
   in
     mkIf cfg.enable {
       home.packages = [cfg.package];
 
-      xdg.configFile."ashell.yml" =
+      xdg.configFile."ashell/config.toml" =
         mkIf (configFile != null) {source = configFile;};
 
       systemd.user.services.ashell = mkIf cfg.systemd.enable (dLib.mkWaylandService {
