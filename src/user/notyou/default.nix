@@ -76,9 +76,7 @@
       theme.mode = "dark";
 
       hyprland = {
-        # mainMonitor = "eDP-1";
-        # HACK: Hyprland broken
-        mainMonitor = "desc:Najing CEC Panda FPD Technology CO. ltd";
+        mainMonitor = "eDP-1, preferred, 0x0, 1.8";
 
         monitors = [
           "HDMI-A-1, preferred, auto, 1, mirror, eDP-1"

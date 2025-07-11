@@ -30,7 +30,7 @@ in {
       type = types.str;
       default = "";
 
-      example = "eDP-1";
+      example = "eDP-1, preferred, auto, 1";
     };
 
     input = mkOption {
@@ -92,11 +92,7 @@ in {
       settings = {
         "$mainMod" = "SUPER";
 
-        monitor =
-          [
-            "${cfg.mainMonitor}, preferred, 0x0, 1"
-          ]
-          ++ cfg.monitors;
+        monitor = [cfg.mainMonitor] ++ cfg.monitors;
 
         general = {
           border_size = 2;
@@ -125,8 +121,9 @@ in {
           ];
 
           animation = [
-            "windows,    1, 4, overshoot, popin 80%"
-            "workspaces, 1, 6, overshoot-light"
+            "windows,          1, 4, overshoot, popin 80%"
+            "workspaces,       1, 6, overshoot-light"
+            "specialWorkspace, 1, 4, default, slidevert"
           ];
         };
 
@@ -176,10 +173,21 @@ in {
         in
           mkMerge [
             [
+              # kill
               "$mainMod, C, killactive"
               "$mainMod, F, forcekillactive"
+
+              # floating windows -> see `extraConfig`
               "$mainMod, V, togglefloating"
 
+              # other
+              "$mainMod, W, togglespecialworkspace"
+              "$mainMod SHIFT, W, movetoworkspacesilent, special"
+
+              ", F11, fullscreen"
+              "$mainMod SHIFT, M, execr, ${pkgs.uwsm}/bin/uwsm stop"
+
+              # shortcut keys
               ", XF86AudioMute,        execr, ${pkgs.alsa-utils}/bin/amixer set Master toggle"
               ", XF86AudioMicMute,     execr, ${pkgs.alsa-utils}/bin/amixer set Capture toggle"
               ", XF86AudioRaiseVolume, execr, ${pkgs.alsa-utils}/bin/amixer set Master 5%+"
@@ -192,9 +200,6 @@ in {
               ", XF86AudioStop, execr, ${pkgs.playerctl}/bin/playerctl stop"
               ", XF86AudioNext, execr, ${pkgs.playerctl}/bin/playerctl next"
               ", XF86AudioPrev, execr, ${pkgs.playerctl}/bin/playerctl previous"
-
-              ", F11, fullscreen"
-              "$mainMod SHIFT, M, execr, ${pkgs.uwsm}/bin/uwsm stop"
             ]
             windowMovement
             workSpaceMovement
@@ -229,6 +234,15 @@ in {
           "$mainMod, mouse:273, resizewindow"
         ];
       };
+
+      # These entries are order-dependent
+      extraConfig = ''
+        bind = $mainMod ALT, V, setfloating
+        bind = $mainMod ALT, V, centerwindow
+
+        bind = $mainMod SHIFT, V, setfloating
+        bind = $mainMod SHIFT, V, pin
+      '';
     };
 
     dotfiles.programs.librewolf.bookmarks
