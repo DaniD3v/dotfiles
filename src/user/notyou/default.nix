@@ -3,6 +3,10 @@
   lib,
   ...
 }: {
+  imports = [
+    ./backup.nix
+  ];
+
   xdg.userDirs.enable = true;
 
   programs.git = {
@@ -29,23 +33,6 @@
 
   wayland.windowManager.hyprland.settings = {
     misc.force_default_wallpaper = 0;
-  };
-
-  services.rustic = {
-    enable = true;
-
-    snapshots = {
-      "/etc".settings = {
-        git-ignore = true;
-      };
-      "/home/notyou" = {};
-    };
-
-    settings = {
-      repository = {
-        repository = "/backup/rustic";
-      };
-    };
   };
 
   dotfiles = {
