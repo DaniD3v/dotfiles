@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.desktop;
-in {
+in
+{
   imports = [
     ./hyprland.nix
   ];
@@ -14,7 +16,7 @@ in {
     enable = mkEnableOption "Whether to require a desktop to be installed before building";
 
     default = mkOption {
-      type = types.enum ["hyprland"];
+      type = types.enum [ "hyprland" ];
       default = "hyprland";
 
       description = "Default desktop environment to use";

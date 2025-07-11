@@ -4,9 +4,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.language.python;
-in {
+in
+{
   options.dotfiles.language.python = {
     enable = mkEnableOption "python developement tools";
   };
@@ -15,11 +17,12 @@ in {
     dotfiles.lsp.python.enable = true;
 
     home.packages = [
-      (pkgs.python3.withPackages (pythonPackages:
-        with pythonPackages; [
+      (pkgs.python3.withPackages (
+        pythonPackages: with pythonPackages; [
           virtualenv
           requests
-        ]))
+        ]
+      ))
       pkgs.ruff
     ];
   };

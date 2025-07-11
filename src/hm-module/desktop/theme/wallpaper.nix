@@ -2,14 +2,16 @@
   config,
   lib,
   ...
-} @ inputs:
-with lib; let
+}@inputs:
+with lib;
+let
   cfg = config.dotfiles.desktop.wallpaper;
-in {
+in
+{
   options.dotfiles.desktop.wallpaper = {
     wallpapers = mkOption {
       type = with types; listOf path;
-      default = [];
+      default = [ ];
 
       description = "list of paths to wallpapers";
     };

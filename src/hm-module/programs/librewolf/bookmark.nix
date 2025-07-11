@@ -1,66 +1,77 @@
-{lib, ...}:
-with lib; let
-  bookmarkFileSubmodule = types.submodule ({name, ...}: {
-    options = {
-      name = mkOption {
-        type = types.str;
-        default = name;
+{ lib, ... }:
+with lib;
+let
+  bookmarkFileSubmodule = types.submodule (
+    { name, ... }:
+    {
+      options = {
+        name = mkOption {
+          type = types.str;
+          default = name;
 
-        description = "The displayed name of your bookmark";
+          description = "The displayed name of your bookmark";
+        };
+
+        tags = mkOption {
+          type = with types; listOf str;
+          default = [ ];
+
+          example = [
+            "nix"
+            "packages"
+          ];
+          description = "Bookmark tags to better organize your bookmarks";
+        };
+
+        keyword = mkOption {
+          type = with types; nullOr str;
+          default = null;
+
+          example = "@pkgs";
+          description = "Keyword to type into your address bar to jump to the bookmark immediately";
+        };
+
+        url = mkOption {
+          type = types.str;
+
+          example = "https://search.nixos.org/packages?query=%s";
+          description = ''
+            Bookmark url. Use %s to substitute search terms
+
+            If the bookmark is accessed via a keyword over the address bar additional text can be entered.
+            This text can be used to make a bookmark act like a search engine.
+
+            See https://support.mozilla.org/en-US/kb/how-search-from-address-bar for more information.
+          '';
+        };
       };
-
-      tags = mkOption {
-        type = with types; listOf str;
-        default = [];
-
-        example = ["nix" "packages"];
-        description = "Bookmark tags to better organize your bookmarks";
-      };
-
-      keyword = mkOption {
-        type = with types; nullOr str;
-        default = null;
-
-        example = "@pkgs";
-        description = "Keyword to type into your address bar to jump to the bookmark immediately";
-      };
-
-      url = mkOption {
-        type = types.str;
-
-        example = "https://search.nixos.org/packages?query=%s";
-        description = ''
-          Bookmark url. Use %s to substitute search terms
-
-          If the bookmark is accessed via a keyword over the address bar additional text can be entered.
-          This text can be used to make a bookmark act like a search engine.
-
-          See https://support.mozilla.org/en-US/kb/how-search-from-address-bar for more information.
-        '';
-      };
-    };
-  });
+    }
+  );
 
   bookmarkFile = types.addCheck bookmarkFileSubmodule (x: x ? "url");
 
-  bookmarkDirectory = types.submodule ({name, ...}: {
-    options = {
-      name = mkOption {
-        type = types.str;
-        default = name;
+  bookmarkDirectory = types.submodule (
+    { name, ... }:
+    {
+      options = {
+        name = mkOption {
+          type = types.str;
+          default = name;
 
-        description = "The displayed name of your bookmark directory";
-      };
+          description = "The displayed name of your bookmark directory";
+        };
 
-      bookmarks = mkOption {
-        type = types.attrsOf bookmarkType;
-        default = {};
+        bookmarks = mkOption {
+          type = types.attrsOf bookmarkType;
+          default = { };
+        };
       };
-    };
-  });
+    }
+  );
 
   bookmarkType = types.either bookmarkFile bookmarkDirectory;
-in {
+in
+{
   inherit bookmarkType;
 
   mkBookmarkOption = name: bookmarks: {

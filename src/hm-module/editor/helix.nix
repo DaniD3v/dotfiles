@@ -5,12 +5,14 @@
   dLib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.editors.helix;
 
-  tomlFormat = pkgs.formats.toml {};
+  tomlFormat = pkgs.formats.toml { };
   inherit (dLib) mkBookmarkOption;
-in {
+in
+{
   options.dotfiles.editors.helix = {
     enable = mkEnableOption "Helix Editor";
 
@@ -32,7 +34,7 @@ in {
 
     language = mkOption {
       inherit (tomlFormat) type;
-      default = {};
+      default = { };
 
       example = {
         "nix".auto-pairs = {
@@ -72,47 +74,57 @@ in {
 
         keys = mkIf cfg.settings.alternativeXSelection {
           # Make `x` not skip an empty newline
-          normal.x = ["extend_to_line_bounds" "select_mode"];
-          select.x = ["extend_line"];
+          normal.x = [
+            "extend_to_line_bounds"
+            "select_mode"
+          ];
+          select.x = [ "extend_line" ];
 
           # Automatically go into normal mode in order
           # to make x behavior consistent with original
-          select.";" = ["collapse_selection" "normal_mode"];
+          select.";" = [
+            "collapse_selection"
+            "normal_mode"
+          ];
         };
       };
 
-      languages.language = let
-        default-auto-pairs = {
-          "(" = ")";
-          "[" = "]";
-          "{" = "}";
+      languages.language =
+        let
+          default-auto-pairs = {
+            "(" = ")";
+            "[" = "]";
+            "{" = "}";
 
-          "\"" = "\"";
-        };
-      in
-        lib.attrValues (lib.mapAttrs (name: value:
-          {
-            inherit name;
-            auto-format = cfg.settings.autoFormat;
-          }
-          // value) ({
-            rust.auto-pairs =
-              default-auto-pairs
-              // {
-                "|" = "|";
-              };
+            "\"" = "\"";
+          };
+        in
+        lib.attrValues (
+          lib.mapAttrs
+            (
+              name: value:
+              {
+                inherit name;
+                auto-format = cfg.settings.autoFormat;
+              }
+              // value
+            )
+            (
+              {
+                rust.auto-pairs = default-auto-pairs // {
+                  "|" = "|";
+                };
 
-            html.auto-pairs =
-              default-auto-pairs
-              // {
-                "<" = ">";
-              };
-          }
-          // cfg.language));
+                html.auto-pairs = default-auto-pairs // {
+                  "<" = ">";
+                };
+              }
+              // cfg.language
+            )
+        );
     };
 
-    dotfiles.programs.librewolf.bookmarks
-    ."Toolbar".bookmarks."Ricing".bookmarks =
+    dotfiles.programs.librewolf.bookmarks."Toolbar".bookmarks."Ricing".bookmarks =
       mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;
   };
 }

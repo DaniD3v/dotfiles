@@ -5,10 +5,12 @@
   dLib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.desktop.hyprland;
   inherit (dLib) mkBookmarkOption;
-in {
+in
+{
   options.dotfiles.desktop.hyprland = {
     enable = mkEnableOption "Hyprland window manager";
 
@@ -35,7 +37,7 @@ in {
 
     input = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
 
       example = {
         kb_layout = "us,de";
@@ -45,35 +47,36 @@ in {
 
     monitors = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
 
       example = [
         "HDMI-A-1, preferred, auto, 1, mirror, eDP-1"
       ];
     };
 
-    bindApp = let
-      bindAppModule.options = {
-        bind = mkOption {
-          type = types.str;
+    bindApp =
+      let
+        bindAppModule.options = {
+          bind = mkOption {
+            type = types.str;
 
-          description = "The bind to trigger the application launch";
-          example = "$mainMod, D";
+            description = "The bind to trigger the application launch";
+            example = "$mainMod, D";
+          };
+
+          run = mkOption {
+            type = types.str;
+
+            description = "Path to binary/.desktop file to run";
+            example = "${pkgs.alacritty}/bin/alacritty";
+          };
         };
-
-        run = mkOption {
-          type = types.str;
-
-          description = "Path to binary/.desktop file to run";
-          example = "${pkgs.alacritty}/bin/alacritty";
-        };
-      };
-    in
+      in
       mkOption {
         type = with types; listOf (submodule bindAppModule);
 
-        default = [];
-        example = [];
+        default = [ ];
+        example = [ ];
       };
 
     browserBookmarks = mkBookmarkOption "Hyprland" {
@@ -92,7 +95,7 @@ in {
       settings = {
         "$mainMod" = "SUPER";
 
-        monitor = [cfg.mainMonitor] ++ cfg.monitors;
+        monitor = [ cfg.mainMonitor ] ++ cfg.monitors;
 
         general = {
           border_size = 2;
@@ -127,50 +130,48 @@ in {
           ];
         };
 
-        input =
-          {
-            touchpad = {
-              natural_scroll = true;
-              disable_while_typing = false;
-            };
-          }
-          // cfg.input;
+        input = {
+          touchpad = {
+            natural_scroll = true;
+            disable_while_typing = false;
+          };
+        } // cfg.input;
 
         gestures.workspace_swipe = true;
 
-        bind = let
-          windowMovementKeys = {
-            "H" = "l";
-            "J" = "d";
-            "K" = "u";
-            "L" = "r";
-          };
+        bind =
+          let
+            windowMovementKeys = {
+              "H" = "l";
+              "J" = "d";
+              "K" = "u";
+              "L" = "r";
+            };
 
-          windowMovement =
-            lib.flatten
-            (lib.attrValues (lib.mapAttrs (key: direction: [
-                "$mainMod, ${key}, movefocus, ${direction}"
-                "$mainMod SHIFT, ${key}, swapwindow, ${direction}"
-              ])
-              windowMovementKeys));
+            windowMovement = lib.flatten (
+              lib.attrValues (
+                lib.mapAttrs (key: direction: [
+                  "$mainMod, ${key}, movefocus, ${direction}"
+                  "$mainMod SHIFT, ${key}, swapwindow, ${direction}"
+                ]) windowMovementKeys
+              )
+            );
 
-          workSpaceMovement = lib.flatten (
-            map (
-              workspace: let
-                key =
-                  if workspace == 10
-                  then "0"
-                  else toString workspace;
-              in [
-                "$mainMod, ${key}, workspace, ${toString workspace}"
-                "$mainMod SHIFT, ${key}, movetoworkspace, ${toString workspace}"
-              ]
-            )
-            (lib.range 1 10)
-          );
+            workSpaceMovement = lib.flatten (
+              map (
+                workspace:
+                let
+                  key = if workspace == 10 then "0" else toString workspace;
+                in
+                [
+                  "$mainMod, ${key}, workspace, ${toString workspace}"
+                  "$mainMod SHIFT, ${key}, movetoworkspace, ${toString workspace}"
+                ]
+              ) (lib.range 1 10)
+            );
 
-          uwsmApp = "${lib.getExe pkgs.uwsm} app --";
-        in
+            uwsmApp = "${lib.getExe pkgs.uwsm} app --";
+          in
           mkMerge [
             [
               # kill
@@ -204,28 +205,27 @@ in {
             windowMovement
             workSpaceMovement
 
-            (let
-              hyprshot = "${lib.getExe pkgs.hyprshot} -o ~/screenshots";
-            in
+            (
+              let
+                hyprshot = "${lib.getExe pkgs.hyprshot} -o ~/screenshots";
+              in
               mkIf cfg.screenshots.enable [
                 ",      PRINT, execr, ${hyprshot} -m output --current"
                 "CTRL,  PRINT, execr, ${hyprshot} -m window"
                 "SHIFT, PRINT, execr, ${hyprshot} -m region"
-              ])
-
-            (let
-              rofi = "${lib.getExe pkgs.rofi-wayland} -show-icons -run-command '${uwsmApp} {cmd}'";
-            in
-              mkIf cfg.appLauncher.enable [
-                "$mainMod, R, execr, ${rofi} -show drun"
-              ])
+              ]
+            )
 
             (
-              map (
-                bindApp: "${bindApp.bind}, execr, ${uwsmApp} ${bindApp.run}"
-              )
-              cfg.bindApp
+              let
+                rofi = "${lib.getExe pkgs.rofi-wayland} -show-icons -run-command '${uwsmApp} {cmd}'";
+              in
+              mkIf cfg.appLauncher.enable [
+                "$mainMod, R, execr, ${rofi} -show drun"
+              ]
             )
+
+            (map (bindApp: "${bindApp.bind}, execr, ${uwsmApp} ${bindApp.run}") cfg.bindApp)
           ];
 
         # mouse binds
@@ -245,8 +245,7 @@ in {
       '';
     };
 
-    dotfiles.programs.librewolf.bookmarks
-    ."Toolbar".bookmarks."Ricing".bookmarks =
+    dotfiles.programs.librewolf.bookmarks."Toolbar".bookmarks."Ricing".bookmarks =
       mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;
   };
 }

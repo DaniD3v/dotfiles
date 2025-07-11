@@ -29,7 +29,8 @@
   fetchFromGitHub,
   version ? "8.2.2",
   packetTracerSource ? null,
-}: let
+}:
+let
   hashes = {
     "8.2.0" = "sha256-GxmIXVn2Ew7lVBT7AuIRoXc0YGids4v9Gsfw1FEX7RY=";
     "8.2.1" = "sha256-QoM4rDKkdNTJ6TBDPCAs+l17JLnspQFlly9B60hOB7o=";
@@ -46,8 +47,8 @@
     inherit version;
 
     src =
-      if (packetTracerSource != null)
-      then packetTracerSource
+      if (packetTracerSource != null) then
+        packetTracerSource
       else
         requireFile {
           name = names.${version};
@@ -102,13 +103,15 @@
 
     # patch.sh has a bad /bin/bash shebang => run with sh
     patchPhase = ''
-      sh ${fetchFromGitHub {
-        owner = "hannahfluch";
-        repo = "patchpt";
+      sh ${
+        fetchFromGitHub {
+          owner = "hannahfluch";
+          repo = "patchpt";
 
-        rev = "5cb6183840a5f55d199bb4242d3b335d11c7efff";
-        hash = "sha256-FFdXs2hVn8Ug4FQGfzjanlr2rn3JkbNHyqYGL2CosNE=";
-      }}/patch.sh "$out/opt/pt/bin/PacketTracer"
+          rev = "5cb6183840a5f55d199bb4242d3b335d11c7efff";
+          hash = "sha256-FFdXs2hVn8Ug4FQGfzjanlr2rn3JkbNHyqYGL2CosNE=";
+        }
+      }/patch.sh "$out/opt/pt/bin/PacketTracer"
     '';
 
     unpackPhase = ''
@@ -133,53 +136,53 @@
   fhs-env = buildFHSEnv {
     name = "packetTracer-fhs-env";
     runScript = lib.getExe' unwrapped "packettracer8";
-    targetPkgs = _: [libudev0-shim];
+    targetPkgs = _: [ libudev0-shim ];
   };
 in
-  stdenvNoCC.mkDerivation {
-    pname = "packetTracer";
-    inherit version;
+stdenvNoCC.mkDerivation {
+  pname = "packetTracer";
+  inherit version;
 
-    dontUnpack = true;
+  dontUnpack = true;
 
-    nativeBuildInputs = [
-      copyDesktopItems
-    ];
+  nativeBuildInputs = [
+    copyDesktopItems
+  ];
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out/bin
-      ln -s ${fhs-env}/bin/${fhs-env.name} $out/bin/packettracer8
+    mkdir -p $out/bin
+    ln -s ${fhs-env}/bin/${fhs-env.name} $out/bin/packettracer8
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    desktopItems = [
-      (makeDesktopItem {
-        name = "cisco-pt";
-        desktopName = "Packet Tracer";
-        icon = "${unwrapped}/opt/pt/art/app.png";
+  desktopItems = [
+    (makeDesktopItem {
+      name = "cisco-pt";
+      desktopName = "Packet Tracer";
+      icon = "${unwrapped}/opt/pt/art/app.png";
 
-        exec = "packettracer8 %u";
-        mimeTypes = [
-          "x-scheme-handler/pttp" # patch: enable pttp protocol
-          "application/x-pkt"
-          "application/x-pka"
-          "application/x-pkz"
-        ];
-      })
-    ];
-
-    meta = {
-      description = "Network simulation tool from Cisco";
-      homepage = "https://www.netacad.com/courses/packet-tracer";
-      license = lib.licenses.unfree;
-      mainProgram = "packettracer8";
-      maintainers = with lib.maintainers; [
-        gepbird
+      exec = "packettracer8 %u";
+      mimeTypes = [
+        "x-scheme-handler/pttp" # patch: enable pttp protocol
+        "application/x-pkt"
+        "application/x-pka"
+        "application/x-pkz"
       ];
-      platforms = ["x86_64-linux"];
-      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
-    };
-  }
+    })
+  ];
+
+  meta = {
+    description = "Network simulation tool from Cisco";
+    homepage = "https://www.netacad.com/courses/packet-tracer";
+    license = lib.licenses.unfree;
+    mainProgram = "packettracer8";
+    maintainers = with lib.maintainers; [
+      gepbird
+    ];
+    platforms = [ "x86_64-linux" ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+  };
+}

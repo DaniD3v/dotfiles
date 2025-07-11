@@ -1,5 +1,5 @@
 prev:
-(builtins.mapAttrs (_: p: prev.callPackage p {}) {
+(builtins.mapAttrs (_: p: prev.callPackage p { }) {
   inherit (import ./firefox-extension.nix) buildFirefoxExtension;
 
   ccnace = import ./ccnace;

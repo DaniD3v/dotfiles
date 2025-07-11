@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.starship;
-  mkColorOption = default: description:
+  mkColorOption =
+    default: description:
     mkOption {
       type = types.str;
       inherit default;
@@ -13,7 +15,8 @@ with lib; let
       example = "#512bd4";
       inherit description;
     };
-in {
+in
+{
   options.dotfiles.starship = {
     enable = mkOption {
       type = types.bool;
@@ -84,11 +87,7 @@ in {
               + "( $sudo |)"
               + "( $jobs |)"
               + "( $package |)"
-              + (
-                "( $rust |)"
-                + "( $python |)"
-                + "( $dotnet |)"
-              )
+              + ("( $rust |)" + "( $python |)" + "( $dotnet |)")
               + "" # this is a \b not a whitespace!
               + "[](fg:bg)"
               + ")"
@@ -98,13 +97,11 @@ in {
           + "[╰─](fg:frame)$character";
 
         palette = "home-manager";
-        palettes.home-manager =
-          {
-            rust = "#F74C00";
-            python = "#00AFAF";
-            dotnet = "#512bd4";
-          }
-          // cfg.theme;
+        palettes.home-manager = {
+          rust = "#F74C00";
+          python = "#00AFAF";
+          dotnet = "#512bd4";
+        } // cfg.theme;
 
         fill.symbol = " "; # filler between left & right prompt
 
@@ -155,7 +152,10 @@ in {
 
         git_branch = {
           format = "[$branch[(:$remote_branch)](fg:git_branch_remote)](fg:git_branch bg:bg)";
-          ignore_branches = ["main" "master"];
+          ignore_branches = [
+            "main"
+            "master"
+          ];
         };
 
         git_status = {

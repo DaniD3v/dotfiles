@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.location;
-in {
+in
+{
   options.dotfiles.location = {
     timezone = mkOption {
       type = types.str;

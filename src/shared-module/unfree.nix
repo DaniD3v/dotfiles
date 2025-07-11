@@ -3,13 +3,15 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.unfree;
-in {
+in
+{
   options.dotfiles.unfree = {
     whiteList = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
 
       description = "Whitelist of unfree package names";
     };

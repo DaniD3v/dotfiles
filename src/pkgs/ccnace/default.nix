@@ -1,6 +1,6 @@
 {
   buildFirefoxExtension,
-  overrideManifest ? {},
+  overrideManifest ? { },
 }:
 buildFirefoxExtension {
   srcDir = ./.;

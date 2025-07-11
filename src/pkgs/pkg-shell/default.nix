@@ -1,3 +1,1 @@
-{writeScriptBin}:
-writeScriptBin "pkg-shell"
-(builtins.readFile ./pkg-shell.nu)
+{ writeScriptBin }: writeScriptBin "pkg-shell" (builtins.readFile ./pkg-shell.nu)

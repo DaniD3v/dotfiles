@@ -4,9 +4,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.language.javascript;
-in {
+in
+{
   options.dotfiles.language.javascript = {
     enable = mkEnableOption "js developement tools";
   };

@@ -4,10 +4,12 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.shells.nushell;
-in {
-  imports = [];
+in
+{
+  imports = [ ];
 
   options.dotfiles.shells.nushell = {
     enable = mkEnableOption "Nushell";
@@ -43,13 +45,12 @@ in {
     programs.nushell = {
       enable = true;
 
-      extraEnv =
-        mkIf cfg.fixHomeSessionVariables
-        ''          ${lib.getExe pkgs.bash-env-json} ${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh
-                      | from json
-                      | get env
-                      | load-env
-        '';
+      extraEnv = mkIf cfg.fixHomeSessionVariables ''
+        ${lib.getExe pkgs.bash-env-json} ${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh
+                    | from json
+                    | get env
+                    | load-env
+      '';
 
       extraConfig = mkMerge [
         ''

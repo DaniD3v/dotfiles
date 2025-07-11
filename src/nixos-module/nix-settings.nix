@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.nix;
-in {
+in
+{
   options.dotfiles.nix = {
     scheduledMaintenanceTasks = mkOption {
       type = types.bool;
@@ -28,7 +30,10 @@ in {
   config.nix = mkMerge [
     {
       settings = {
-        experimental-features = ["nix-command" "flakes"];
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
 
         # This is good for development.
         # `false` is a bad default.

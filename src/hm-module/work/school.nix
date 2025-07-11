@@ -5,42 +5,47 @@
   dLib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.work.school;
-in {
-  options.dotfiles.work.school = let
-    mkLectureEnableOption = name: mkEnableOption "Tools required for the ${name} lecture";
-  in {
-    enable = mkEnableOption "Tools required for school";
+in
+{
+  options.dotfiles.work.school =
+    let
+      mkLectureEnableOption = name: mkEnableOption "Tools required for the ${name} lecture";
+    in
+    {
+      enable = mkEnableOption "Tools required for school";
 
-    nscs.enable = mkLectureEnableOption "NSCS";
-    pos.enable = mkLectureEnableOption "POS";
-    wmc.enable = mkLectureEnableOption "WMC";
-    dbi.enable = mkLectureEnableOption "DBI";
+      nscs.enable = mkLectureEnableOption "NSCS";
+      pos.enable = mkLectureEnableOption "POS";
+      wmc.enable = mkLectureEnableOption "WMC";
+      dbi.enable = mkLectureEnableOption "DBI";
 
-    browserBookmarks = dLib.mkBookmarkOption "School" {
-      "Untis".url = "https://neilo.webuntis.com/timetable-students-my";
+      browserBookmarks = dLib.mkBookmarkOption "School" {
+        "Untis".url = "https://neilo.webuntis.com/timetable-students-my";
 
-      "School".bookmarks = {
-        "Moodle".bookmarks = let
-          moodleUrl = courseId: "https://moodle.spengergasse.at/course/view.php?id=${courseId}";
-        in
-          optionalAttrs cfg.dbi.enable {
-            "DBI Michel".url = moodleUrl "9993";
-            "DBI Sommer".url = moodleUrl "9919";
-          }
-          // optionalAttrs cfg.nscs.enable {
-            "NSCS".url = moodleUrl "9621";
-          }
-          // optionalAttrs cfg.pos.enable {
-            "POS".url = moodleUrl "9618";
-          }
-          // optionalAttrs cfg.wmc.enable {
-            "WMC".url = moodleUrl "9813";
-          };
+        "School".bookmarks = {
+          "Moodle".bookmarks =
+            let
+              moodleUrl = courseId: "https://moodle.spengergasse.at/course/view.php?id=${courseId}";
+            in
+            optionalAttrs cfg.dbi.enable {
+              "DBI Michel".url = moodleUrl "9993";
+              "DBI Sommer".url = moodleUrl "9919";
+            }
+            // optionalAttrs cfg.nscs.enable {
+              "NSCS".url = moodleUrl "9621";
+            }
+            // optionalAttrs cfg.pos.enable {
+              "POS".url = moodleUrl "9618";
+            }
+            // optionalAttrs cfg.wmc.enable {
+              "WMC".url = moodleUrl "9813";
+            };
+        };
       };
     };
-  };
 
   config = mkIf cfg.enable (mkMerge [
     {
@@ -96,10 +101,10 @@ in {
         # TODO add assert that the system config enables podman
         containers.bookshop-mysql = {
           autoStart = false;
-          volumes = ["${./bookshop-mysql.sql}:/docker-entrypoint-initdb.d/bookshop-mysql.sql"];
+          volumes = [ "${./bookshop-mysql.sql}:/docker-entrypoint-initdb.d/bookshop-mysql.sql" ];
 
           image = "docker.io/mysql:latest";
-          ports = ["3306:3306"];
+          ports = [ "3306:3306" ];
         };
       };
 

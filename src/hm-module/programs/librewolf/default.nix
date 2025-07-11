@@ -3,11 +3,13 @@
   pkgs,
   lib,
   ...
-} @ inputs:
-with lib; let
+}@inputs:
+with lib;
+let
   cfg = config.dotfiles.programs.librewolf;
   inherit (import ./bookmark.nix inputs) bookmarkType;
-in {
+in
+{
   options.dotfiles.programs.librewolf = {
     enable = mkEnableOption "Librewolf Browser";
 
@@ -59,7 +61,7 @@ in {
 
     bookmarks = mkOption {
       type = types.attrsOf bookmarkType;
-      default = {};
+      default = { };
 
       example = {
         "Helix".bookmarks = {
@@ -72,7 +74,7 @@ in {
 
     extensions = mkOption {
       type = with types; listOf package;
-      default = [];
+      default = [ ];
 
       description = "List of extensions to install";
     };
@@ -99,7 +101,7 @@ in {
 
         extensions = {
           force = true;
-          packages = [pkgs.firefox-extensions.canvasblocker] ++ cfg.extensions;
+          packages = [ pkgs.firefox-extensions.canvasblocker ] ++ cfg.extensions;
         };
 
         # TODO: icons are currently bugged upstream => no icons
@@ -107,89 +109,97 @@ in {
           force = true;
           inherit (cfg.search) default;
 
-          engines = let
-            mkSearchEngine = alias: {
-              url,
-              params ? {},
-              ...
-            } @ searchEngineInputs: {
-              urls = [
-                (
-                  filterAttrs (name: _: name != "url") searchEngineInputs
-                  // {
-                    template = url;
-                    params =
-                      mapAttrsToList (name: value: {
-                        inherit name value;
-                      })
-                      params;
-                  }
-                )
-              ];
+          engines =
+            let
+              mkSearchEngine =
+                alias:
+                {
+                  url,
+                  params ? { },
+                  ...
+                }@searchEngineInputs:
+                {
+                  urls = [
+                    (
+                      filterAttrs (name: _: name != "url") searchEngineInputs
+                      // {
+                        template = url;
+                        params = mapAttrsToList (name: value: {
+                          inherit name value;
+                        }) params;
+                      }
+                    )
+                  ];
 
-              definedAliases = ["@${alias}"];
-            };
-          in
+                  definedAliases = [ "@${alias}" ];
+                };
+            in
             (
-              if cfg.search.includeCustom
-              then {
-                "Github Repos" = mkSearchEngine "gh" {
-                  url = "https://github.com/search";
-                  params = {
-                    "q" = "{searchTerms}";
-                    "type" = "repositories";
+              if cfg.search.includeCustom then
+                {
+                  "Github Repos" = mkSearchEngine "gh" {
+                    url = "https://github.com/search";
+                    params = {
+                      "q" = "{searchTerms}";
+                      "type" = "repositories";
+                    };
+
+                    icon = pkgs.fetchurl {
+                      # TODO search engine icons broken upstream
+                      url = "https://github.com/favicon.ico";
+                      hash = "sha256-LuQyN9GWEAIQ8Xhue3O1fNFA9gE8Byxw29/9npvGlfg=";
+                    };
                   };
 
-                  icon = pkgs.fetchurl {
-                    # TODO search engine icons broken upstream
-                    url = "https://github.com/favicon.ico";
-                    hash = "sha256-LuQyN9GWEAIQ8Xhue3O1fNFA9gE8Byxw29/9npvGlfg=";
-                  };
-                };
+                  "Noogle" = mkSearchEngine "ng" {
+                    url = "https://noogle.dev/q";
+                    params.term = "{searchTerms}";
 
-                "Noogle" = mkSearchEngine "ng" {
-                  url = "https://noogle.dev/q";
-                  params.term = "{searchTerms}";
-
-                  icon = pkgs.fetchurl {
-                    url = "https://noogle.dev/favicon.png";
-                    hash = "sha256-5VjB+MeP1c25DQivVzZe77NRjKPkrJdYAd07Zm0nNVM=";
+                    icon = pkgs.fetchurl {
+                      url = "https://noogle.dev/favicon.png";
+                      hash = "sha256-5VjB+MeP1c25DQivVzZe77NRjKPkrJdYAd07Zm0nNVM=";
+                    };
                   };
-                };
-              }
-              else {}
+                }
+              else
+                { }
             )
             // listToAttrs (
               map (engine: {
                 name = engine;
-                value = {metaData.hidden = true;};
-              })
-              cfg.search.disableSearchEngines
+                value = {
+                  metaData.hidden = true;
+                };
+              }) cfg.search.disableSearchEngines
             );
         };
 
-        bookmarks = let
-          mapBookmarks = bookmarks:
-            lib.attrValues
-            (lib.mapAttrs (name: value:
-              {
-                inherit name;
-              }
-              // value
-              // (
-                if value ? bookmarks
-                then {
-                  bookmarks = mapBookmarks value.bookmarks;
-                }
-                else {}
-              ))
-            bookmarks);
-        in {
-          force = true;
-          settings = mapBookmarks (
-            lib.recursiveUpdate {Toolbar.toolbar = true;} cfg.bookmarks
-          );
-        };
+        bookmarks =
+          let
+            mapBookmarks =
+              bookmarks:
+              lib.attrValues (
+                lib.mapAttrs (
+                  name: value:
+                  {
+                    inherit name;
+                  }
+                  // value
+                  // (
+                    if value ? bookmarks then
+                      {
+                        bookmarks = mapBookmarks value.bookmarks;
+                      }
+                    else
+                      { }
+                  )
+                ) bookmarks
+              );
+          in
+          {
+            force = true;
+            settings = mapBookmarks (lib.recursiveUpdate { Toolbar.toolbar = true; } cfg.bookmarks);
+          };
       };
     };
 

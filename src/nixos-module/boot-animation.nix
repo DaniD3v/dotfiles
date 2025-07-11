@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.boot;
-in {
+in
+{
   options.dotfiles.boot = {
     skipGenerationChooser = mkOption {
       type = types.bool;
@@ -23,10 +25,7 @@ in {
   config = {
     boot.loader = {
       systemd-boot.enable = true;
-      timeout =
-        if cfg.skipGenerationChooser
-        then 0
-        else 5;
+      timeout = if cfg.skipGenerationChooser then 0 else 5;
     };
 
     boot.plymouth.enable = cfg.animation.enable;

@@ -4,9 +4,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.language.csharp;
-in {
+in
+{
   options.dotfiles.language.csharp = {
     enable = mkEnableOption "csharp developement tools";
     enableTelemetry = mkEnableOption ".NET tools telemetry";

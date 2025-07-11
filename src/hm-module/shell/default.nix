@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.shell;
-in {
+in
+{
   imports = [
     ./nushell.nix
     ./starship.nix
@@ -13,7 +15,7 @@ in {
 
   options.dotfiles.shell = {
     default = mkOption {
-      type = types.enum ["nushell"];
+      type = types.enum [ "nushell" ];
       default = "nushell";
 
       description = "Default shell to use";

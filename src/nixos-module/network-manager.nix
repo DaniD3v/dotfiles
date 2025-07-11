@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.networkManager;
-in {
+in
+{
   options.dotfiles.networkManager = {
     enable = mkOption {
       type = types.bool;

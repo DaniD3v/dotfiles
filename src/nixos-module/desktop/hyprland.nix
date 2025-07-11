@@ -4,9 +4,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.desktops.hyprland;
-in {
+in
+{
   options.dotfiles.desktops.hyprland = {
     enable = mkEnableOption "Hyprland desktop environment";
 

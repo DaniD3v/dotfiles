@@ -5,13 +5,15 @@
   dLib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.programs.ashell;
-  tomlFormat = pkgs.formats.toml {};
-in {
+  tomlFormat = pkgs.formats.toml { };
+in
+{
   options.programs.ashell = {
     enable = mkEnableOption "Ashell desktop shell";
-    package = mkPackageOption pkgs.unstable "ashell" {};
+    package = mkPackageOption pkgs.unstable "ashell" { };
 
     systemd = {
       enable = mkOption {
@@ -31,7 +33,7 @@ in {
 
     settings = mkOption {
       type = tomlFormat.type;
-      default = {};
+      default = { };
 
       example = {
         clipboardCmd = "cliphist-rofi-img | wl-copy";
@@ -39,30 +41,31 @@ in {
     };
   };
 
-  config = let
-    configFile =
-      if (cfg.settings != {})
-      then tomlFormat.generate "config.toml" cfg.settings
-      else null;
-  in
+  config =
+    let
+      configFile = if (cfg.settings != { }) then tomlFormat.generate "config.toml" cfg.settings else null;
+    in
     mkIf cfg.enable {
-      home.packages = [cfg.package];
+      home.packages = [ cfg.package ];
 
-      xdg.configFile."ashell/config.toml" =
-        mkIf (configFile != null) {source = configFile;};
+      xdg.configFile."ashell/config.toml" = mkIf (configFile != null) { source = configFile; };
 
-      systemd.user.services.ashell = mkIf cfg.systemd.enable (dLib.mkWaylandService {
-          systemdTarget = cfg.systemd.target;
-          providesTray = true;
-        } {
-          Unit = {
-            Description = "Ashell desktop shell";
-            Documentation = "https://github.com/MalpenZibo/ashell/blob/${cfg.package.version}/README.md#configuration";
+      systemd.user.services.ashell = mkIf cfg.systemd.enable (
+        dLib.mkWaylandService
+          {
+            systemdTarget = cfg.systemd.target;
+            providesTray = true;
+          }
+          {
+            Unit = {
+              Description = "Ashell desktop shell";
+              Documentation = "https://github.com/MalpenZibo/ashell/blob/${cfg.package.version}/README.md#configuration";
 
-            X-Restart-Triggers = mkIf (configFile != null) "${configFile}";
-          };
+              X-Restart-Triggers = mkIf (configFile != null) "${configFile}";
+            };
 
-          Service.ExecStart = lib.getExe cfg.package;
-        });
+            Service.ExecStart = lib.getExe cfg.package;
+          }
+      );
     };
 }

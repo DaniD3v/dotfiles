@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.editor;
-in {
+in
+{
   imports = [
     ./helix.nix
     ./lsp.nix
@@ -13,7 +15,7 @@ in {
 
   options.dotfiles.editor = {
     default = mkOption {
-      type = types.enum ["helix"];
+      type = types.enum [ "helix" ];
       default = "helix";
     };
   };

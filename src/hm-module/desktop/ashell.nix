@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.desktop.ashell;
-in {
+in
+{
   options.dotfiles.desktop.ashell = {
     enable = mkEnableOption "Ashell desktop shell";
 
@@ -28,9 +30,23 @@ in {
         truncate_title_after_length = mkIf cfg.truncateTitle 75;
 
         modules = {
-          left = ["Workspaces" "WindowTitle"];
-          center = [["Clock" "MediaPlayer"]];
-          right = [["SystemInfo" "KeyboardLayout" "Settings"]];
+          left = [
+            "Workspaces"
+            "WindowTitle"
+          ];
+          center = [
+            [
+              "Clock"
+              "MediaPlayer"
+            ]
+          ];
+          right = [
+            [
+              "SystemInfo"
+              "KeyboardLayout"
+              "Settings"
+            ]
+          ];
         };
       };
     };

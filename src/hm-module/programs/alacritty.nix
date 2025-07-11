@@ -5,10 +5,12 @@
   dLib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.programs.alacritty;
   inherit (dLib) mkBookmarkOption;
-in {
+in
+{
   options.dotfiles.programs.alacritty = {
     enable = mkEnableOption "Alacritty terminal emulator";
 
@@ -36,8 +38,7 @@ in {
       };
     };
 
-    dotfiles.programs.librewolf.bookmarks
-    ."Toolbar".bookmarks."Ricing".bookmarks =
+    dotfiles.programs.librewolf.bookmarks."Toolbar".bookmarks."Ricing".bookmarks =
       mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;
 
     dotfiles.desktop.hyprland.bindApp = [
@@ -48,6 +49,6 @@ in {
     ];
 
     # HACK: I should install this as a normal font/ only install it for alacritty.
-    home.packages = with pkgs; [meslo-lgs-nf];
+    home.packages = with pkgs; [ meslo-lgs-nf ];
   };
 }

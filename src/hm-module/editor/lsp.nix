@@ -6,10 +6,12 @@
   self,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.lsp;
   mkLspEnableOption = name: mkEnableOption "${name} LSP & Editor Integration";
-in {
+in
+{
   options.dotfiles.lsp = {
     javascript.enable = mkLspEnableOption "Javascript";
     tailwind.enable = mkLspEnableOption "Tailwind CSS";
@@ -34,16 +36,14 @@ in {
         tailwindcss-language-server
       ];
 
-      programs.helix
-        .languages.langages-server
-        .tailwindcss = {
+      programs.helix.languages.langages-server.tailwindcss = {
         command = lib.getExe pkgs.tailwindcss-language-server;
-        args = ["--stdio"];
+        args = [ "--stdio" ];
       };
 
       dotfiles.editors.helix.language = {
-        html.language-servers = ["tailwindcss"];
-        css.language-servers = ["tailwindcss"];
+        html.language-servers = [ "tailwindcss" ];
+        css.language-servers = [ "tailwindcss" ];
       };
     })
 
@@ -52,13 +52,11 @@ in {
         angular-language-server
       ];
 
-      programs.helix
-        .languages.language-server
-        .angular.roots = ["angular.json"];
+      programs.helix.languages.language-server.angular.roots = [ "angular.json" ];
 
       dotfiles.editors.helix.language = {
-        html.language-servers = ["angular"];
-        typescript.language-servers = ["angular"]; # for inline templates
+        html.language-servers = [ "angular" ];
+        typescript.language-servers = [ "angular" ]; # for inline templates
       };
     })
 
@@ -68,7 +66,10 @@ in {
         ruff # TODO check if ruff without ruff-lsp still works
       ];
 
-      dotfiles.editors.helix.language.python.language-servers = ["basedpyright" "ruff"];
+      dotfiles.editors.helix.language.python.language-servers = [
+        "basedpyright"
+        "ruff"
+      ];
     })
 
     (mkIf cfg.csharp.enable {
@@ -91,31 +92,30 @@ in {
         nixd
       ];
 
-      programs.helix
-        .languages.language-server
-        .nixd.config.options = let
-        optionsPath = export: ''
-          (builtins.getFlake "${self}").nixdOptions.${pkgs.system}.${export}
-        '';
-      in {
-        nixos.expr = optionsPath "home-manager";
-        home-manager.expr = optionsPath "nixos";
-      };
+      programs.helix.languages.language-server.nixd.config.options =
+        let
+          optionsPath = export: ''
+            (builtins.getFlake "${self}").nixdOptions.${pkgs.system}.${export}
+          '';
+        in
+        {
+          nixos.expr = optionsPath "home-manager";
+          home-manager.expr = optionsPath "nixos";
+        };
 
       dotfiles.editors.helix.language.nix = {
-        language-servers = ["nixd"];
+        language-servers = [ "nixd" ];
         formatter.command =
-        if (nixFormatter == pkgs.nixfmt-tree) then pkgs.nixfmt-rfc-style
-        else lib.getExe nixFormatter;
+          if (nixFormatter == pkgs.nixfmt-tree) then pkgs.nixfmt-rfc-style else lib.getExe nixFormatter;
       };
     })
 
     # Re-add default LSPS.
     {
       dotfiles.editors.helix.language = {
-        typescript.language-servers = ["typescript-language-server"];
-        html.language-servers = ["vscode-html-language-server"];
-        css.language-servers = ["vscode-css-language-server"];
+        typescript.language-servers = [ "typescript-language-server" ];
+        html.language-servers = [ "vscode-html-language-server" ];
+        css.language-servers = [ "vscode-css-language-server" ];
       };
     }
   ];

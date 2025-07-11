@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.desktop;
-in {
+in
+{
   imports = [
     ./theme
 

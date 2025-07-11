@@ -4,7 +4,8 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.language.rust;
 
   toolchain = pkgs.fenix.complete.withComponents [
@@ -17,7 +18,8 @@ with lib; let
     "rustfmt"
     "clippy"
   ];
-in {
+in
+{
   options.dotfiles.language.rust = {
     enable = mkEnableOption "rust developement tools";
 
@@ -35,10 +37,13 @@ in {
         toolchain
       ]
 
-      (mkIf cfg.includeCommonDeps (with pkgs; [
-        clang
-        pkg-config
-      ]))
+      (mkIf cfg.includeCommonDeps (
+        with pkgs;
+        [
+          clang
+          pkg-config
+        ]
+      ))
     ];
   };
 }

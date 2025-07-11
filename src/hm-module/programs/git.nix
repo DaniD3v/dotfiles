@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.programs.git;
-in {
+in
+{
   options.dotfiles.programs.git = {
     enable = mkEnableOption "configuration of the Git version control system";
 
@@ -42,25 +44,31 @@ in {
       };
 
       identities = mkOption {
-        type = with types;
-          attrsOf (submodule ({name, ...}: {
-            options = {
-              host = mkOption {
-                type = types.str;
-                default = name;
+        type =
+          with types;
+          attrsOf (
+            submodule (
+              { name, ... }:
+              {
+                options = {
+                  host = mkOption {
+                    type = types.str;
+                    default = name;
 
-                description = "The domain the ssh key can be used with";
-                example = "github.com";
-              };
+                    description = "The domain the ssh key can be used with";
+                    example = "github.com";
+                  };
 
-              user = mkOption {
-                type = types.str;
+                  user = mkOption {
+                    type = types.str;
 
-                description = "The user the ssh key is valid for";
-                example = "git";
-              };
-            };
-          }));
+                    description = "The user the ssh key is valid for";
+                    example = "git";
+                  };
+                };
+              }
+            )
+          );
       };
 
       useForSigning = mkEnableOption "Whether to use the ssh key for signing git commits";
@@ -86,13 +94,12 @@ in {
         enable = true;
 
         matchBlocks = lib.mapAttrs (
-            _: v:
-              v
-              // {
-                identityFile = cfg.sshKey.keyFile;
-              }
-          )
-          (cfg.sshKey.identities);
+          _: v:
+          v
+          // {
+            identityFile = cfg.sshKey.keyFile;
+          }
+        ) (cfg.sshKey.identities);
       };
     };
   };

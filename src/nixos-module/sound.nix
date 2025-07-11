@@ -3,9 +3,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.sound;
-in {
+in
+{
   options.dotfiles.sound = {
     enable = mkOption {
       type = types.bool;

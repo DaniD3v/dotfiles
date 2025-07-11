@@ -3,23 +3,24 @@
   flakeInputs,
   stateVersion,
   ...
-}: rec {
+}:
+rec {
   buildHost = (
     hostname: hostConfig:
-      flakeInputs.nixpkgs.lib.nixosSystem {
-        inherit system;
+    flakeInputs.nixpkgs.lib.nixosSystem {
+      inherit system;
 
-        modules =
-          (import ./nixos-module)
-          ++ (import ./shared-module)
-          ++ [
-            hostConfig
+      modules =
+        (import ./nixos-module)
+        ++ (import ./shared-module)
+        ++ [
+          hostConfig
 
-            {
-              system = {inherit stateVersion;};
-            }
-          ];
-      }
+          {
+            system = { inherit stateVersion; };
+          }
+        ];
+    }
   );
 
   hosts = builtins.mapAttrs buildHost (import ./host);

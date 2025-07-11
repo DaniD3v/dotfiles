@@ -23,79 +23,80 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {
-    nixpkgs,
-    nixpkgs-unstable,
-    flake-utils,
-    ...
-  } @ inputs:
-    flake-utils.lib.eachDefaultSystem (system: let
-      currentVersion = "25.05";
-      stateVersion = "23.11";
+  outputs =
+    {
+      nixpkgs,
+      nixpkgs-unstable,
+      flake-utils,
+      ...
+    }@inputs:
+    flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        currentVersion = "25.05";
+        stateVersion = "23.11";
 
-      pkgs =
-        pkgsExternal.extend
-        (_: prev: import src/pkgs prev);
+        pkgs = pkgsExternal.extend (_: prev: import src/pkgs prev);
 
-      # Extra variable to avoid calling src/pkgs with its own overlay already applied
-      pkgsExternal = import nixpkgs {
-        inherit system;
+        # Extra variable to avoid calling src/pkgs with its own overlay already applied
+        pkgsExternal = import nixpkgs {
+          inherit system;
 
-        overlays = [
-          (
-            # expose flake packages directly
-            _: prev:
+          overlays = [
+            (
+              # expose flake packages directly
+              _: prev:
               builtins.mapAttrs (
                 name: value:
-                  if value ? packages
-                  then
-                    (
-                      let
-                        packages = value.packages.${system};
-                      in
-                        # if there's only a default package expose it directly
-                        if builtins.all (name: name == "default") (builtins.attrNames packages)
-                        then packages.default
-                        else packages
-                    )
-                  else prev.${name} or throw "package '${name}' not found"
-              )
-              inputs
-          )
-          (_: _: {
-            unstable = import nixpkgs-unstable {inherit system;};
-          })
-        ];
-      };
+                if value ? packages then
+                  (
+                    let
+                      packages = value.packages.${system};
+                    in
+                    # if there's only a default package expose it directly
+                    if builtins.all (name: name == "default") (builtins.attrNames packages) then
+                      packages.default
+                    else
+                      packages
+                  )
+                else
+                  prev.${name} or throw "package '${name}' not found"
+              ) inputs
+            )
+            (_: _: {
+              unstable = import nixpkgs-unstable { inherit system; };
+            })
+          ];
+        };
 
-      systemConfig = import src/system.nix {
-        inherit pkgs system stateVersion;
-        flakeInputs = inputs;
-      };
+        systemConfig = import src/system.nix {
+          inherit pkgs system stateVersion;
+          flakeInputs = inputs;
+        };
 
-      homeConfig = import src/home.nix {
-        inherit pkgs currentVersion stateVersion;
+        homeConfig = import src/home.nix {
+          inherit pkgs currentVersion stateVersion;
 
-        flakeInputs = inputs;
-        self = ./.;
+          flakeInputs = inputs;
+          self = ./.;
 
-        nixFormatter = formatter;
-      };
+          nixFormatter = formatter;
+        };
 
-      formatter = pkgs.nixfmt-tree;
-    in {
-      packages =
-        import src/pkgs pkgsExternal
-        // {
+        formatter = pkgs.nixfmt-tree;
+      in
+      {
+        packages = import src/pkgs pkgsExternal // {
           homeConfigurations = homeConfig.users;
           nixosConfigurations = systemConfig.hosts;
         };
 
-      nixdOptions = {
-        home-manager = (homeConfig.buildUser "module-export" {}).options;
-        nixos = (systemConfig.buildHost "module-export" {}).options;
-      };
+        nixdOptions = {
+          home-manager = (homeConfig.buildUser "module-export" { }).options;
+          nixos = (systemConfig.buildHost "module-export" { }).options;
+        };
 
-      inherit formatter;
-    });
+        inherit formatter;
+      }
+    );
 }

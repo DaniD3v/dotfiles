@@ -7,17 +7,18 @@
   currentVersion,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.dotfiles.language.nix;
-in {
+in
+{
   options.dotfiles.language.nix = {
     enable = mkEnableOption "nix developement tools";
 
-    browserBookmarks = let
-      nixOSSearch = type:
-        "https://search.nixos.org/${type}"
-        + "?query=%s&channel=${currentVersion}";
-    in
+    browserBookmarks =
+      let
+        nixOSSearch = type: "https://search.nixos.org/${type}" + "?query=%s&channel=${currentVersion}";
+      in
       dLib.mkBookmarkOption "Nix" {
         "Nix".bookmarks = {
           "NixOS Packages" = {
@@ -25,9 +26,7 @@ in {
             keyword = "@np";
           };
           "Homemanager Options" = {
-            url =
-              "https://home-manager-options.extranix.com"
-              + "?query=%s&release=release-${currentVersion}";
+            url = "https://home-manager-options.extranix.com" + "?query=%s&release=release-${currentVersion}";
             keyword = "@ho";
           };
           "NixOS Options" = {
@@ -55,10 +54,9 @@ in {
         deadnix
         statix
       ])
-      ++ [nixFormatter];
+      ++ [ nixFormatter ];
 
-    dotfiles.programs.librewolf.bookmarks
-    ."Toolbar".bookmarks."Languages".bookmarks =
+    dotfiles.programs.librewolf.bookmarks."Toolbar".bookmarks."Languages".bookmarks =
       mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;
   };
 }

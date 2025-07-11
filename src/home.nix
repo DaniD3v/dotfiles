@@ -6,8 +6,10 @@
   nixFormatter,
   self,
   ...
-}: rec {
-  buildUser = username: userConfig:
+}:
+rec {
+  buildUser =
+    username: userConfig:
     flakeInputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
@@ -27,7 +29,12 @@
         ];
 
       extraSpecialArgs = {
-        inherit flakeInputs currentVersion nixFormatter self;
+        inherit
+          flakeInputs
+          currentVersion
+          nixFormatter
+          self
+          ;
         dLib = import ./lib flakeInputs.nixpkgs.lib;
       };
     };
