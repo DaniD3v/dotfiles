@@ -9,15 +9,6 @@
 
   xdg.userDirs.enable = true;
 
-  programs.git = {
-    enable = true;
-
-    extraConfig.user = {
-      name = "DaniD3v";
-      email = "sch220233@spengergasse.at";
-    };
-  };
-
   wayland.windowManager.hyprland.settings = {
     misc.force_default_wallpaper = 0;
   };
@@ -25,6 +16,23 @@
   dotfiles = {
     programs = {
       alacritty.enable = true;
+
+      git = {
+        enable = true;
+
+        userName = "DaniD3v";
+        userEmail = "sch220233@spengergasse.at";
+
+        sshKey = {
+          enable = true;
+          useForSigning = true;
+
+          keyFile = "~/secrets/git.key";
+          identities = {
+            "github.com".user = "git";
+          };
+        };
+      };
 
       librewolf = {
         enable = true;

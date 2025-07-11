@@ -1,6 +1,8 @@
 {
   imports = [
-    ./alacritty.nix
     ./librewolf
+
+    ./alacritty.nix
+    ./git.nix
   ];
 }
