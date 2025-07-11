@@ -44,11 +44,13 @@ in {
       os_bg = mkColorOption "#484848" "color of the NixOS logo background";
 
       sudo = mkColorOption "fg" "color of the sudo-unlock indicator";
+      shlvl = mkColorOption "#088167" "color to use to display depth of nested shells";
       package = mkColorOption "#AC7647" "color used to display version of a package";
 
       git_branch = mkColorOption "#5FD700" null;
+      git_remote_branch = mkColorOption "#d78e00" null;
       git_status = mkColorOption "#D7AF00" null;
-      git_state = mkColorOption "#FF0000" null; # operations like rebasing/cherry-picking
+      git_state = mkColorOption "#FF0000" "color for git operations like cherry-picking/rebasing";
     };
   };
 
@@ -70,13 +72,14 @@ in {
             + "[](fg:os bg:os_bg)"
             + "[](fg:os_bg bg:bg) "
             + "$directory"
-            + "( | $git_branch)( $git_status)( $git_state)"
+            + "( | $custom)( $git_branch)( $git_status)( $git_state)"
             + "[](fg:bg)"
             # Right prompt
             + (
               "$fill("
               + "[](fg:bg)"
               + "( $status|)"
+              + "( $shlvl |)"
               + "( $cmd_duration |)"
               + "( $sudo |)"
               + "( $jobs |)"
@@ -126,13 +129,33 @@ in {
         };
 
         sudo = {
+          # HACK disable sudo module because it spams journald
+          disabled = true;
+
+          format = "[$symbol](fg:sudo bg:bg)";
+          symbol = "";
+        };
+
+        shlvl = {
           disabled = false;
-          format = "[](fg:sudo bg:bg)";
+
+          format = "[$symbol $shlvl](fg:shlvl bg:bg)";
+          symbol = "";
+        };
+
+        custom.git_icon = {
+          format = "[$symbol](fg:git_branch bg:bg)";
+          symbol = "";
+
+          when = true;
+          require_repo = true;
+
+          description = "Displays a git icon when in a git repository";
         };
 
         git_branch = {
-          format = "[$symbol $branch](fg:git_branch bg:bg)";
-          symbol = "";
+          format = "[$branch[(:$remote_branch)](fg:git_branch_remote)](fg:git_branch bg:bg)";
+          ignore_branches = ["main" "master"];
         };
 
         git_status = {
