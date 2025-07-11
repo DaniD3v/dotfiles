@@ -82,7 +82,7 @@
         nixFormatter = formatter;
       };
 
-      formatter = pkgs.alejandra;
+      formatter = pkgs.nixfmt-tree;
     in {
       packages =
         import src/pkgs pkgsExternal

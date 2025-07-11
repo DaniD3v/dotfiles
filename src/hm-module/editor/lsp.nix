@@ -104,7 +104,9 @@ in {
 
       dotfiles.editors.helix.language.nix = {
         language-servers = ["nixd"];
-        formatter.command = lib.getExe nixFormatter;
+        formatter.command =
+        if (nixFormatter == pkgs.nixfmt-tree) then pkgs.nixfmt-rfc-style
+        else lib.getExe nixFormatter;
       };
     })
 
