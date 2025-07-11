@@ -10,7 +10,7 @@ with lib; let
   inherit (dLib) mkBookmarkOption;
 in {
   options.dotfiles.programs.alacritty = {
-    enable = mkEnableOption "alacritty terminal emulator";
+    enable = mkEnableOption "Alacritty terminal emulator";
 
     browserBookmarks = mkBookmarkOption "Alacritty" {
       "Alacritty Wiki".url = "https://alacritty.org/config-alacritty.html";
@@ -22,9 +22,7 @@ in {
       enable = true;
 
       settings = {
-        terminal = {
-          shell = getExe pkgs.nushell;
-        };
+        terminal.shell = getExe pkgs.nushell;
 
         window = {
           dynamic_padding = true;
