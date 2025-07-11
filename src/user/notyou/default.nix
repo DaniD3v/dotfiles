@@ -98,7 +98,7 @@
   };
 
   home.packages = with pkgs; [
-    docker
+    podman
 
     nix-index
     nh
@@ -111,17 +111,16 @@
 
     libreoffice
     nautilus
-    geogebra6
     baobab
     warp
     gimp
     eog
 
-    jetbrains.datagrip
     obsidian
     spotify
 
-    whatsapp-for-linux
+    jetbrains.datagrip
+    # geogebra6
     vesktop
 
     adwaita-icon-theme
