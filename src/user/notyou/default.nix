@@ -18,19 +18,6 @@
     };
   };
 
-  # TODO make this a wrapped dotfiles module
-  programs.ashell = {
-    enable = true;
-
-    settings = {
-      modules = {
-        left = [["Workspaces" "WindowTitle"]];
-        center = ["Clock"];
-        right = [["SystemInfo" "Settings"]];
-      };
-    };
-  };
-
   wayland.windowManager.hyprland.settings = {
     misc.force_default_wallpaper = 0;
   };
