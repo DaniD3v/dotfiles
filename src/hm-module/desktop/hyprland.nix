@@ -170,11 +170,11 @@ in
               ) (lib.range 1 10)
             );
 
-      	  uwsmApp = "${lib.getExe pkgs.uwsm} app --";
-          amixer = lib.getExe' pkgs.alsa-utils "amixer";
-          brightnessctl = lib.getExe pkgs.brithnessctl;
-          playerctl = lib.getExe pkgs.playerctl;
-        in
+            uwsmApp = "${lib.getExe pkgs.uwsm} app --";
+            amixer = lib.getExe' pkgs.alsa-utils "amixer";
+            brightnessctl = lib.getExe pkgs.brightnessctl;
+            playerctl = lib.getExe pkgs.playerctl;
+          in
           mkMerge [
             [
               # kill
