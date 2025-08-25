@@ -63,6 +63,7 @@
 
     lsp = {
       dot.enable = true;
+      csharp.enable = true;
     };
 
     language = {
@@ -81,10 +82,10 @@
       };
 
       hyprland = {
-        mainMonitor = "eDP-1, preferred, 0x0, 1.8";
+        mainMonitor = "eDP-1, highrr, 0x0, 1.8";
 
         monitors = [
-          "HDMI-A-1, preferred, auto, 1, mirror, eDP-1"
+          ", preferred, auto, 1, mirror, eDP-1"
         ];
 
         input = {
@@ -108,15 +109,20 @@
     nix-index
     nh
 
+    man-pages
+    man-pages-posix
+
     wl-clipboard-rs
     pkg-shell
     ripgrep
     tokei
-    tldr
+    tlrc
 
     libreoffice
+    dolphin-emu
     nautilus
     baobab
+    totem
     warp
     gimp
     eog
