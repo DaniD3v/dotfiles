@@ -106,6 +106,11 @@ in
           snap.enabled = true;
         };
 
+        # HACK: set proper scaling with xorg-xrdb
+        xwayland = {
+          force_zero_scaling = true;
+        };
+
         decoration = {
           rounding = 5;
 

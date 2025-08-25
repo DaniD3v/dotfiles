@@ -8,6 +8,11 @@
 - [ ] fix `pm-suspend`
 - [ ] fix python duplicate lsp errors
 
+- [ ] add git plugin verifying conventional commits
+- [ ] add nerd fonts website to bookmarks
+- [ ] use niri
+- [ ] firefox `sidebar.verticalTabs`
+- [ ] configure vesktop plugins in nix
 - [ ] xdg-ninja
 - [ ] setup fingerprint
 - [ ] system config continue at `sddm.nix`
