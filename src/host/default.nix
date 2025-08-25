@@ -1,3 +1,3 @@
 {
-  "rog-strix-g15" = import ./rog-strix-g15;
+  "thinkpad-e14" = import ./thinkpad-e14;
 }
