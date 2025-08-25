@@ -5,5 +5,6 @@
   imports = [
     ./ashell.nix
     ./rustic.nix
+    ./uwsm.nix
   ];
 }

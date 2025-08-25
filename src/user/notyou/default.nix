@@ -76,6 +76,10 @@
       enable = true;
       theme.mode = "dark";
 
+      envVariables = {
+        "GDK_SCALE" = "1.8";
+      };
+
       hyprland = {
         mainMonitor = "eDP-1, preferred, 0x0, 1.8";
 

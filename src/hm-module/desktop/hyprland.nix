@@ -248,6 +248,8 @@ in
       '';
     };
 
+    programs.uwsm.envVariables = config.dotfiles.desktop.envVariables;
+
     dotfiles.programs.librewolf.bookmarks."Toolbar".bookmarks."Ricing".bookmarks =
       mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;
   };
