@@ -47,6 +47,7 @@ in
       os_bg = mkColorOption "#484848" "color of the NixOS logo background";
 
       sudo = mkColorOption "fg" "color of the sudo-unlock indicator";
+      jobs = mkColorOption "#7c7c7c" "color to use for the number of background jobs";
       shlvl = mkColorOption "#088167" "color to use to display depth of nested shells";
       package = mkColorOption "#AC7647" "color used to display version of a package";
 
@@ -131,6 +132,11 @@ in
 
           format = "[$symbol](fg:sudo bg:bg)";
           symbol = "";
+        };
+
+        jobs = {
+          format = "[$symbol $number](fg:jobs bg:bg)";
+          symbol = "";
         };
 
         shlvl = {
