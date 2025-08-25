@@ -24,6 +24,13 @@ in
         description = "Force the first x selection to stay on the same line.";
       };
 
+      workingDirFilePickerByDefault = mkOption {
+        type = types.bool;
+        default = true;
+
+        description = "Use `f` to open the fuzzy file picker in the cwd instead of the project root.";
+      };
+
       autoFormat = mkOption {
         type = types.bool;
         default = true;
@@ -72,21 +79,34 @@ in
           cursor-shape.insert = "bar";
         };
 
-        keys = mkIf cfg.settings.alternativeXSelection {
-          # Make `x` not skip an empty newline
-          normal.x = [
-            "extend_to_line_bounds"
-            "select_mode"
-          ];
-          select.x = [ "extend_line" ];
+        keys =
+          let
+            workingDirFilePickerRebinds = {
+              f = "file_picker_in_current_directory";
+              F = "file_picker";
+            };
+          in
+          mkMerge [
+            (mkIf cfg.settings.alternativeXSelection {
+              # Make `x` not skip an empty newline
+              normal.x = [
+                "extend_to_line_bounds"
+                "select_mode"
+              ];
+              select.x = [ "extend_line" ];
 
-          # Automatically go into normal mode in order
-          # to make x behavior consistent with original
-          select.";" = [
-            "collapse_selection"
-            "normal_mode"
+              # Automatically go into normal mode in order
+              # to make x behavior consistent with original
+              select.";" = [
+                "collapse_selection"
+                "normal_mode"
+              ];
+            })
+            (mkIf cfg.settings.workingDirFilePickerByDefault {
+              normal.space = workingDirFilePickerRebinds;
+              select.space = workingDirFilePickerRebinds;
+            })
           ];
-        };
       };
 
       languages.language =
