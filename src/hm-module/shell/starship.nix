@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  dLib,
   ...
 }:
 with lib;
@@ -55,6 +56,10 @@ in
       git_remote_branch = mkColorOption "#d78e00" null;
       git_status = mkColorOption "#D7AF00" null;
       git_state = mkColorOption "#FF0000" "color for git operations like cherry-picking/rebasing";
+    };
+
+    browserBookmarks = dLib.mkBookmarkOption "Starship" {
+      "Starship Wiki".url = "https://starship.rs/config";
     };
   };
 
@@ -179,5 +184,8 @@ in
         dotnet.format = "[ $version](fg:dotnet bg:bg)";
       };
     };
+
+    dotfiles.programs.librewolf.bookmarks."Toolbar".bookmarks."Ricing".bookmarks =
+      mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;
   };
 }
