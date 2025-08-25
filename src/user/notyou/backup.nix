@@ -52,7 +52,7 @@ in
   services.rustic = {
     enable = true;
 
-    snapshots."/home/notyou".settings = {
+    snapshots.${homeDir}.settings = {
       git-ignore = true;
       one-file-system = true;
     };
