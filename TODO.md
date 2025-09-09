@@ -8,6 +8,7 @@
 - [ ] fix `pm-suspend`
 - [ ] fix python duplicate lsp errors
 
+- [ ] fix moodle subject ids
 - [ ] add git plugin verifying conventional commits
 - [ ] add nerd fonts website to bookmarks
 - [ ] use niri
