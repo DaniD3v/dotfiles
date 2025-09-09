@@ -6,5 +6,6 @@
     ./rust.nix
     ./java.nix
     ./nix.nix
+    ./r.nix
   ];
 }

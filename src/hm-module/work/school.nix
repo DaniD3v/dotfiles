@@ -18,6 +18,7 @@ in
       enable = mkEnableOption "Tools required for school";
 
       nscs.enable = mkLectureEnableOption "NSCS";
+      dsai.enable = mkLectureEnableOption "DSAI";
       pos.enable = mkLectureEnableOption "POS";
       wmc.enable = mkLectureEnableOption "WMC";
       dbi.enable = mkLectureEnableOption "DBI";
@@ -85,6 +86,10 @@ in
         packetTracer
         screen
       ];
+    })
+
+    (mkIf cfg.dsai.enable {
+      dotfiles.language.R.enable = true;
     })
 
     (mkIf cfg.pos.enable {
