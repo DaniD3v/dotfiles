@@ -41,13 +41,21 @@
         extensions = with pkgs.firefox-extensions; [
           bitwarden
         ];
+
+        bookmarks = {
+          "Docker Hub" = {
+            url = "https://hub.docker.com/search?q=%s";
+            keyword = "@dh";
+          };
+        };
       };
     };
 
     work.school = {
-      # enable = true;
+      enable = true;
 
       nscs.enable = true;
+      dsai.enable = true;
       pos.enable = true;
       wmc.enable = true;
     };
@@ -116,7 +124,9 @@
     pkg-shell
     ripgrep
     tokei
+    nmap
     tlrc
+    unp
 
     libreoffice
     dolphin-emu
@@ -131,7 +141,7 @@
     spotify
 
     jetbrains.datagrip
-    # geogebra6
+    geogebra6
     vesktop
 
     adwaita-icon-theme
