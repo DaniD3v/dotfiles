@@ -18,7 +18,6 @@ in
     angular.enable = mkLspEnableOption "Angular";
     python.enable = mkLspEnableOption "Python";
     csharp.enable = mkLspEnableOption "Csharp";
-    rust.enable = mkEnableOption "Rust";
     dot.enable = mkEnableOption "Graphviz dot";
     nix.enable = mkLspEnableOption "Nix";
   };
