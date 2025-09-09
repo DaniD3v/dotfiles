@@ -18,6 +18,7 @@ in
     angular.enable = mkLspEnableOption "Angular";
     python.enable = mkLspEnableOption "Python";
     csharp.enable = mkLspEnableOption "Csharp";
+    java.enable = mkEnableOption "Java";
     dot.enable = mkEnableOption "Graphviz dot";
     nix.enable = mkLspEnableOption "Nix";
   };
@@ -77,6 +78,14 @@ in
         dotnet-sdk
 
         csharpier
+      ];
+    })
+
+    (mkIf cfg.java.enable {
+      programs.helix.extraPackages = [
+        (pkgs.jdt-language-server.override {
+          jdk = config.dotfiles.language.java.jdk;
+        })
       ];
     })
 

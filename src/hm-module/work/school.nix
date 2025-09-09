@@ -88,7 +88,7 @@ in
     })
 
     (mkIf cfg.pos.enable {
-      dotfiles.language.csharp.enable = true;
+      dotfiles.language.java.enable = true;
     })
 
     (mkIf cfg.wmc.enable {
