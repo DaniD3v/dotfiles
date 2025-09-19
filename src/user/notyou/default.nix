@@ -14,6 +14,12 @@
     misc.force_default_wallpaper = 0;
   };
 
+  programs.nushell = {
+    shellAliases = {
+      "c" = "with-env {\"SHLVL\": 0} {job spawn {alacritty --working-directory .}}";
+    };
+  };
+
   dotfiles = {
     programs = {
       alacritty.enable = true;
@@ -87,6 +93,7 @@
 
       envVariables = {
         "GDK_SCALE" = "1.8";
+        "QT_SCALE_FACTOR" = "1.8";
       };
 
       hyprland = {
@@ -137,6 +144,7 @@
     gimp
     eog
 
+    teams-for-linux
     obsidian
     spotify
 
