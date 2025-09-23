@@ -85,9 +85,6 @@ in
       enable = true;
       inherit (cfg) package;
 
-      # HACK: make bookmarks work
-      policies.NoDefaultBookmarks = false;
-
       profiles.default = {
         settings = {
           "privacy.resistFingerprinting" = false; # enable darkmode at the cost of your privacy
