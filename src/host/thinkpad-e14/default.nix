@@ -38,6 +38,11 @@
   };
 
   dotfiles = {
+    unfree.whiteList = [
+      "steam"
+      "steam-unwrapped"
+    ];
+
     users = {
       "notyou" = {
         isNormalUser = true;
