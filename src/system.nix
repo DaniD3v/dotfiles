@@ -19,6 +19,7 @@ rec {
 
           {
             system = { inherit stateVersion; };
+            networking.hostName = hostname;
           }
         ];
 
