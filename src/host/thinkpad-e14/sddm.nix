@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  sddm-astronaut = pkgs.unstable.sddm-astronaut.override {
+  sddm-astronaut = pkgs.sddm-astronaut.override {
     themeConfig = {
       AccentColor = "#746385";
       FormPosition = "left";
@@ -12,7 +12,7 @@ in
 {
   services.displayManager.sddm = {
     enable = true;
-    package = pkgs.unstable.kdePackages.sddm; # qt6 sddm version
+    package = pkgs.kdePackages.sddm; # qt6 sddm version
 
     theme = "sddm-astronaut-theme";
     extraPackages = [ sddm-astronaut ];
