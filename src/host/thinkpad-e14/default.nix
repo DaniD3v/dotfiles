@@ -1,8 +1,37 @@
+{ pkgs, ... }:
 {
   imports = [
     ./hardware.nix
     ./sddm.nix
   ];
+
+  environment.systemPackages = with pkgs; [
+    gnome-disk-utility
+    gnome-text-editor
+    alacritty
+    librewolf
+    nautilus
+
+    fastfetch
+    nushell
+    helix
+    btop
+    git
+  ];
+
+  programs = {
+    steam.enable = true;
+
+    wireshark = {
+      enable = true;
+      package = pkgs.wireshark;
+    };
+  };
+
+  # enable podman on user accounts
+  virtualisation = {
+    podman.enable = true;
+  };
 
   services = {
     upower.enable = true;
