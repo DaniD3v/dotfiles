@@ -1,16 +1,15 @@
 {
   pkgs,
   flakeInputs,
-  currentVersion,
+  specialArgs,
   stateVersion,
-  nixFormatter,
-  self,
+  builder ? flakeInputs.home-manager.lib.homeManagerConfiguration,
   ...
 }:
 rec {
   buildUser =
     username: userConfig:
-    flakeInputs.home-manager.lib.homeManagerConfiguration {
+    builder {
       inherit pkgs;
 
       modules =
@@ -28,14 +27,8 @@ rec {
           }
         ];
 
-      extraSpecialArgs = {
-        inherit
-          flakeInputs
-          currentVersion
-          nixFormatter
-          self
-          ;
-        dLib = import ./lib flakeInputs.nixpkgs.lib;
+      extraSpecialArgs = specialArgs // {
+        configType = "home";
       };
     };
 

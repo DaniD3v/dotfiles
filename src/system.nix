@@ -1,6 +1,7 @@
 {
-  system,
+  pkgs,
   flakeInputs,
+  specialArgs,
   stateVersion,
   ...
 }:
@@ -8,7 +9,7 @@ rec {
   buildHost = (
     hostname: hostConfig:
     flakeInputs.nixpkgs.lib.nixosSystem {
-      inherit system;
+      system = pkgs.system;
 
       modules =
         (import ./nixos-module)
@@ -20,6 +21,10 @@ rec {
             system = { inherit stateVersion; };
           }
         ];
+
+      specialArgs = specialArgs // {
+        configType = "system";
+      };
     }
   );
 

@@ -5,6 +5,19 @@
   ];
 
   dotfiles = {
+    users = {
+      "notyou" = {
+        isNormalUser = true;
+        extraGroups = [
+          "wheel"
+          "networkmanager"
+          "input"
+          "dialout"
+          "wireshark"
+        ];
+      };
+    };
+
     boot = {
       animation.enable = true;
       skipGenerationChooser = true;

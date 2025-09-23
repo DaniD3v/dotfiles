@@ -29,17 +29,25 @@
       nixpkgs-unstable,
       flake-utils,
       ...
-    }@inputs:
+    }@flakeInputs:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
         currentVersion = "25.05";
         stateVersion = "23.11";
 
-        pkgs = pkgsExternal.extend (_: prev: import src/pkgs prev);
+        # use override instead of extend to persist `.override`
+        # which would otherwise get removed on re-evaluation of nixpkgs.
+        pkgs = pkgsExternal.override (
+          prev:
+          prev
+          // {
+            overlays = prev.overlays ++ [ (_: prev: import src/pkgs prev) ];
+          }
+        );
 
         # Extra variable to avoid calling src/pkgs with its own overlay already applied
-        pkgsExternal = import nixpkgs {
+        pkgsExternal = nixpkgs.lib.makeOverridable (import nixpkgs) {
           inherit system;
 
           overlays = [
@@ -61,7 +69,7 @@
                   )
                 else
                   prev.${name} or throw "package '${name}' not found"
-              ) inputs
+              ) flakeInputs
             )
             (_: _: {
               unstable = import nixpkgs-unstable { inherit system; };
@@ -69,19 +77,22 @@
           ];
         };
 
-        systemConfig = import src/system.nix {
-          inherit pkgs system stateVersion;
-          flakeInputs = inputs;
+        # generic attrs to pass to system & host-config
+        configAttrs = rec {
+          inherit pkgs flakeInputs stateVersion;
+
+          specialArgs = {
+            inherit flakeInputs currentVersion configAttrs;
+            originalPkgs = pkgs;
+
+            dLib = import ./src/lib pkgs.lib;
+            nixFormatter = formatter;
+            self = ./.;
+          };
         };
 
-        homeConfig = import src/home.nix {
-          inherit pkgs currentVersion stateVersion;
-
-          flakeInputs = inputs;
-          self = ./.;
-
-          nixFormatter = formatter;
-        };
+        systemConfig = import src/system.nix configAttrs;
+        homeConfig = import src/home.nix configAttrs;
 
         formatter = pkgs.nixfmt-tree;
       in
