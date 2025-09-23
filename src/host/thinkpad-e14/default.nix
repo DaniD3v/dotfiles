@@ -4,6 +4,10 @@
     ./sddm.nix
   ];
 
+  services = {
+    upower.enable = true;
+  };
+
   dotfiles = {
     users = {
       "notyou" = {
