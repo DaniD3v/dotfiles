@@ -15,10 +15,18 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
-      (cfg.rRuntime.override {
+    home.packages =
+      let
         packages = [ pkgs.rPackages.languageserver ];
-      })
-    ];
+      in
+      [
+        (cfg.rRuntime.override {
+          inherit packages;
+        })
+        (pkgs.rstudioWrapper.override {
+          R = cfg.rRuntime;
+          inherit packages;
+        })
+      ];
   };
 }
