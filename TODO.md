@@ -16,7 +16,6 @@
 - [ ] configure vesktop plugins in nix
 - [ ] xdg-ninja
 - [ ] setup fingerprint
-- [ ] system config continue at `sddm.nix`
 - [ ] proper pkg-shell PATH
 - [ ] add starship browserbookmarks
 - [ ] add cursor module
