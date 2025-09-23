@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }:
@@ -37,7 +38,13 @@ in
 
     programs = {
       zoxide.enable = cfg.zoxide.enable;
-      carapace.enable = cfg.completions.enable;
+
+      carapace = {
+        enable = cfg.completions.enable;
+
+        # HACK stable carapace only works for unstable nushell (>=v106)
+        package = pkgs.unstable.carapace;
+      };
     };
   };
 }
