@@ -17,7 +17,11 @@ in
   config = mkIf cfg.enable {
     home.packages =
       let
-        packages = [ pkgs.rPackages.languageserver ];
+        packages = with pkgs.rPackages; [
+          languageserver
+          tidyverse
+          rmarkdown
+        ];
       in
       [
         (cfg.rRuntime.override {
