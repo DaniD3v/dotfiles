@@ -17,6 +17,7 @@ let
     "rust-src"
     "rustfmt"
     "clippy"
+    "miri"
   ];
 in
 {
