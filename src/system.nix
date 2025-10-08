@@ -17,6 +17,7 @@ rec {
         ++ [
           hostConfig
           flakeInputs.disko.nixosModules.default
+          flakeInputs.arion.nixosModules.arion
 
           {
             system = { inherit stateVersion; };

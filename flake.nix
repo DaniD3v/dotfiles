@@ -16,6 +16,7 @@
     };
 
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    arion.inputs.nixpkgs.follows = "nixpkgs";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
