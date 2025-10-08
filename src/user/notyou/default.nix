@@ -128,6 +128,7 @@
     man-pages-posix
 
     wl-clipboard-rs
+    distrobox
     pkg-shell
     ripgrep
     tokei
