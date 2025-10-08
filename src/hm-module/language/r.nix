@@ -18,9 +18,11 @@ in
     home.packages =
       let
         packages = with pkgs.rPackages; [
-          languageserver
+          languageserver # helix setup
+          rmarkdown # rStudio `.qmd` files
+
           tidyverse
-          rmarkdown
+          ggplot2
         ];
       in
       [
