@@ -22,6 +22,13 @@
   programs = {
     steam.enable = true;
 
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        libgcc.lib
+      ];
+    };
+
     wireshark = {
       enable = true;
       package = pkgs.wireshark;
