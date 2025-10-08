@@ -1,5 +1,24 @@
 {
   "nodes": {
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758287904,
+        "narHash": "sha256-IGmaEf3Do8o5Cwp1kXBN1wQmZwQN3NLfq5t4nHtVtcU=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "67ff9807dd148e704baadbd4fd783b54282ca627",
+        "type": "github"
+      },
+      "original": {
+        "id": "disko",
+        "type": "indirect"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -113,6 +132,7 @@
     },
     "root": {
       "inputs": {
+        "disko": "disko",
         "fenix": "fenix",
         "firefox-extensions": "firefox-extensions",
         "flake-utils": "flake-utils",

@@ -16,6 +16,7 @@ rec {
         ++ (import ./shared-module)
         ++ [
           hostConfig
+          flakeInputs.disko.nixosModules.default
 
           {
             system = { inherit stateVersion; };
