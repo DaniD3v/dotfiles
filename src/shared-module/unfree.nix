@@ -44,7 +44,10 @@ in
     else if (configType == "system") then
       {
         dotfiles.unfree =
-          (dLib.recursiveMergeAttrsConcatLists (lib.attrValues config.home-manager.users)).dotfiles.unfree;
+          if config.home-manager.users != { } then
+            (dLib.recursiveMergeAttrsConcatLists (lib.attrValues config.home-manager.users)).dotfiles.unfree
+          else
+            { };
 
         # nixpkgs has a check that fails if `nixpkgs.pkgs`
         # and `nixpkgs.config` is set.

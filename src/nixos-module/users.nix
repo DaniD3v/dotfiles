@@ -48,6 +48,7 @@ in
         }
       )
     );
+    default = { };
 
     example = {
       "notyou".groups = [
