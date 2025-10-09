@@ -5,6 +5,45 @@
     ./disko.nix
   ];
 
+  virtualisation.arion = {
+    backend = "podman-socket";
+
+    projects = {
+      nginx.settings = {
+        project.name = "nginx";
+
+        services.nginx =
+          { pkgs, ... }:
+          {
+            service = {
+              image = "nginx";
+
+              networks = [ "nginx-reverse" ];
+              capabilities."NET_RAW" = true; # HACK ping test
+            };
+          };
+
+        networks.nginx-reverse.name = "nginx-reverse";
+      };
+
+      jellyfin.settings = {
+        project.name = "jellyfin";
+
+        services.jellyfin.service = {
+          image = "jellyfin/jellyfin";
+          networks = [ "nginx-reverse" ];
+
+          ports = [
+            # "8096:8096/tcp"
+            # "7359:7359/udp"
+          ];
+        };
+
+        networks.nginx-reverse.name = "nginx-reverse";
+      };
+    };
+  };
+
   # Remove 32G swap for VMs
   virtualisation.vmVariantWithDisko = {
     disko.devices.disk.nvme = {
