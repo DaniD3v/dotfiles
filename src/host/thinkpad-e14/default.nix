@@ -5,6 +5,8 @@
     ./sddm.nix
   ];
 
+  hardware.bluetooth.enable = true;
+
   environment.systemPackages = with pkgs; [
     gnome-disk-utility
     gnome-text-editor
