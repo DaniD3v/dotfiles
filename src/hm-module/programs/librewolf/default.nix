@@ -37,18 +37,17 @@ in
 
       disableSearchEngines = mkOption {
         type = with types; listOf str;
-        default =
-          [
-            # "google"
-            "wikipedia"
-          ]
-          ++ map (s: "policy-${s}") [
-            "DuckDuckGo Lite"
-            "MetaGer"
-            "Mojeek"
-            "SearXNG - searx.be"
-            "StartPage"
-          ];
+        default = [
+          # "google"
+          "wikipedia"
+        ]
+        ++ map (s: "policy-${s}") [
+          "DuckDuckGo Lite"
+          "MetaGer"
+          "Mojeek"
+          "SearXNG - searx.be"
+          "StartPage"
+        ];
       };
 
       includeCustom = mkOption {
@@ -146,6 +145,21 @@ in
                       url = "https://github.com/favicon.ico";
                       hash = "sha256-LuQyN9GWEAIQ8Xhue3O1fNFA9gE8Byxw29/9npvGlfg=";
                     };
+                  };
+
+                  "Docker Hub" = mkSearchEngine "dh" {
+                    url = "https://hub.docker.com/search?q=aa";
+                    params."q" = "{searchTerms}";
+                  };
+
+                  "Crates" = mkSearchEngine "rc" {
+                    url = "https://crates.io/search";
+                    params."q" = "{searchTerms}";
+                  };
+
+                  "Rust-std" = mkSearchEngine "rs" {
+                    url = "https://doc.rust-lang.org/stable/std/";
+                    params."search" = "{searchTerms}";
                   };
 
                   "Noogle" = mkSearchEngine "ng" {
