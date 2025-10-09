@@ -150,7 +150,7 @@
     spotify
 
     jetbrains.datagrip
-    geogebra6
+    geogebra
     vesktop
 
     adwaita-icon-theme
