@@ -12,12 +12,18 @@
       nginx.settings = {
         project.name = "nginx";
 
-        services.nginx.service = {
-          image = "nginx";
-          networks = [ "nginx-reverse" ];
-        };
+        services.nginx =
+          { pkgs, ... }:
+          {
+            service = {
+              image = "nginx";
 
-        networks.nginx-reverse = { };
+              networks = [ "nginx-reverse" ];
+              capabilities."NET_RAW" = true; # HACK ping test
+            };
+          };
+
+        networks.nginx-reverse.name = "nginx-reverse";
       };
 
       jellyfin.settings = {
@@ -33,7 +39,7 @@
           ];
         };
 
-        networks.nginx-reverse.external = true;
+        networks.nginx-reverse.name = "nginx-reverse";
       };
     };
   };
@@ -41,6 +47,7 @@
   # Remove 32G swap for VMs
   virtualisation.vmVariantWithDisko = {
     disko.devices.disk.nvme.content.partitions.swap.size = lib.mkForce "512M";
+    disko.devices.disk.nvme.imageSize = "10G";
 
     users.users.notyou.hashedPassword = "";
     security.sudo.wheelNeedsPassword = false;
