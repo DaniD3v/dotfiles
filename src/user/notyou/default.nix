@@ -71,6 +71,7 @@
       "datagrip"
       "spotify"
 
+      "binaryninja-free"
       "geogebra"
       "obsidian"
     ];
@@ -132,9 +133,14 @@
     pkg-shell
     ripgrep
     tokei
-    nmap
     tlrc
     unp
+
+    # ctfs
+    binaryninja-free
+    snicat
+    nmap
+    gdb
 
     libreoffice
     dolphin-emu

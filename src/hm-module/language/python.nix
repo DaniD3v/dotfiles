@@ -21,6 +21,8 @@ in
         pythonPackages: with pythonPackages; [
           virtualenv
           requests
+
+          pwntools
         ]
       ))
       pkgs.ruff
