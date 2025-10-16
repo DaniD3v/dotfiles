@@ -120,6 +120,7 @@
   };
 
   home.packages = with pkgs; [
+    podman-compose
     podman
 
     nix-index
