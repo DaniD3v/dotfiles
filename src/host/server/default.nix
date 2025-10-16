@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./hardware.nix
@@ -15,9 +15,9 @@
         services.nginx =
           { pkgs, ... }:
           {
-            service = {
-              image = "nginx";
+            image.tarball = pkgs.containers.nginx;
 
+            service = {
               networks = [ "nginx-reverse" ];
               capabilities."NET_RAW" = true; # HACK ping test
             };
@@ -29,14 +29,17 @@
       jellyfin.settings = {
         project.name = "jellyfin";
 
-        services.jellyfin.service = {
-          image = "jellyfin/jellyfin";
-          networks = [ "nginx-reverse" ];
+        services.jellyfin = {
+          image.tarball = pkgs.containers.jellyfin;
 
-          ports = [
-            # "8096:8096/tcp"
-            # "7359:7359/udp"
-          ];
+          service = {
+            networks = [ "nginx-reverse" ];
+
+            ports = [
+              # "8096:8096/tcp"
+              # "7359:7359/udp"
+            ];
+          };
         };
 
         networks.nginx-reverse.name = "nginx-reverse";

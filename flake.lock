@@ -4,21 +4,24 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "haskell-flake": "haskell-flake",
+        "hercules-ci-effects": "hercules-ci-effects",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1759632323,
-        "narHash": "sha256-TzLTfXxhOkR/8oOoVEAYQWb81ADGHdKsQXGicC7kR+M=",
-        "owner": "hercules-ci",
+        "lastModified": 1714316001,
+        "narHash": "sha256-/igr+c5BWMJjcKsiZg8VxVrw4jXZTgbJGa12UcFzvS8=",
+        "owner": "tomeon",
         "repo": "arion",
-        "rev": "24658a03be2d1a6e1e02c01524775d960a82309c",
+        "rev": "a891633e2ae27caad675c2bf06d716203123e3ac",
         "type": "github"
       },
       "original": {
-        "id": "arion",
-        "type": "indirect"
+        "owner": "tomeon",
+        "ref": "arbitrary-image-drv-support",
+        "repo": "arion",
+        "type": "github"
       }
     },
     "disko": {
@@ -103,6 +106,27 @@
         "type": "github"
       }
     },
+    "flake-parts_2": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "arion",
+          "hercules-ci-effects",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1754487366,
+        "narHash": "sha256-pHYj8gUBapuUzKV/kN/tR3Zvqc7o6gdFB9XKXIp1SQ8=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "af66ad14b28a127c5c0f3bbb298218fc63528a18",
+        "type": "github"
+      },
+      "original": {
+        "id": "flake-parts",
+        "type": "indirect"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -133,6 +157,28 @@
         "owner": "srid",
         "ref": "0.1.0",
         "repo": "haskell-flake",
+        "type": "github"
+      }
+    },
+    "hercules-ci-effects": {
+      "inputs": {
+        "flake-parts": "flake-parts_2",
+        "nixpkgs": [
+          "arion",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758022363,
+        "narHash": "sha256-ENUhCRWgSX4ni751HieNuQoq06dJvApV/Nm89kh+/A0=",
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
+        "rev": "1a3667d33e247ad35ca250698d63f49a5453d824",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
         "type": "github"
       }
     },

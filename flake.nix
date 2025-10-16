@@ -15,6 +15,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # HACK: use fork with setting drv directly support
+    arion.url = "github:tomeon/arion/arbitrary-image-drv-support";
+
     disko.inputs.nixpkgs.follows = "nixpkgs";
     arion.inputs.nixpkgs.follows = "nixpkgs";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
