@@ -9,16 +9,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1759632323,
-        "narHash": "sha256-TzLTfXxhOkR/8oOoVEAYQWb81ADGHdKsQXGicC7kR+M=",
-        "owner": "hercules-ci",
+        "lastModified": 1760601974,
+        "narHash": "sha256-rbFlNO31UVuFc8JP8nFqYOH0TAy9qBH4jfBPNhTlL2Q=",
+        "owner": "DaniD3v",
         "repo": "arion",
-        "rev": "24658a03be2d1a6e1e02c01524775d960a82309c",
+        "rev": "c4fad2139496675b7083726623ecfc5a9d10d001",
         "type": "github"
       },
       "original": {
-        "id": "arion",
-        "type": "indirect"
+        "owner": "DaniD3v",
+        "ref": "arbitrary-drv",
+        "repo": "arion",
+        "type": "github"
       }
     },
     "disko": {
