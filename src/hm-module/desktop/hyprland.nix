@@ -140,7 +140,8 @@ in
             natural_scroll = true;
             disable_while_typing = false;
           };
-        } // cfg.input;
+        }
+        // cfg.input;
 
         gestures.workspace_swipe = true;
 

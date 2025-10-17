@@ -107,7 +107,8 @@ in
           rust = "#F74C00";
           python = "#00AFAF";
           dotnet = "#512bd4";
-        } // cfg.theme;
+        }
+        // cfg.theme;
 
         fill.symbol = " "; # filler between left & right prompt
 
