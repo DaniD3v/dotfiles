@@ -107,7 +107,7 @@
           nixos = (systemConfig.buildHost "module-export" { }).options;
         };
 
-        inherit formatter;
+        inherit formatter pkgs;
       }
     );
 }

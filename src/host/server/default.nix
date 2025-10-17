@@ -9,41 +9,8 @@
     backend = "podman-socket";
 
     projects = {
-      nginx.settings = {
-        project.name = "nginx";
-
-        services.nginx =
-          { pkgs, ... }:
-          {
-            image.tarball = pkgs.containers.nginx;
-
-            service = {
-              networks = [ "nginx-reverse" ];
-              capabilities."NET_RAW" = true; # HACK ping test
-            };
-          };
-
-        networks.nginx-reverse.name = "nginx-reverse";
-      };
-
-      jellyfin.settings = {
-        project.name = "jellyfin";
-
-        services.jellyfin = {
-          image.tarball = pkgs.containers.jellyfin;
-
-          service = {
-            networks = [ "nginx-reverse" ];
-
-            ports = [
-              # "8096:8096/tcp"
-              # "7359:7359/udp"
-            ];
-          };
-        };
-
-        networks.nginx-reverse.name = "nginx-reverse";
-      };
+      nginx.settings = import ../../compose/nginx.nix { inherit pkgs; };
+      jellyfin.settings = import ../../compose/jellyfin.nix { inherit pkgs; };
     };
   };
 

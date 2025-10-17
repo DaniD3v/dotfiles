@@ -96,6 +96,8 @@
   };
 
   home.packages = with pkgs; [
+    wl-clipboard-rs
+    distrobox
     pkg-shell
 
     # ctfs

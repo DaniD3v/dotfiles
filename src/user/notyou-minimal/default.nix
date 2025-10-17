@@ -44,14 +44,13 @@
     podman-compose
     podman
 
+    arion.arion
     nix-index
     nh
 
     man-pages
     man-pages-posix
 
-    wl-clipboard-rs
-    distrobox
     ripgrep
     tokei
     tlrc
