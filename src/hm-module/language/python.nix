@@ -22,6 +22,7 @@ in
           virtualenv
           requests
 
+          pycryptodome
           pwntools
         ]
       ))
