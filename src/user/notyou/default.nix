@@ -20,6 +20,9 @@
     };
   };
 
+  # allow login via ssh key
+  home.file.".ssh/authorized_keys".source = ./ssh_key.pub;
+
   dotfiles = {
     programs = {
       alacritty.enable = true;
