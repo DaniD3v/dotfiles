@@ -24,6 +24,34 @@
   };
   users.users."notyou".openssh.authorizedKeys.keyFiles = [ ../../user/notyou/ssh_key.pub ];
 
+  networking = {
+    nameservers = [ "2001:4bb8:140:f194::10" ];
+
+    interfaces."enp15s0" = {
+      ipv6.addresses = [
+        {
+          address = "2001:4bb8:140:f194::10";
+          prefixLength = 64;
+        }
+      ];
+      ipv4.addresses = [
+        {
+          address = "192.168.0.10";
+          prefixLength = 24;
+        }
+      ];
+    };
+
+    defaultGateway = {
+      address = "192.168.0.1";
+      interface = "enp15s0";
+    };
+    defaultGateway6 = {
+      address = "2001:4bb8:140:f194::";
+      interface = "enp15s0";
+    };
+  };
+
   dotfiles = {
     users = {
       "notyou" = {
