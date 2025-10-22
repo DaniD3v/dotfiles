@@ -60,7 +60,8 @@
     work.school = {
       enable = true;
 
-      nscs.enable = true;
+      # HACK: disabled packettracer
+      # nscs.enable = true;
       dsai.enable = true;
       pos.enable = true;
       wmc.enable = true;
