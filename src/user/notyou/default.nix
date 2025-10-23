@@ -5,93 +5,15 @@
 }:
 {
   imports = [
+    ../notyou-minimal
     ./backup.nix
   ];
-
-  xdg.userDirs.enable = true;
 
   wayland.windowManager.hyprland.settings = {
     misc.force_default_wallpaper = 0;
   };
 
-  programs.nushell = {
-    shellAliases = {
-      "c" = "with-env {\"SHLVL\": 0} {job spawn {alacritty --working-directory .}}";
-    };
-  };
-
-  # allow login via ssh key
-  home.file.".ssh/authorized_keys".source = ./ssh_key.pub;
-
   dotfiles = {
-    programs = {
-      alacritty.enable = true;
-
-      git = {
-        enable = true;
-
-        userName = "DaniD3v";
-        userEmail = "sch220233@spengergasse.at";
-
-        sshKey = {
-          enable = true;
-          useForSigning = true;
-
-          keyFile = "~/secrets/git.key";
-          identities = {
-            "github.com".user = "git";
-          };
-        };
-      };
-
-      librewolf = {
-        enable = true;
-
-        extensions = with pkgs.firefox-extensions; [
-          bitwarden
-        ];
-
-        bookmarks = {
-          "Docker Hub" = {
-            url = "https://hub.docker.com/search?q=%s";
-            keyword = "@dh";
-          };
-        };
-      };
-    };
-
-    work.school = {
-      enable = true;
-
-      # HACK: disabled packettracer
-      # nscs.enable = true;
-      dsai.enable = true;
-      pos.enable = true;
-      wmc.enable = true;
-    };
-
-    unfree.whiteList = [
-      "packetTracer"
-      "datagrip"
-      "spotify"
-
-      "binaryninja-free"
-      "geogebra"
-      "obsidian"
-    ];
-
-    lsp = {
-      dot.enable = true;
-      csharp.enable = true;
-    };
-
-    language = {
-      javascript.enable = true;
-      python.enable = true;
-      rust.enable = true;
-      nix.enable = true;
-    };
-
     desktop = {
       enable = true;
       theme.mode = "dark";
@@ -121,25 +43,60 @@
         ];
       };
     };
+
+    programs = {
+      alacritty.enable = true;
+
+      librewolf = {
+        enable = true;
+
+        extensions = with pkgs.firefox-extensions; [
+          bitwarden
+        ];
+
+        bookmarks = {
+          "Docker Hub" = {
+            url = "https://hub.docker.com/search?q=%s";
+            keyword = "@dh";
+          };
+        };
+      };
+    };
+
+    work.school = {
+      enable = true;
+
+      nscs.enable = true;
+      dsai.enable = true;
+      pos.enable = true;
+      wmc.enable = true;
+    };
+
+    lsp = {
+      dot.enable = true;
+      csharp.enable = true;
+    };
+
+    language = {
+      javascript.enable = true;
+      python.enable = true;
+      rust.enable = true;
+      nix.enable = true;
+    };
+
+    unfree.whiteList = [
+      "packetTracer"
+      "datagrip"
+      "spotify"
+
+      "binaryninja-free"
+      "geogebra"
+      "obsidian"
+    ];
   };
 
   home.packages = with pkgs; [
-    podman-compose
-    podman
-
-    nix-index
-    nh
-
-    man-pages
-    man-pages-posix
-
-    wl-clipboard-rs
-    distrobox
     pkg-shell
-    ripgrep
-    tokei
-    tlrc
-    unp
 
     # ctfs
     binaryninja-free
@@ -157,12 +114,12 @@
     eog
 
     teams-for-linux
-    obsidian
-    spotify
-
     jetbrains.datagrip
+
     geogebra
+    obsidian
     vesktop
+    spotify
 
     adwaita-icon-theme
   ];

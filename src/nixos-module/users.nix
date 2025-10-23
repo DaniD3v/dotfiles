@@ -17,34 +17,38 @@ in
       types.submodule (
         { name, ... }:
         {
-          options = {
-            name = mkOption {
-              type = types.str;
-              default = name;
+          options =
+            let
+              hmUsers = (import ../home.nix configAttrs).users;
+            in
+            {
+              name = mkOption {
+                type = types.str;
+                default = hmUsers.${name}.config.home.username;
 
-              example = "notyou";
+                example = "notyou";
+              };
+
+              home = mkOption {
+                type = types.str;
+                default = hmUsers.${name}.config.home.homeDirectory;
+
+                example = "/home/notyou";
+              };
+
+              isNormalUser = mkEnableOption "Whether the user has a uid in range >-1000";
+              isSystemUser = mkEnableOption "Whether the user is a system user and has a uid <1000";
+
+              extraGroups = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+
+                example = [
+                  "wheel"
+                  "dialout"
+                ];
+              };
             };
-
-            home = mkOption {
-              type = types.str;
-              default = "/home/${name}";
-
-              example = "/home/notyou";
-            };
-
-            isNormalUser = mkEnableOption "Whether the user has a uid in range >-1000";
-            isSystemUser = mkEnableOption "Whether the user is a system user and has a uid <1000";
-
-            extraGroups = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-
-              example = [
-                "wheel"
-                "dialout"
-              ];
-            };
-          };
         }
       )
     );
