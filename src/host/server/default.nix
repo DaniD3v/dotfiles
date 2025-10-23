@@ -12,7 +12,7 @@
       imageSize = "10G";
     };
 
-    users.users.notyou.hashedPassword = "";
+    users.users.notyou-minimal.hashedPassword = "";
     security.sudo.wheelNeedsPassword = false;
   };
 
@@ -24,7 +24,9 @@
       AllowUsers = [ "notyou" ];
     };
   };
-  users.users."notyou".openssh.authorizedKeys.keyFiles = [ ../../user/notyou/ssh_key.pub ];
+  users.users.notyou-minimal.openssh.authorizedKeys.keyFiles = [
+    ../../user/notyou-minimal/ssh_key.pub
+  ];
 
   networking = {
     nameservers = [ "2001:4bb8:140:f194::10" ];
@@ -56,7 +58,7 @@
 
   dotfiles = {
     users = {
-      "notyou" = {
+      "notyou-minimal" = {
         isNormalUser = true;
         extraGroups = [
           "wheel"
