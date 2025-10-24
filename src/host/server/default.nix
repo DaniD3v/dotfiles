@@ -7,8 +7,10 @@
 
   # Remove 32G swap for VMs
   virtualisation.vmVariantWithDisko = {
-    disko.devices.disk.nvme.content.partitions.swap.size = lib.mkForce "512M";
-    disko.devices.disk.nvme.imageSize = "10G";
+    disko.devices.disk.nvme = {
+      content.partitions.swap.size = lib.mkForce "512M";
+      imageSize = "10G";
+    };
 
     users.users.notyou.hashedPassword = "";
     security.sudo.wheelNeedsPassword = false;
