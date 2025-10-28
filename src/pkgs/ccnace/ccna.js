@@ -75,9 +75,8 @@ function fetchAnswers(url) {
     (response) => {
       if (response.error) {
         return Promise.reject(response.error);
-      } else {
-        return new Promise((resolve) => parseAnswers(response.html, resolve));
       }
+      return parseAnswers(response.html);
     },
     (error) => {
       return Promise.reject(error);
@@ -88,14 +87,11 @@ function fetchAnswers(url) {
 /**
  *
  * @param {string} html
- * @param {(value: Map<string, string[]> | PromiseLike<Map<string, string[]>>) => void} resolve
+ * @returns {Map<string, string[]>}
  */
-function parseAnswers(html, resolve) {
+function parseAnswers(html) {
   const allAnswersElement = getAllAnswersElement(html);
-
-  let results = parse(allAnswersElement);
-
-  resolve(results);
+  return parse(allAnswersElement);
 }
 
 /**
