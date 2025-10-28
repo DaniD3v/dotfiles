@@ -71,20 +71,18 @@ window.addEventListener("keyup", (event) => {
 });
 
 function fetchAnswers(url) {
-  return new Promise((resolve, reject) => {
-    browser.runtime.sendMessage({ answersURL: url }).then(
-      (response) => {
-        if (response.error) {
-          reject(response.error);
-        } else {
-          parseAnswers(response.html, resolve);
-        }
-      },
-      (error) => {
-        reject(error);
-      },
-    );
-  });
+  return browser.runtime.sendMessage({ answersURL: url }).then(
+    (response) => {
+      if (response.error) {
+        return Promise.reject(response.error);
+      } else {
+        return new Promise((resolve) => parseAnswers(response.html, resolve));
+      }
+    },
+    (error) => {
+      return Promise.reject(error);
+    },
+  );
 }
 
 /**
@@ -127,9 +125,10 @@ function parse(allAnswersElement) {
     if (answerText.endsWith("*")) {
       answerText = answerText.substring(0, answerText.length - 1);
     }
-    if (results.has(question)) {
-      if (!results.get(question).includes(answerText)) {
-        results.get(question).push(answerText);
+    const existingAnswers = results.get(question);
+    if (existingAnswers) {
+      if (!existingAnswers.includes(answerText)) {
+        existingAnswers.push(answerText);
       }
     } else {
       results.set(question, [answerText]);
@@ -149,7 +148,7 @@ function parseQuestion(questionElement) {
 }
 
 function findPreviousStrong(target, allAnswersElement) {
-  const walker = document.createTreeWalker(
+  const walker = allAnswersElement.ownerDocument.createTreeWalker(
     allAnswersElement,
     NodeFilter.SHOW_ELEMENT,
   );
@@ -157,8 +156,7 @@ function findPreviousStrong(target, allAnswersElement) {
   let lastStrong = null;
   let currentNode;
 
-  let counter = 0;
-  // Walk forward to the <ul> and keep track of all <strong> tags along the way
+  // Walk forward to the target and keep track of all <strong> tags along the way
   while ((currentNode = walker.nextNode())) {
     if (currentNode === target) {
       break;
@@ -172,7 +170,6 @@ function findPreviousStrong(target, allAnswersElement) {
     ) {
       lastStrong = currentNode;
     }
-    counter++;
   }
   return lastStrong;
 }
@@ -213,11 +210,4 @@ function findAnswers(answerData, questionText) {
 
   let answers = answerData.get(questionText.trim());
   return answers;
-}
-
-function matchAnswer(textA, textB) {
-  const replaceRegex = /[^\w]/gi;
-  textA = textA.replace(replaceRegex, "");
-  textB = textB.replace(replaceRegex, "");
-  return textA === textB;
 }
