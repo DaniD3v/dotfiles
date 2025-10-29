@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  options,
+  modulesPath,
   ...
 }:
 with lib;
@@ -9,20 +9,31 @@ let
   cfg = config.iphermal;
 in
 {
+  imports = [ (modulesPath + "/virtualisation/qemu-vm.nix") ];
+
   options.iphermal = {
     enable = mkEnableOption "iphermal";
-    enableDiskoSupport = mkEnableOption "iphermal disko support";
 
-    persistantPath = mkOption {
-      type = types.path;
-      default = "/persistant";
+    paths = {
+      persistantMount = mkOption {
+        type = types.path;
+        default = "/persistant";
 
-      example = "/data/persistant";
+        example = "/data/persistant";
+        description = "Where to mount the persistant storage.";
+      };
+
+      rootsDirectory = mkOption {
+        type = types.path;
+        default = "${cfg.paths.persistantMount}/roots";
+
+        example = "/data/persistant/old-roots";
+        description = "Absolute path where all of the roots should be stored.";
+      };
     };
 
     keepOldRoots = {
       enable = mkEnableOption "Whether to keep old roots";
-
     };
   };
 
@@ -30,30 +41,41 @@ in
     let
       fileSystemsConfig = {
         "/" = {
-          mountPoint = cfg.persistantPath;
+          # HACK: nix tries to topologically sort the filesystems.
+          #
+          # Because /persistant requires / and / requires /persistant
+          # this results in a loop.
+          #
+          # The partition is manually mounted in a initrd script.
+          # It is then re-mounted by nix in a later boot stage.
+          mountPoint = "/./${cfg.paths.persistantMount}";
+          neededForBoot = true;
         };
 
         "iphermal-root" = {
           mountPoint = "/";
+          device = "${cfg.paths.rootsDirectory}/current";
+
+          fsType = "none";
+          options = [ "bind" ];
         };
       };
     in
     mkIf cfg.enable {
       fileSystems = fileSystemsConfig;
-      # virtualisation.fileSystems = fileSystemsConfig;
+      virtualisation.fileSystems = fileSystemsConfig;
 
-      # disko.devices._config.fileSystems =
-      #   let
-      #     diskoBaseConfig =
-      #       (evalModules {
-      #         modules = options.disko.devices.type.getSubModules ++ [
-      #           (filterAttrsRecursive (k: _: !hasPrefix "_" k) config.disko.devices)
-      #         ];
-      #       }).config._config.fileSystems;
-      #   in
-      #   mkMerge [
-      #     diskoBaseConfig
-      #     fileSystemsConfig
-      #   ];
+      boot.initrd.postResumeCommands = ''
+        echo HERE
+        set -x
+
+        #       device 
+        # mountFs "${cfg.fileSystems}" "${cfg.paths.persistantMount}"
+        mkdir -p "$targetRoot/${cfg.paths.rootsDirectory}/current"
+        ls "$targetRoot"
+        sleep 10
+
+        echo DONE
+      '';
     };
 }
