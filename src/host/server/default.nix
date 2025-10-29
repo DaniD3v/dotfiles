@@ -5,6 +5,11 @@
     ./disko.nix
   ];
 
+  iphermal = {
+    enable = true;
+    enableDiskoSupport = true;
+  };
+
   # Remove 32G swap for VMs
   virtualisation.vmVariantWithDisko = {
     disko.devices.disk.nvme = {
