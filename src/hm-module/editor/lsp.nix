@@ -36,7 +36,7 @@ in
         tailwindcss-language-server
       ];
 
-      programs.helix.languages.langages-server.tailwindcss = {
+      programs.helix.languages.language-server.tailwindcss = {
         command = lib.getExe pkgs.tailwindcss-language-server;
         args = [ "--stdio" ];
       };
