@@ -87,6 +87,9 @@ in
           jdk = config.dotfiles.language.java.jdk;
         })
       ];
+
+      dotfiles.editors.helix.language.java.args = "--jvm-arg=-javaagent:${pkgs.lombok}";
+
     })
 
     (mkIf cfg.dot.enable {
