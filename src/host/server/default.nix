@@ -38,14 +38,8 @@
   networking = {
     nameservers = [ "192.168.0.1" ];
 
+    # TODO IPv6 doesn't work due to ISP
     interfaces."enp15s0" = {
-      # TODO talk with ISP...
-      # ipv6.addresses = [
-      #   {
-      #     address = "2001:4bb8:140:f194::10";
-      #     prefixLength = 64;
-      #   }
-      # ];
       ipv4.addresses = [
         {
           address = "192.168.0.10";
@@ -58,11 +52,6 @@
       address = "192.168.0.1";
       interface = "enp15s0";
     };
-    # TODO talk to ISP ):
-    # defaultGateway6 = {
-    #   address = "2001:4bb8:140:f194::";
-    #   interface = "enp15s0";
-    # };
   };
 
   dotfiles = {
