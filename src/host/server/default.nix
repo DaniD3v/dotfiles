@@ -5,6 +5,8 @@
     ./disko.nix
   ];
 
+  iphermal.enable = true;
+
   virtualisation =
     let
       vmCommon = {
