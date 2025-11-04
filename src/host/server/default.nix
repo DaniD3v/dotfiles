@@ -5,23 +5,29 @@
     ./disko.nix
   ];
 
-  # Remove 32G swap for VMs
-  virtualisation.vmVariantWithDisko = {
-    disko.devices.disk.nvme = {
-      content.partitions.swap.size = lib.mkForce "10M";
-      imageSize = "10G";
+  virtualisation =
+    let
+      vmCommon = {
+        networking.interfaces = lib.mkForce { };
+
+        users.users.notyou-minimal.hashedPassword = "";
+        security.sudo.wheelNeedsPassword = false;
+      };
+    in
+    {
+      vmVariant = vmCommon;
+      vmVariantWithDisko = vmCommon // {
+        # Remove 32G swap for VMs
+        disko.devices.disk.nvme = {
+          content.partitions.swap.size = lib.mkForce "10M";
+          imageSize = "10G";
+        };
+
+        # HACK: a bug in disko causes
+        # 2 fstab entries to be generated
+        swapDevices = lib.mkForce [ ];
+      };
     };
-
-    # HACK: a bug in disko causes
-    # 2 fstab entries to be generated
-    swapDevices = lib.mkForce [ ];
-    # HACK: The VM hangs for a long time
-    # waiting for the specified network devices
-    networking.interfaces = lib.mkForce { };
-
-    users.users.notyou-minimal.hashedPassword = "";
-    security.sudo.wheelNeedsPassword = false;
-  };
 
   services.openssh = {
     enable = true;
