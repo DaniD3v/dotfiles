@@ -28,6 +28,20 @@ in
         example = "/old-roots";
         description = "path in `persistantMount` where all of the roots should be stored.";
       };
+
+      newRootCommand = mkOption {
+        type = types.str;
+        default = "root-$(date -u +%F-%H%M%S)";
+
+        description = "Bash command that generates the name for the root bindmount.";
+      };
+
+      currentRootSymlink = mkOption {
+        type = types.str;
+        default = "current";
+
+        description = "A symlink to the current root.";
+      };
     };
 
     keepOldRoots = {
@@ -51,7 +65,7 @@ in
 
         "iphermal-root" = {
           mountPoint = "/";
-          device = "${cfg.path.persistantMount}/${cfg.path.rootsDirectory}/current";
+          device = "${cfg.path.persistantMount}/${cfg.path.rootsDirectory}/${cfg.path.currentRootSymlink}";
           fsType = "none";
           options = [ "bind" ];
         };
@@ -72,7 +86,12 @@ in
            "${persistantMount}"
 
           # Create the folder the `$targetRoot` will be bind mounted to
-          mkdir -p "${persistantMount}/${cfg.path.rootsDirectory}/current"
+          ROOT="${cfg.path.newRootCommand}"
+          mkdir -p "${persistantMount}/${cfg.path.rootsDirectory}/$ROOT"
+
+          # Symlink root directory to `currentRootSymlink`
+          # A relative symlink is required due to pivot_root
+          ln -sf "./$ROOT" "${persistantMount}/${cfg.path.rootsDirectory}/${cfg.path.currentRootSymlink}"
         '';
 
       vmVariant = vmVariantPath: {
