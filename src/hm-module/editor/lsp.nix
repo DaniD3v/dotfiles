@@ -104,13 +104,11 @@ in
 
       programs.helix.languages.language-server.nixd.config.options =
         let
-          optionsPath = export: ''
-            (builtins.getFlake "${self}").nixdOptions.${pkgs.system}.${export}
-          '';
+          optionsPath = export: ''(builtins.getFlake "${self}").nixdOptions.${pkgs.system}.${export}'';
         in
         {
-          nixos.expr = optionsPath "home-manager";
-          home-manager.expr = optionsPath "nixos";
+          nixos.expr = optionsPath "nixos";
+          home-manager.expr = optionsPath "home-manager";
         };
 
       dotfiles.editors.helix.language.nix = {
