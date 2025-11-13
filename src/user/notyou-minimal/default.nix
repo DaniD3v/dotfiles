@@ -41,7 +41,7 @@
   };
 
   home.packages = with pkgs; [
-    podman-compose
+    docker
     podman
 
     nix-index
@@ -55,6 +55,7 @@
     ripgrep
     tokei
     tlrc
+    just
     unp
   ];
 }
