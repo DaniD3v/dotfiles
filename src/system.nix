@@ -1,5 +1,4 @@
 {
-  pkgs,
   flakeInputs,
   specialArgs,
   stateVersion,
@@ -9,8 +8,6 @@ rec {
   buildHost = (
     hostname: hostConfig:
     flakeInputs.nixpkgs.lib.nixosSystem {
-      system = pkgs.system;
-
       modules =
         (import ./nixos-module)
         ++ (import ./shared-module)
