@@ -12,9 +12,14 @@
 
   xdg.userDirs.enable = true;
 
-  programs.nushell = {
-    shellAliases = {
-      "c" = "with-env {\"SHLVL\": 0} {job spawn {alacritty --working-directory .}}";
+  programs = {
+    # HACK: Leaving this at the default is deprecated
+    ssh.enableDefaultConfig = false;
+
+    nushell = {
+      shellAliases = {
+        "c" = "with-env {\"SHLVL\": 0} {job spawn {alacritty --working-directory .}}";
+      };
     };
   };
 
