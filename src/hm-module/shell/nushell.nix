@@ -67,9 +67,13 @@ in
 
         (mkIf cfg.commandNotFound.enable ''
           $env.config.hooks.command_not_found = { |command_name|
+            print $"Command "($command_name)" not found."
+            print "Install it with:"
+
             print (
-              command-not-found $command_name | complete | get stderr
-                | str trim | str replace -a "nix-shell -p" "ni"
+              nix-locate $"bin/($command_name)" --minimal
+                | lines | str replace ".out" ""
+                | each {print $"  ni ($in)"} | ignore
             )
           }
         '')
