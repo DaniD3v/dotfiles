@@ -107,13 +107,13 @@ let
     # HACK: patch.sh has a bad /bin/bash shebang => run with sh
     # PATCH:
     patchPhase = ''
-      PT_PATH="$out" sh ${
+      sh ${
         fetchFromGitHub {
           owner = "hannahfluch";
           repo = "patchpt";
 
-          rev = "5cb6183840a5f55d199bb4242d3b335d11c7efff";
-          hash = "sha256-FFdXs2hVn8Ug4FQGfzjanlr2rn3JkbNHyqYGL2CosNE=";
+          tag = "v0.1.1";
+          hash = "sha256-68Gt+07DieKYJnRTGgReQ5/HlVoPVFXAjSxKEXtHAek=";
         }
       }/patch.sh "$out/opt/pt/bin/PacketTracer"
     '';
