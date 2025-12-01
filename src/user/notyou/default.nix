@@ -106,7 +106,7 @@
     gdb
 
     libreoffice
-    unstable.dolphin-emu # HACK: dolphin-emu doesn't build on the stable channel
+    dolphin-emu
     nautilus
     baobab
     totem

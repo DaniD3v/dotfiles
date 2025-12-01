@@ -63,7 +63,7 @@ in
   config = mkIf cfg.enable {
     programs.helix = {
       enable = true;
-      package = pkgs.unstable.helix;
+      package = pkgs.helix;
 
       settings = {
         theme = "gruvbox";
