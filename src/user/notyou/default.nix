@@ -86,7 +86,7 @@
     };
 
     unfree.whiteList = [
-      "packetTracer"
+      "ciscoPacketTracer8"
       "datagrip"
       "spotify"
 

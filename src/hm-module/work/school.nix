@@ -83,7 +83,7 @@ in
       };
 
       home.packages = with pkgs; [
-        packetTracer
+        patchedCiscoPacketTracer8
         screen
       ];
     })
