@@ -23,8 +23,10 @@
       git = {
         enable = true;
 
-        userName = "DaniD3v";
-        userEmail = "sch220233@spengergasse.at";
+        user = {
+          name = "DaniD3v";
+          email = "sch220233@spengergasse.at";
+        };
 
         sshKey = {
           enable = true;
