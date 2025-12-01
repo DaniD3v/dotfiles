@@ -21,6 +21,7 @@ in
     java.enable = mkEnableOption "Java";
     dot.enable = mkEnableOption "Graphviz dot";
     nix.enable = mkLspEnableOption "Nix";
+    cpp.enable = mkLspEnableOption "C++";
   };
 
   config = lib.mkMerge [
@@ -119,6 +120,12 @@ in
           if (nixFormatter == pkgs.nixfmt-tree) then pkgs.nixfmt-rfc-style else nixFormatter
         );
       };
+    })
+
+    (mkIf cfg.cpp.enable {
+      programs.helix.extraPackages = with pkgs; [
+        clang-tools
+      ];
     })
 
     # Re-add default LSPS.

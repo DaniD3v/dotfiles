@@ -82,6 +82,7 @@
       python.enable = true;
       rust.enable = true;
       nix.enable = true;
+      cpp.enable = true;
     };
 
     unfree.whiteList = [
