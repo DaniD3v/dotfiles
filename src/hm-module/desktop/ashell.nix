@@ -25,6 +25,7 @@ in
   config = {
     programs.ashell = mkIf cfg.enable {
       enable = true;
+      systemd.enable = true;
 
       settings = {
         truncate_title_after_length = mkIf cfg.truncateTitle 75;

@@ -3,7 +3,6 @@
 # have a premade home-manager module.
 {
   imports = [
-    ./ashell.nix
     ./rustic.nix
     ./uwsm.nix
   ];
