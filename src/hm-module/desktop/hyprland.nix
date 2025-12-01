@@ -227,7 +227,7 @@ in
 
             (
               let
-                rofi = "${lib.getExe pkgs.rofi-wayland} -show-icons -run-command '${uwsmApp} {cmd}'";
+                rofi = "${lib.getExe pkgs.rofi} -show-icons -run-command '${uwsmApp} {cmd}'";
               in
               mkIf cfg.appLauncher.enable [
                 "$mainMod, R, execr, ${rofi} -show drun"
