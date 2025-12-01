@@ -1,9 +1,9 @@
-# copied from nixpkgs
 {
   lib,
   stdenvNoCC,
   requireFile,
   autoPatchelfHook,
+  dpkg,
   makeWrapper,
   alsa-lib,
   dbus,
@@ -15,21 +15,22 @@
   libpulseaudio,
   libudev0-shim,
   libxkbcommon,
-  libxml2,
+  libxml2_13,
   libxslt,
   nspr,
-  wayland,
   nss,
+  wayland,
   xorg,
-  dpkg,
-  unixtools,
   buildFHSEnv,
   copyDesktopItems,
   makeDesktopItem,
-  fetchFromGitHub,
   version ? "8.2.2",
   packetTracerSource ? null,
+  # PATCH:
+  fetchFromGitHub,
+  unixtools,
 }:
+
 let
   hashes = {
     "8.2.0" = "sha256-GxmIXVn2Ew7lVBT7AuIRoXc0YGids4v9Gsfw1FEX7RY=";
@@ -43,7 +44,7 @@ let
   };
 
   unwrapped = stdenvNoCC.mkDerivation {
-    name = "packetTracer-unwrapped";
+    name = "ciscoPacketTracer8-unwrapped";
     inherit version;
 
     src =
@@ -56,9 +57,16 @@ let
           url = "https://www.netacad.com";
         };
 
-    buildInputs = [
+    nativeBuildInputs = [
       autoPatchelfHook
       makeWrapper
+      dpkg
+
+      # PATCH:
+      unixtools.xxd
+    ];
+
+    buildInputs = [
       alsa-lib
       dbus
       expat
@@ -69,7 +77,7 @@ let
       libpulseaudio
       libudev0-shim
       libxkbcommon
-      libxml2
+      libxml2_13
       libxslt
       nspr
       nss
@@ -96,19 +104,16 @@ let
       xcbutilwm
     ]);
 
-    nativeBuildInputs = [
-      unixtools.xxd
-    ];
-
-    # patch.sh has a bad /bin/bash shebang => run with sh
+    # HACK: patch.sh has a bad /bin/bash shebang => run with sh
+    # PATCH:
     patchPhase = ''
       sh ${
         fetchFromGitHub {
           owner = "hannahfluch";
           repo = "patchpt";
 
-          rev = "5cb6183840a5f55d199bb4242d3b335d11c7efff";
-          hash = "sha256-FFdXs2hVn8Ug4FQGfzjanlr2rn3JkbNHyqYGL2CosNE=";
+          tag = "v0.1.1";
+          hash = "sha256-68Gt+07DieKYJnRTGgReQ5/HlVoPVFXAjSxKEXtHAek=";
         }
       }/patch.sh "$out/opt/pt/bin/PacketTracer"
     '';
@@ -116,7 +121,7 @@ let
     unpackPhase = ''
       runHook preUnpack
 
-      ${lib.getExe' dpkg "dpkg-deb"} -x $src $out
+      dpkg-deb -x $src $out
       chmod 755 "$out"
 
       runHook postUnpack
@@ -126,6 +131,7 @@ let
       runHook preInstall
 
       makeWrapper "$out/opt/pt/bin/PacketTracer" "$out/bin/packettracer8" \
+        --set QT_QPA_PLATFORM xcb \
         --prefix LD_LIBRARY_PATH : "$out/opt/pt/bin"
 
       runHook postInstall
@@ -133,13 +139,14 @@ let
   };
 
   fhs-env = buildFHSEnv {
-    name = "packetTracer-fhs-env";
+    name = "ciscoPacketTracer8-fhs-env";
     runScript = lib.getExe' unwrapped "packettracer8";
     targetPkgs = _: [ libudev0-shim ];
   };
 in
+
 stdenvNoCC.mkDerivation {
-  pname = "packetTracer";
+  pname = "ciscoPacketTracer8";
   inherit version;
 
   dontUnpack = true;
@@ -154,21 +161,27 @@ stdenvNoCC.mkDerivation {
     mkdir -p $out/bin
     ln -s ${fhs-env}/bin/${fhs-env.name} $out/bin/packettracer8
 
+    mkdir -p $out/share/icons/hicolor/48x48/apps
+    ln -s ${unwrapped}/opt/pt/art/app.png $out/share/icons/hicolor/48x48/apps/cisco-packet-tracer-8.png
+    ln -s ${unwrapped}/usr/share/icons/gnome/48x48/mimetypes $out/share/icons/hicolor/48x48/mimetypes
+    ln -s ${unwrapped}/usr/share/mime $out/share/mime
+
     runHook postInstall
   '';
 
   desktopItems = [
     (makeDesktopItem {
-      name = "cisco-pt";
-      desktopName = "Packet Tracer";
-      icon = "${unwrapped}/opt/pt/art/app.png";
-
-      exec = "packettracer8 %u";
+      name = "cisco-pt8.desktop";
+      desktopName = "Cisco Packet Tracer 8";
+      icon = "cisco-packet-tracer-8";
+      exec = "packettracer8 %f";
       mimeTypes = [
-        "x-scheme-handler/pttp" # patch: enable pttp protocol
+        "x-scheme-handler/pttp" # PATCH: enable pttp protocol
         "application/x-pkt"
         "application/x-pka"
         "application/x-pkz"
+        "application/x-pksz"
+        "application/x-pks"
       ];
     })
   ];
@@ -183,5 +196,14 @@ stdenvNoCC.mkDerivation {
     ];
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+
+    # HACK
+    # knownVulnerabilities = [
+    #   ''
+    #     Cisco Packet Tracer 8 ships with qt5 qtwebengine.
+
+    #     ${lib.head libsForQt5.qtwebengine.meta.knownVulnerabilities}
+    #   ''
+    # ];
   };
 }

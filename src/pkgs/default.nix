@@ -5,7 +5,7 @@ prev:
   ccnace = import ./ccnace;
   lombok = import ./lombok.nix;
   pkg-shell = import ./pkg-shell;
-  packetTracer = import ./packetTracer.nix;
+  patchedCiscoPacketTracer8 = import ./packetTracer.nix;
 })
 // {
   dLib = import ../lib prev.lib;
