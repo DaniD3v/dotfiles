@@ -11,18 +11,20 @@ in
   options.dotfiles.programs.git = {
     enable = mkEnableOption "configuration of the Git version control system";
 
-    userName = mkOption {
-      type = types.str;
+    user = {
+      name = mkOption {
+        type = types.str;
 
-      description = "git username";
-      example = "DaniD3v";
-    };
+        description = "git username";
+        example = "DaniD3v";
+      };
 
-    userEmail = mkOption {
-      type = types.str;
+      email = mkOption {
+        type = types.str;
 
-      description = "git email";
-      example = "sch220233@spengergasse.at";
+        description = "git email";
+        example = "sch220233@spengergasse.at";
+      };
     };
 
     defaultBranchName = mkOption {
@@ -78,7 +80,7 @@ in
   config = {
     programs = mkIf cfg.enable {
       git = {
-        inherit (cfg) enable userName userEmail;
+        inherit (cfg) enable;
 
         signing = mkIf (cfg.sshKey.enable && cfg.sshKey.useForSigning) {
           signByDefault = true;
@@ -87,7 +89,10 @@ in
           format = "ssh";
         };
 
-        extraConfig.init.defaultBranch = cfg.defaultBranchName;
+        settings = {
+          user = cfg.user;
+          init.defaultBranch = cfg.defaultBranchName;
+        };
       };
 
       ssh = mkIf cfg.sshKey.enable {
