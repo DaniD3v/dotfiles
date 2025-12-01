@@ -106,7 +106,7 @@ in
       programs.helix.languages.language-server.nixd.config.options =
         let
           optionsPath = export: ''
-            (builtins.getFlake "${self}").nixdOptions.${pkgs.system}.${export}
+            (builtins.getFlake "${self}").nixdOptions.${pkgs.stdenv.hostPlatform.system}.${export}
           '';
         in
         {
