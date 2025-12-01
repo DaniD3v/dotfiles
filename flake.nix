@@ -2,11 +2,11 @@
   description = "DaniD3v's corn-flakes V2";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -29,7 +29,7 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        currentVersion = "25.05";
+        currentVersion = "25.11";
         stateVersion = "23.11";
 
         # use override instead of extend to persist `.override`
