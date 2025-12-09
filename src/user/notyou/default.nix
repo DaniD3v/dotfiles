@@ -122,6 +122,9 @@
     vesktop
     spotify
 
+    prismlauncher
+    openjdk
+
     adwaita-icon-theme
   ];
 }

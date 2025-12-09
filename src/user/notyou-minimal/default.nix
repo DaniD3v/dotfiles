@@ -51,6 +51,10 @@
     docker-compose
     podman
 
+    k3d
+    kubectl
+    kubernetes-helm
+
     nix-index
     nh
 
