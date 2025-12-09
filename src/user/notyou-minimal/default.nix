@@ -50,10 +50,11 @@
   home.packages = with pkgs; [
     docker-compose
     podman
-
     k3d
-    kubectl
+
     kubernetes-helm
+    kubectl
+    fluxcd
 
     nix-index
     nh
