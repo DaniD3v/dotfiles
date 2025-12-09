@@ -27,6 +27,8 @@
         # 2 fstab entries to be generated
         swapDevices = lib.mkForce [ ];
       };
+
+      docker.enable = true;
     };
 
   services.openssh = {
