@@ -72,7 +72,7 @@ in
           lsp.display-inlay-hints = true;
           inline-diagnostics = {
             cursor-line = "hint";
-            other-lines = "info";
+            other-lines = "error";
           };
 
           indent-guides.render = true;

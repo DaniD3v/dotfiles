@@ -8,7 +8,6 @@
   hardware.bluetooth.enable = true;
 
   environment.systemPackages = with pkgs; [
-    gnome-disk-utility
     gnome-text-editor
     alacritty
     librewolf
@@ -23,6 +22,7 @@
 
   programs = {
     steam.enable = true;
+    gnome-disks.enable = true;
 
     nix-ld = {
       enable = true;
@@ -43,6 +43,9 @@
   };
 
   services = {
+    gvfs.enable = true;
+    udisks2.enable = true;
+
     upower.enable = true;
   };
 
