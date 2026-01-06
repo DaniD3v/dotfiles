@@ -46,6 +46,16 @@
   networking = {
     nameservers = [ "192.168.0.1" ];
 
+    firewall.interfaces."enp15s0".allowedTCPPorts = [
+      80
+      443
+    ];
+
+    firewall.interfaces."enp15s0".allowedUDPPorts = [
+      80
+      443
+    ];
+
     # TODO IPv6 doesn't work due to ISP
     interfaces."enp15s0" = {
       ipv4.addresses = [
