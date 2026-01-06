@@ -18,6 +18,7 @@ in
 
     home.packages = [
       pkgs.clang
+      pkgs.bear
     ];
   };
 }

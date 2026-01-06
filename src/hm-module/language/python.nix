@@ -26,6 +26,8 @@ in
           pwntools
         ]
       ))
+
+      pkgs.uv
       pkgs.ruff
     ];
   };

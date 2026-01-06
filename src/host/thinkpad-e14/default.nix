@@ -37,9 +37,15 @@
     };
   };
 
+  networking.extraHosts = ''
+    127.0.0.1 gitea.pse-cicd
+    127.0.0.1 jenkins.pse-cicd
+  '';
+
   # enable podman on user accounts
   virtualisation = {
     podman.enable = true;
+    docker.enable = true;
   };
 
   services = {
