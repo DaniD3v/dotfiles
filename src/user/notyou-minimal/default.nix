@@ -53,6 +53,7 @@
     k3d
 
     kubernetes-helm
+    helmfile
     kubectl
     fluxcd
 
