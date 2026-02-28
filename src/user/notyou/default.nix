@@ -92,7 +92,6 @@
 
       "binaryninja-free"
       "geogebra"
-      "obsidian"
     ];
   };
 
@@ -118,7 +117,6 @@
     jetbrains.datagrip
 
     geogebra
-    obsidian
     vesktop
     spotify
 
