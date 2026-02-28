@@ -67,6 +67,7 @@
     distrobox
     ripgrep
     tokei
+    lldb
     tlrc
     just
     unp
