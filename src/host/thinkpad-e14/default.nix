@@ -59,7 +59,6 @@
   # enable podman on user accounts
   virtualisation = {
     podman.enable = true;
-    docker.enable = true;
   };
 
   services = {
