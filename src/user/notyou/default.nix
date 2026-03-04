@@ -13,6 +13,9 @@
     misc.force_default_wallpaper = 0;
   };
 
+  # HACK: push to k3d repo from podman
+  services.podman.settings.registries.insecure = [ "localhost" ];
+
   dotfiles = {
     desktop = {
       enable = true;

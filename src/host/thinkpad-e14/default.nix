@@ -53,6 +53,9 @@
     '';
   };
 
+  # HACK: k3d rootless
+  systemd.services."user@".serviceConfig.Delegate = "cpuset";
+
   # enable podman on user accounts
   virtualisation = {
     podman.enable = true;
