@@ -36,12 +36,22 @@
 
     settings = {
       PasswordAuthentication = false;
-      AllowUsers = [ "notyou" ];
+      AllowUsers = [
+        "notyou"
+        "eschb"
+      ];
     };
   };
   users.users.notyou-minimal.openssh.authorizedKeys.keyFiles = [
     ../../user/notyou-minimal/ssh_key.pub
   ];
+  users.users.eschb = {
+    isNormalUser = true;
+
+    openssh.authorizedKeys.keyFiles = [
+      ../../user/eschb/ssh_key.pub
+    ];
+  };
 
   networking = {
     nameservers = [ "192.168.0.1" ];
