@@ -15,6 +15,11 @@
 
       privileged = true;
 
+      ports = [
+        "6443:6443/tcp"
+        "6443:6443/udp"
+      ];
+
       cmd = [
         "server"
         "--default-local-storage-path=/data"
