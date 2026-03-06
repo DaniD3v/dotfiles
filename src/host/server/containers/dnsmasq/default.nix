@@ -13,14 +13,7 @@
         hash = "sha256-mRIzECMxX7khBqpgQNA2p5JYfW5TPn0FJEHz8M01Tmc=";
       };
 
-      ports = [
-        # dns
-        "53:53/tcp"
-        "53:53/udp"
-
-        # dhcp
-        "67:67/udp"
-      ];
+      extraOptions = [ "--network=host" ];
       capabilities = {
         NET_ADMIN = true;
         NET_RAW = true;
