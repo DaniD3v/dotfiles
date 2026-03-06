@@ -37,10 +37,17 @@
     (lib.mkIf config.virtualisation.isPhysicalHost {
       firewall.interfaces."enp15s0" = {
         allowedTCPPorts = [
+          53 # dns
+
+          # web
           80
           443
         ];
         allowedUDPPorts = [
+          53 # dns
+          67 # dhcp
+
+          # web
           80
           443
         ];

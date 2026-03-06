@@ -14,8 +14,12 @@
       };
 
       ports = [
+        # dns
         "53:53/tcp"
         "53:53/udp"
+
+        # dhcp
+        "67:67/udp"
       ];
       capabilities = {
         NET_ADMIN = true;
