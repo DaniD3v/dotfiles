@@ -50,6 +50,7 @@
   home.packages = with pkgs; [
     docker-compose
     podman
+    tilt
     k3d
 
     kubernetes-helm
@@ -62,14 +63,15 @@
 
     man-pages
     man-pages-posix
+    ripgrep
+    tokei
+    btop
+    tlrc
+    unp
 
     wl-clipboard-rs
     distrobox
-    ripgrep
-    tokei
     lldb
-    tlrc
     just
-    unp
   ];
 }
