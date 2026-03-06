@@ -16,17 +16,16 @@
       privileged = true;
 
       ports = [
-        "6443:6443/tcp"
-        "6443:6443/udp"
+        "6443:6443"
       ];
 
       cmd = [
         "server"
         "--default-local-storage-path=/data"
-        "--kubelet-arg=feature-gates=KubeletInUserNamespace=true"
       ];
       volumes = [
         "/data/srinohosting-k3s:/data"
+        "srinohosting-k3s-data:/var/lib/rancher/k3s"
       ];
     };
 
