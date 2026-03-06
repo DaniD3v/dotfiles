@@ -1,3 +1,4 @@
+{ config, lib, ... }:
 {
   disko.devices =
     let
@@ -36,7 +37,7 @@
                 };
               };
 
-              swap = {
+              swap = lib.mkIf config.virtualisation.isPhysicalHost {
                 size = "32G";
                 content.type = "swap";
               };
