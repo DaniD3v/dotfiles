@@ -1,6 +1,7 @@
 {
   imports = [
-    ./dnsmasq
     ./srinohosting-k3s.nix
+    ./dnsmasq
+    ./caddy
   ];
 }
