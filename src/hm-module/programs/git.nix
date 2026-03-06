@@ -90,7 +90,7 @@ in
         };
 
         settings = {
-          user = cfg.user;
+          inherit (cfg) user;
           init.defaultBranch = cfg.defaultBranchName;
         };
       };
@@ -104,7 +104,7 @@ in
           // {
             identityFile = cfg.sshKey.keyFile;
           }
-        ) (cfg.sshKey.identities);
+        ) cfg.sshKey.identities;
       };
     };
   };

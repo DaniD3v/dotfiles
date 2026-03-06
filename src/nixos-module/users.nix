@@ -93,7 +93,7 @@ in
               }
             )).users;
         in
-        lib.mapAttrs (k: v: hmUsers.${k}) cfgUsers;
+        lib.mapAttrs (k: _: hmUsers.${k}) cfgUsers;
     };
     users.users = cfgUsers;
   };

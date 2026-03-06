@@ -29,7 +29,7 @@ rec {
     in
     packageXpiExtension inputs rec {
       pname = manifest.name;
-      version = manifest.version;
+      inherit (manifest) version;
 
       src =
         let

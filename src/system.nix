@@ -5,7 +5,7 @@
   ...
 }:
 rec {
-  buildHost = (
+  buildHost =
     hostname: hostConfig:
     flakeInputs.nixpkgs.lib.nixosSystem {
       modules =
@@ -24,8 +24,7 @@ rec {
       specialArgs = specialArgs // {
         configType = "system";
       };
-    }
-  );
+    };
 
   hosts = builtins.mapAttrs buildHost (import ./host);
 }

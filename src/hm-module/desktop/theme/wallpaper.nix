@@ -1,12 +1,8 @@
 {
-  config,
   lib,
   ...
-}@inputs:
+}:
 with lib;
-let
-  cfg = config.dotfiles.desktop.wallpaper;
-in
 {
   options.dotfiles.desktop.wallpaper = {
     wallpapers = mkOption {

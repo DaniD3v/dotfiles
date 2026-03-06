@@ -29,7 +29,7 @@ in
               };
 
               settings = mkOption {
-                type = tomlFormat.type;
+                inherit (tomlFormat) type;
                 default = { };
 
                 example = {
@@ -54,7 +54,7 @@ in
     };
 
     settings = mkOption {
-      type = tomlFormat.type;
+      inherit (tomlFormat) type;
       default = { };
 
       example = {

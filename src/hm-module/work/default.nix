@@ -1,4 +1,4 @@
-inputs: {
+_: {
   imports = [
     ./school.nix
   ];

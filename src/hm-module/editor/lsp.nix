@@ -85,7 +85,7 @@ in
     (mkIf cfg.java.enable {
       programs.helix.extraPackages = [
         (pkgs.jdt-language-server.override {
-          jdk = config.dotfiles.language.java.jdk;
+          inherit (config.dotfiles.language.java) jdk;
         })
       ];
 
