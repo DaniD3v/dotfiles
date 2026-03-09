@@ -1,10 +1,10 @@
 {
-    email "srinohosting@gmail.com"
+	email "srinohosting@gmail.com"
 }
 
-staging.srinohosting.com {
-    reverse_proxy http://srinohosting-k3s
+*.staging.srinohosting.com {
+	reverse_proxy http://srinohosting-k3s
 }
-staging.srinohosting.com:5000 {
-    reverse_proxy http://srinohosting-k3s:5000
+registry.staging.srinohosting.com:5000, staging.srinohosting.com:5000 {
+	reverse_proxy http://registry.srinohosting-k3s:5000
 }
