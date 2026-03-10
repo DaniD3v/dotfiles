@@ -42,6 +42,9 @@
           # web
           80
           443
+
+          # oci-registry
+          5000
         ];
         allowedUDPPorts = [
           53 # dns
@@ -50,6 +53,9 @@
           # web
           80
           443
+
+          # oci-registry
+          5000
         ];
       };
 
