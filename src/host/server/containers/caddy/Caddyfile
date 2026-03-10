@@ -3,7 +3,8 @@
 }
 
 staging.srinohosting.com,
-registry.srinohosting.com {
+registry.srinohosting.com,
+auth.srinohosting.com {
 	reverse_proxy http://srinohosting-k3s
 }
 registry.srinohosting.com:5000 {
