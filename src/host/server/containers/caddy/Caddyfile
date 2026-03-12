@@ -7,11 +7,7 @@ registry.srinohosting.com,
 auth.srinohosting.com {
 	reverse_proxy http://srinohosting-k3s
 }
-srinohosting.com:5000,
-# HACK: "registry.srinohosting.com" must be here
-# because harbor redirects to its own externalUrl
-# which is "registry.srinohosting.com"
-registry.srinohosting.com:5000 {
+srinohosting.com:5000 {
 	reverse_proxy http://srinohosting-k3s:5000 {
 		header_up Host registry.srinohosting.com
 	}
