@@ -30,8 +30,6 @@ in
     programs.hyprland = {
       enable = true;
       withUWSM = true;
-
-      package = pkgs.unstable.hyprland;
     };
 
     xdg.portal.extraPortals = mkIf cfg.fixPortals [
