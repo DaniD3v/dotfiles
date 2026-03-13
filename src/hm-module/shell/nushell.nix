@@ -61,8 +61,9 @@ in
 
           $env.SHELL = "${lib.getExe config.programs.nushell.package}"
 
-          alias docker = podman
           alias tmp = cd (mktemp -d -t tmp-XXXXXXXXXX)
+          alias docker = podman
+          alias kc = kubectl
         ''
 
         (mkIf cfg.commandNotFound.enable ''
