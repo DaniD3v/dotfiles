@@ -21,6 +21,7 @@
 
       cmd = [
         "server"
+        "--node-name=server"
         "--default-local-storage-path=/data"
       ];
       volumes = [
