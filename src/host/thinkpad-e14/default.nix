@@ -2,6 +2,8 @@
 {
   imports = [
     ./hardware.nix
+
+    ./netbird.nix
     ./sddm.nix
   ];
 
