@@ -129,6 +129,7 @@
 
     prismlauncher
     openjdk
+    bruno
 
     adwaita-icon-theme
   ];

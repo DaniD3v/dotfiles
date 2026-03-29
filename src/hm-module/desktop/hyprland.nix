@@ -21,13 +21,6 @@ in
       description = "Whether to enable screenshots using hyprshot";
     };
 
-    appLauncher.enable = mkOption {
-      type = types.bool;
-      default = true;
-
-      description = "Whether to enable an application launcher using rofi";
-    };
-
     mainMonitor = mkOption {
       type = types.str;
       default = "";
@@ -222,15 +215,6 @@ in
                 ",      PRINT, execr, ${hyprshot} -m output --current"
                 "CTRL,  PRINT, execr, ${hyprshot} -m window"
                 "SHIFT, PRINT, execr, ${hyprshot} -m region"
-              ]
-            )
-
-            (
-              let
-                rofi = "${lib.getExe pkgs.rofi} -show-icons -run-command '${uwsmApp} {cmd}'";
-              in
-              mkIf cfg.appLauncher.enable [
-                "$mainMod, R, execr, ${rofi} -show drun"
               ]
             )
 

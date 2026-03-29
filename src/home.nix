@@ -17,6 +17,7 @@ rec {
         ++ (import ./shared-module)
         ++ [
           userConfig
+          flakeInputs.noctalia.homeModules.default
 
           {
             programs.home-manager.enable = true;
