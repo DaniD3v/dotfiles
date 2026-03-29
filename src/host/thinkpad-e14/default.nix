@@ -22,6 +22,22 @@
     git
   ];
 
+  networking.firewall = {
+    # allow KDE Connect
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+  };
+
   programs = {
     steam.enable = true;
     gnome-disks.enable = true;

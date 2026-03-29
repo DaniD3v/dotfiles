@@ -13,8 +13,12 @@
     misc.force_default_wallpaper = 0;
   };
 
-  # HACK: push to k3d repo from podman
-  services.podman.settings.registries.insecure = [ "localhost" ];
+  services = {
+    # HACK: push to k3d repo from podman
+    podman.settings.registries.insecure = [ "localhost" ];
+
+    kdeconnect.enable = true;
+  };
 
   dotfiles = {
     desktop = {
