@@ -33,7 +33,15 @@ in
     programs.noctalia-shell = mkIf cfg.enable {
       enable = true;
       systemd.enable = true;
-      package = pkgs.noctalia;
+
+      package = pkgs.noctalia.overrideAttrs (prev: {
+        nativeBuildInputs = prev.nativeBuildInputs ++ [ pkgs.makeBinaryWrapper ];
+
+        postFixup = ''
+          wrapProgram $out/bin/noctalia-shell \
+            --set QT_SCALE_FACTOR 1.2 \
+        '';
+      });
 
       plugins = {
         version = 2;
@@ -63,7 +71,6 @@ in
 
       settings = {
         general = {
-          scaleRatio = 0.7;
           radiusRatio = 0.4;
           iRadiusRatio = 0.3;
           animationSpeed = 1.3;
@@ -147,7 +154,6 @@ in
         osd.autoHideMs = 2000;
 
         bar = {
-          density = "mini";
           fontScale = 0.8;
 
           # move windows slightly downward
@@ -263,7 +269,7 @@ in
 
     dotfiles.desktop.hyprland.bindApp =
       let
-        noctaliaExe = "${lib.getExe pkgs.noctalia} ipc call";
+        noctaliaExe = "${lib.getExe config.programs.noctalia-shell.package} ipc call";
       in
       mkIf cfg.hyprlandIntegration [
         {
