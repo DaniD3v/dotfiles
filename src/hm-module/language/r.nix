@@ -10,7 +10,7 @@ let
 in
 {
   options.dotfiles.language.R = {
-    enable = mkEnableOption "java developement tools";
+    enable = mkEnableOption "R developement tools";
     rRuntime = mkPackageOption pkgs "rWrapper" { };
   };
 
