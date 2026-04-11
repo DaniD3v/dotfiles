@@ -129,7 +129,7 @@
 
     prismlauncher
     openjdk
-    bruno
+    unstable.bruno # TODO EOL electron
 
     adwaita-icon-theme
   ];

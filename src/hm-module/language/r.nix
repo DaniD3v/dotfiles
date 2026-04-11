@@ -29,10 +29,11 @@ in
         (cfg.rRuntime.override {
           inherit packages;
         })
-        (pkgs.rstudioWrapper.override {
-          R = cfg.rRuntime;
-          inherit packages;
-        })
+        # TODO EOL electron
+        # (pkgs.rstudioWrapper.override {
+        #   R = cfg.rRuntime;
+        #   inherit packages;
+        # })
       ];
   };
 }
