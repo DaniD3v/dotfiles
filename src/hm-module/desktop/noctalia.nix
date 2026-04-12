@@ -30,6 +30,9 @@ in
   };
 
   config = {
+    xdg.configFile."hypr/hyprland.conf".force = true;
+    xdg.configFile."alacritty/alacritty.toml".force = true;
+
     programs.noctalia-shell = mkIf cfg.enable {
       enable = true;
       systemd.enable = true;
