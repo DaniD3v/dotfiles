@@ -209,7 +209,7 @@ in
 
             (
               let
-                hyprshot = "${lib.getExe pkgs.hyprshot} -o ~/screenshots";
+                hyprshot = "${lib.getExe pkgs.hyprshot} -o ~/Pictures/screenshots";
               in
               mkIf cfg.screenshots.enable [
                 ",      PRINT, execr, ${hyprshot} -m output --current"
