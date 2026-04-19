@@ -4,6 +4,7 @@
 
 staging.srinohosting.com,
 registry.srinohosting.com,
-auth.srinohosting.com {
+auth.srinohosting.com,
+vpn.srinohosting.com {
 	reverse_proxy http://srinohosting-k3s
 }

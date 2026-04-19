@@ -52,6 +52,7 @@
           80
           443
 
+          3478 # stun server (netbird)
         ];
       };
 

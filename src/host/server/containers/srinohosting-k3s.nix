@@ -17,6 +17,10 @@
 
       ports = [
         "6443:6443"
+
+        # expose NodePort services
+        "32478:3478/udp" # stun server (netbird)
+        "30565:25565" # minecraft
       ];
 
       cmd = [
