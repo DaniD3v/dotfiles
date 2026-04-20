@@ -27,10 +27,6 @@
         "443:443/udp"
         "80:80/tcp"
         "80:80/udp"
-
-        # oci registry
-        "5000:5000/tcp"
-        "5000:5000/udp"
       ];
 
       volumes = [
