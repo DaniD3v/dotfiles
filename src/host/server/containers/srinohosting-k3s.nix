@@ -27,6 +27,7 @@
         "server"
         "--node-name=server"
         "--default-local-storage-path=/data"
+        "--tls-san=server.netbird.selfhosted"
       ];
       volumes = [
         "/data/srinohosting-k3s:/data"
