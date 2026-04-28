@@ -52,6 +52,10 @@
           inherit system;
 
           overlays = [
+            (_: prev: {
+              unstable = import nixpkgs-unstable { inherit system; };
+              original = prev;
+            })
             (
               # expose flake packages directly
               _: prev:
@@ -72,9 +76,6 @@
                   prev.${name} or throw "package '${name}' not found"
               ) flakeInputs
             )
-            (_: _: {
-              unstable = import nixpkgs-unstable { inherit system; };
-            })
           ];
         };
 
