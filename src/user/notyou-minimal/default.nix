@@ -51,8 +51,8 @@
   home.packages = with pkgs; [
     docker-compose
     podman
+    k3d-podman
     tilt
-    k3d
 
     kubernetes-helm
     helmfile
