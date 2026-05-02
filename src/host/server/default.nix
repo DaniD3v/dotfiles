@@ -43,6 +43,8 @@
           # web
           80
           443
+
+          25565 # minecraft
         ];
         allowedUDPPorts = [
           53 # dns
