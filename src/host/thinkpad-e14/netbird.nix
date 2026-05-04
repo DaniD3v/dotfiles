@@ -8,7 +8,7 @@
       ui.enable = false;
     };
 
-    # use resolvd => resolve peers with hostnames.netbird.cloud
+    # use resolvd => resolve peers with hostnames.netbird.selfhosted
     resolved.enable = true;
   };
 }

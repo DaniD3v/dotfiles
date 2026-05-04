@@ -29,12 +29,7 @@
   };
 
   networking = lib.mkMerge [
-    {
-      resolvconf.useLocalResolver = true;
-
-      # make containers use the local dns server, too.
-      useHostResolvConf = true;
-    }
+    { nameservers = [ "127.0.0.1" ]; }
     (lib.mkIf config.virtualisation.isPhysicalHost {
       firewall.interfaces."enp15s0" = {
         allowedTCPPorts = [
