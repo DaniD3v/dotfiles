@@ -14,5 +14,8 @@ vpn.srinohosting.com {
 		protocols h3
 	}
 
+	@grpc header Content-Type application/grpc*
+	reverse_proxy @grpc h2c://srinohosting-k3s
+
 	reverse_proxy http://srinohosting-k3s
 }
