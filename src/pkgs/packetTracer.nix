@@ -20,7 +20,23 @@
   nspr,
   nss,
   wayland,
-  xorg,
+  libsm,
+  libx11,
+  libxscrnsaver,
+  libxcomposite,
+  libxcursor,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxi,
+  libxrandr,
+  libxrender,
+  libxtst,
+  libxcb,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilrenderutil,
+  xcbutilwm,
   buildFHSEnv,
   copyDesktopItems,
   makeDesktopItem,
@@ -82,27 +98,25 @@ let
       nspr
       nss
       wayland
-    ]
-    ++ (with xorg; [
-      libICE
-      libSM
-      libX11
-      libXScrnSaver
-      libXcomposite
-      libXcursor
-      libXdamage
-      libXext
-      libXfixes
-      libXi
-      libXrandr
-      libXrender
-      libXtst
+
+      libsm
+      libx11
+      libxscrnsaver
+      libxcomposite
+      libxcursor
+      libxdamage
+      libxext
+      libxfixes
+      libxi
+      libxrandr
+      libxrender
+      libxtst
       libxcb
       xcbutilimage
       xcbutilkeysyms
       xcbutilrenderutil
       xcbutilwm
-    ]);
+    ];
 
     # HACK: patch.sh has a bad /bin/bash shebang => run with sh
     # PATCH:
@@ -201,7 +215,6 @@ stdenvNoCC.mkDerivation {
     # knownVulnerabilities = [
     #   ''
     #     Cisco Packet Tracer 8 ships with qt5 qtwebengine.
-
     #     ${lib.head libsForQt5.qtwebengine.meta.knownVulnerabilities}
     #   ''
     # ];
