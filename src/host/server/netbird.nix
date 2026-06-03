@@ -2,7 +2,7 @@
 {
   services = {
     netbird = {
-      package = pkgs.unstable.netbird;
+      package = pkgs.netbird;
       useRoutingFeatures = "both";
 
       clients."vpn-srino".port = 51820;

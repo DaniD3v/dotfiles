@@ -117,7 +117,7 @@ in
       dotfiles.editors.helix.language.nix = {
         language-servers = [ "nixd" ];
         formatter.command = lib.getExe (
-          if (nixFormatter == pkgs.nixfmt-tree) then pkgs.nixfmt-rfc-style else nixFormatter
+          if (nixFormatter == pkgs.nixfmt-tree) then pkgs.nixfmt else nixFormatter
         );
       };
     })

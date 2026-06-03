@@ -97,8 +97,7 @@ in
 
       ssh = mkIf cfg.sshKey.enable {
         enable = true;
-
-        matchBlocks = lib.mapAttrs (
+        settings = lib.mapAttrs (
           _: v:
           v
           // {

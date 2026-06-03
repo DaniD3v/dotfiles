@@ -114,7 +114,7 @@ in
       };
 
       home.packages = with pkgs; [
-        nodePackages."@angular/cli"
+        # nodePackages."@angular/cli" # TODO
         podman
       ];
     })
