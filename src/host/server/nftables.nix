@@ -10,6 +10,7 @@
           type nat hook prerouting priority dstnat; policy accept;
           tcp dport 11228 dnat to 192.168.0.11:22
         }
+
         chain postrouting {
           type nat hook postrouting priority srcnat; policy accept;
           ip daddr 192.168.0.11 masquerade
