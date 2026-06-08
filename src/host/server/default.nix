@@ -5,6 +5,7 @@
     ./disko.nix
 
     ./containers
+    ./nftables.nix
     ./netbird.nix
     ./vm.nix
   ];
