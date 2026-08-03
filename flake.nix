@@ -72,8 +72,11 @@
                   prev.${name} or throw "package '${name}' not found"
               ) flakeInputs
             )
-            (_: _: {
-              unstable = import nixpkgs-unstable { inherit system; };
+            (final: _: {
+              unstable = import nixpkgs-unstable {
+                inherit system;
+                inherit (final) config;
+              };
             })
           ];
         };
