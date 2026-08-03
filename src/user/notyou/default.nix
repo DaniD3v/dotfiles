@@ -94,6 +94,7 @@
 
     unfree.whiteList = [
       "ciscoPacketTracer8"
+      "claude-code"
       "datagrip"
       "spotify"
 
@@ -123,6 +124,7 @@
     teams-for-linux
     jetbrains.datagrip
 
+    claude-code
     geogebra
     vesktop
     spotify
