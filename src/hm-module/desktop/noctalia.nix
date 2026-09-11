@@ -35,14 +35,7 @@ in
         enable = true;
         systemd.enable = true;
 
-        package = pkgs.noctalia.overrideAttrs (prev: {
-          nativeBuildInputs = prev.nativeBuildInputs ++ [ pkgs.makeBinaryWrapper ];
-
-          postFixup = ''
-            wrapProgram $out/bin/noctalia-shell \
-              --set QT_SCALE_FACTOR 1.2 \
-          '';
-        });
+        package = pkgs.noctalia;
 
         plugins = {
           version = 2;
@@ -103,10 +96,6 @@ in
             {
               enabled = true;
               id = "gtk";
-            }
-            {
-              enabled = true;
-              id = "hyprland";
             }
 
             {
@@ -274,19 +263,19 @@ in
         in
         mkIf cfg.hyprlandIntegration [
           {
-            bind = "$mainMod, R";
+            bind = "SUPER + R";
             run = "${noctaliaExe} launcher toggle";
           }
           {
-            bind = "$mainMod, S";
+            bind = "SUPER + S";
             run = "${noctaliaExe} controlCenter toggle";
           }
           {
-            bind = "$mainMod, N";
+            bind = "SUPER + N";
             run = "${noctaliaExe} lockScreen lock";
           }
           {
-            bind = "$mainMod, P";
+            bind = "SUPER + P";
             run = "${noctaliaExe} wallpaper toggle";
           }
         ];
@@ -296,9 +285,6 @@ in
       ];
     }
 
-    (mkIf config.wayland.windowManager.hyprland.enable {
-      xdg.configFile."hypr/hyprland.conf".force = true;
-    })
     (mkIf config.programs.alacritty.enable {
       xdg.configFile."alacritty/alacritty.toml".force = true;
     })

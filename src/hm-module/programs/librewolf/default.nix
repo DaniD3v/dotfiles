@@ -216,7 +216,7 @@ in
 
     dotfiles.desktop.hyprland.bindApp = [
       {
-        bind = "$mainMod, Q";
+        bind = "SUPER + Q";
         run = lib.getExe cfg.finalPackage;
       }
     ];

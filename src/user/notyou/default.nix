@@ -9,10 +9,6 @@
     ./backup.nix
   ];
 
-  wayland.windowManager.hyprland.settings = {
-    misc.force_default_wallpaper = 0;
-  };
-
   services = {
     # HACK: push to k3d repo from podman
     podman.settings.registries.insecure = [ "localhost" ];
@@ -25,16 +21,21 @@
       enable = true;
       theme.mode = "dark";
 
-      envVariables = {
-        "GDK_SCALE" = "1.8";
-        "QT_SCALE_FACTOR" = "1.8";
-      };
-
       hyprland = {
-        mainMonitor = "eDP-1, highrr, 0x0, 1.8";
-
         monitors = [
-          ", preferred, auto, 1, mirror, eDP-1"
+          {
+            output = "eDP-1";
+            mode = "highrr";
+            position = "0x0";
+            scale = 1.8;
+          }
+          {
+            output = "";
+            mode = "preferred";
+            position = "auto";
+            scale = 1;
+            mirror = "eDP-1";
+          }
         ];
 
         input = {
@@ -44,7 +45,7 @@
 
         bindApp = [
           {
-            bind = "$mainMod, E";
+            bind = "SUPER + E";
             run = "${lib.getExe pkgs.nautilus} --new-window";
           }
         ];

@@ -11,7 +11,7 @@ in
   imports = [
     ./theme
 
-    ./hyprland.nix
+    ./hyprland
     ./noctalia.nix
   ];
 

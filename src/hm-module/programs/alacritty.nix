@@ -43,7 +43,7 @@ in
 
     dotfiles.desktop.hyprland.bindApp = [
       {
-        bind = "$mainMod, D";
+        bind = "SUPER + D";
         run = "${pkgs.alacritty}/bin/alacritty";
       }
     ];
