@@ -46,6 +46,10 @@ for workspace = 1, 10 do
     )
 end
 
+-- master layout
+hl.bind(mainMod .. " + TAB", hl.dsp.layout("rollnext"))
+hl.bind(mainMod .. " + SHIFT + TAB", hl.dsp.layout("rollprev"))
+
 -- special workspaces
 hl.bind(mainMod .. " + W", hl.dsp.workspace.toggle_special())
 hl.bind(
@@ -150,9 +154,13 @@ hl.animation({
 
 hl.config({
     general = {
+        layout = "master",
         snap = {
             enabled = true,
         },
+    },
+    master = {
+        mfact = 0.65,
     },
     misc = {
         force_default_wallpaper = 0,
