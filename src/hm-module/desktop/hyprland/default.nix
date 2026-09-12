@@ -72,6 +72,31 @@ in
         example = [ ];
       };
 
+    globalBind =
+      let
+        globalBindModule.options = {
+          bind = mkOption {
+            type = types.str;
+
+            description = "The bind to trigger the global shortcut";
+            example = "SUPER + R";
+          };
+
+          shortcut = mkOption {
+            type = types.str;
+
+            description = "The global shortcut to trigger, as `appid:name`";
+            example = "caelestia:launcher";
+          };
+        };
+      in
+      mkOption {
+        type = with types; listOf (submodule globalBindModule);
+
+        default = [ ];
+        example = [ ];
+      };
+
     browserBookmarks = mkBookmarkOption "Hyprland" {
       "Hyprland".bookmarks = {
         "Wiki".url = "https://wiki.hyprland.org/Configuring";
@@ -98,24 +123,20 @@ in
             brightnessctl = lib.getExe pkgs.brightnessctl;
             playerctl = lib.getExe pkgs.playerctl;
 
-            # Renders to `hl.bind(keys, hl.dsp.exec_raw(cmd))`.
+            # Renders to `hl.bind(keys, hl.dsp.<dispatcher>(arg))`.
             # `_args` makes it a two-argument call; the dispatcher is a Lua
             # function call, not data, so it has to be inlined.
-            execBind = keys: cmd: {
+            dispatchBind = dispatcher: keys: arg: {
               _args = [
                 keys
-                (mkLuaInline "hl.dsp.exec_raw(${lib.generators.toLua { } cmd})")
+                (mkLuaInline "hl.dsp.${dispatcher}(${lib.generators.toLua { } arg})")
               ];
             };
-
-            # HACK: duplicates `mainMod` from base.lua, which is local there
-            # and only loaded after these binds.
-            mainMod = "SUPER";
+            execBind = dispatchBind "exec_raw";
+            globalBind = dispatchBind "global";
           in
           mkMerge [
             [
-              (execBind "${mainMod} + SHIFT + M" "${lib.getExe pkgs.uwsm} stop")
-
               # shortcut keys
               (execBind "XF86AudioMute" "${amixer} set Master toggle")
               (execBind "XF86AudioMicMute" "${amixer} set Capture toggle")
@@ -143,6 +164,7 @@ in
             )
 
             (map (bindApp: execBind bindApp.bind "${uwsmApp} ${bindApp.run}") cfg.bindApp)
+            (map (bind: globalBind bind.bind bind.shortcut) cfg.globalBind)
           ];
       };
 

@@ -16,6 +16,8 @@
     kdeconnect.enable = true;
   };
 
+  programs.caelestia.settings.general.apps.explorer = [ "nautilus" ];
+
   dotfiles = {
     desktop = {
       enable = true;

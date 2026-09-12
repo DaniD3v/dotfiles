@@ -48,6 +48,8 @@ in
       }
     ];
 
+    programs.caelestia.settings.general.apps.terminal = [ "alacritty" ];
+
     # HACK: I should install this as a normal font/ only install it for alacritty.
     home.packages = with pkgs; [ meslo-lgs-nf ];
   };

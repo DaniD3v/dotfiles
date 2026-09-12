@@ -17,7 +17,7 @@ rec {
         ++ (import ./shared-module)
         ++ [
           userConfig
-          flakeInputs.noctalia.homeModules.default
+          flakeInputs.caelestia-shell.homeManagerModules.default
 
           {
             programs.home-manager.enable = true;

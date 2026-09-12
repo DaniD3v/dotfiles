@@ -12,7 +12,7 @@ in
     ./theme
 
     ./hyprland
-    ./noctalia.nix
+    ./caelestia.nix
   ];
 
   options.dotfiles.desktop = {
@@ -42,7 +42,7 @@ in
   config.dotfiles.desktop = mkMerge [
     (mkIf cfg.enable {
       hyprland.enable = true;
-      noctalia.enable = true;
+      caelestia.enable = true;
     })
 
     (mkIf cfg.forceWayland {
