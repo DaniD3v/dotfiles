@@ -10,7 +10,10 @@
   home.username = lib.mkForce "notyou";
   home.homeDirectory = lib.mkForce "/home/${config.home.username}";
 
-  xdg.userDirs.enable = true;
+  xdg.userDirs = {
+    enable = true;
+    setSessionVariables = false;
+  };
 
   programs = {
     # HACK: Leaving this at the default is deprecated
