@@ -3,8 +3,8 @@
   imports = [
     ./hardware.nix
 
-    ./netbird.nix
     ./sddm.nix
+    ./tailscale.nix
   ];
 
   hardware.bluetooth.enable = true;
