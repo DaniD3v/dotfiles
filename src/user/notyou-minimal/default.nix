@@ -61,6 +61,8 @@
     helmfile
     kubectl
     fluxcd
+    talosctl
+    opentofu
 
     nix-index
     nh
@@ -68,6 +70,9 @@
     man-pages
     man-pages-posix
     ripgrep
+    difftastic
+    jujutsu
+    jq
     tokei
     btop
     tlrc

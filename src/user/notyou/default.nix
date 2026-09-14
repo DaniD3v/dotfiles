@@ -97,7 +97,6 @@
 
     unfree.whiteList = [
       "ciscoPacketTracer8"
-      "claude-code"
       "datagrip"
       "spotify"
 
@@ -117,24 +116,26 @@
 
     libreoffice
     dolphin-emu
+    prismlauncher
     nautilus
     baobab
+    monique
     totem
     warp
     gimp
     eog
+    bruno
 
     teams-for-linux
     jetbrains.datagrip
 
-    claude-code
     geogebra
     vesktop
     spotify
 
-    prismlauncher
     openjdk
-    bruno
+    go
+    docker
 
     adwaita-icon-theme
   ];

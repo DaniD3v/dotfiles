@@ -20,6 +20,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    monique = {
+      url = "github:ToRvaLDz/monique";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     disko.inputs.nixpkgs.follows = "nixpkgs";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
   };

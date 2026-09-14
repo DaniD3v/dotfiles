@@ -168,6 +168,26 @@
         "type": "github"
       }
     },
+    "monique": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788962331,
+        "narHash": "sha256-GABV9S8dcp2gjBnYDL4P8VOVbp2SCKjO1dNTIFPpVZ4=",
+        "owner": "ToRvaLDz",
+        "repo": "monique",
+        "rev": "4d6646826df19db19d73875284140a8da4d1fea6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ToRvaLDz",
+        "repo": "monique",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1789009968,
@@ -228,6 +248,7 @@
         "firefox-extensions": "firefox-extensions",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "monique": "monique",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }
