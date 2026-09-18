@@ -100,7 +100,6 @@
       "datagrip"
       "spotify"
 
-      "binaryninja-free"
       "geogebra"
     ];
   };
@@ -109,7 +108,6 @@
     pkg-shell
 
     # ctfs
-    binaryninja-free
     snicat
     nmap
     gdb
