@@ -86,7 +86,7 @@ in
       repository = {
         repository = "opendal:sftp";
         options = {
-          endpoint = "danidev.vip";
+          endpoint = "home.danidev.vip";
           root = "/data/notyou/backup";
         };
 
