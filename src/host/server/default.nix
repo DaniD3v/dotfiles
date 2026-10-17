@@ -7,6 +7,7 @@
     ./network.nix
     ./nftables.nix
     ./netbird.nix
+    ./incus
     ./vm.nix
   ];
 

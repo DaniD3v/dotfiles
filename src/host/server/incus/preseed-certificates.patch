@@ -1,0 +1,39 @@
+Make preseed certificates idempotent: update an already trusted certificate instead of failing.
+
+TODO: upstream to lxc/incus (unfixed in main and v7.5.1 as of 2026-10-17), then drop this patch.
+
+diff --git a/client/incus_server.go b/client/incus_server.go
+index 2c48d44..91a1933 100644
+--- a/client/incus_server.go
++++ b/client/incus_server.go
+@@ -542,13 +542,25 @@ func (r *ProtocolIncus) ApplyServerPreseed(config api.InitPreseed) error {
+ 	}
+ 
+ 	// Apply certificate configuration.
+-	if len(config.Certificates) > 0 {
+-		for _, certificate := range config.Certificates {
+-			err := r.CreateCertificate(certificate)
+-			if err != nil {
+-				return fmt.Errorf("Failed to create certificate %q: %w", certificate.Name, err)
++	for _, certificate := range config.Certificates {
++		// Update an already trusted certificate in place (tokens and non-PEM input can't be matched).
++		fingerprint, err := localtls.CertFingerprintStr(certificate.Certificate)
++		if err == nil {
++			_, etag, err := r.GetCertificate(fingerprint)
++			if err == nil {
++				err = r.UpdateCertificate(fingerprint, certificate.CertificatePut, etag)
++				if err != nil {
++					return fmt.Errorf("Failed to update certificate %q: %w", certificate.Name, err)
++				}
++
++				continue
+ 			}
+ 		}
++
++		err = r.CreateCertificate(certificate)
++		if err != nil {
++			return fmt.Errorf("Failed to create certificate %q: %w", certificate.Name, err)
++		}
+ 	}
+ 
+ 	// Cluster configuration.

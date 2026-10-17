@@ -31,10 +31,18 @@
               host.port = 36443;
               guest.port = 6443;
             }
+            {
+              from = "host";
+              host.port = 38443;
+              guest.port = 8443;
+            }
           ];
         };
         networking.firewall = {
-          allowedTCPPorts = [ 6443 ];
+          allowedTCPPorts = [
+            6443
+            8443 # incus
+          ];
           allowedUDPPorts = [ 6443 ];
         };
 
