@@ -9,7 +9,6 @@
       wantedBy = [ "sockets.target" ];
     };
     services."podman-ingress-caddy" = {
-      after = [ "podman-ingress-caddy.socket" ];
       requires = [ "podman-ingress-caddy.socket" ];
     };
   };
