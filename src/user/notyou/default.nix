@@ -72,7 +72,6 @@
       nscs.enable = true;
       dsai.enable = true;
       pos.enable = true;
-      wmc.enable = true;
     };
 
     lsp = {
