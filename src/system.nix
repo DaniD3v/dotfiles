@@ -21,9 +21,7 @@ rec {
           }
         ];
 
-      specialArgs = specialArgs // {
-        configType = "system";
-      };
+      inherit specialArgs;
     };
 
   hosts = builtins.mapAttrs buildHost (import ./host);

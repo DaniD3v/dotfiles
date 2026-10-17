@@ -67,10 +67,7 @@ in
 
   config = {
     home-manager = {
-      useGlobalPkgs = true;
-      extraSpecialArgs = configAttrs.specialArgs // {
-        configType = "home-system";
-      };
+      extraSpecialArgs = configAttrs.specialArgs;
 
       users =
         let

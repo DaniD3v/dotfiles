@@ -1,5 +1,5 @@
 {
-  pkgs,
+  system,
   flakeInputs,
   specialArgs,
   stateVersion,
@@ -10,7 +10,7 @@ rec {
   buildUser =
     username: userConfig:
     builder {
-      inherit pkgs;
+      pkgs = import flakeInputs.nixpkgs { inherit system; };
 
       modules =
         (import ./hm-module)
@@ -28,9 +28,7 @@ rec {
           }
         ];
 
-      extraSpecialArgs = specialArgs // {
-        configType = "home";
-      };
+      extraSpecialArgs = specialArgs;
     };
 
   users = builtins.mapAttrs buildUser (import ./user);

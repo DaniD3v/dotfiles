@@ -38,6 +38,11 @@
     ];
   };
 
+  nixpkgs.config.allowUnfreePackages = [
+    "steam"
+    "steam-unwrapped"
+  ];
+
   programs = {
     steam.enable = true;
     gnome-disks.enable = true;
@@ -73,11 +78,6 @@
   };
 
   dotfiles = {
-    unfree.whiteList = [
-      "steam"
-      "steam-unwrapped"
-    ];
-
     users = {
       "notyou" = {
         isNormalUser = true;

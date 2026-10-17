@@ -1,0 +1,4 @@
+{ flakeOverlays, ... }:
+{
+  nixpkgs.overlays = flakeOverlays;
+}

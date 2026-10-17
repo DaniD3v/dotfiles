@@ -36,65 +36,45 @@
       flake-utils,
       ...
     }@flakeInputs:
+    let
+      overlays = [
+        (
+          # expose flake packages directly, unwrapping a lone default package
+          _: prev:
+          builtins.mapAttrs (
+            _: input:
+            let
+              packages = input.packages.${prev.stdenv.hostPlatform.system};
+            in
+            if builtins.attrNames packages == [ "default" ] then packages.default else packages
+          ) (nixpkgs.lib.filterAttrs (_: input: input ? packages) flakeInputs)
+        )
+        (_: prev: {
+          unstable = import nixpkgs-unstable {
+            inherit (prev) config;
+            inherit (prev.stdenv.hostPlatform) system;
+          };
+        })
+        (_: prev: import src/pkgs prev)
+      ];
+    in
     flake-utils.lib.eachDefaultSystem (
       system:
       let
         currentVersion = "26.05";
         stateVersion = "23.11";
 
-        # use override instead of extend to persist `.override`
-        # which would otherwise get removed on re-evaluation of nixpkgs.
-        pkgs = pkgsExternal.override (
-          prev:
-          prev
-          // {
-            overlays = prev.overlays ++ [ (_: prev: import src/pkgs prev) ];
-          }
-        );
-
-        # Extra variable to avoid calling src/pkgs with its own overlay already applied
-        pkgsExternal = nixpkgs.lib.makeOverridable (import nixpkgs) {
-          inherit system;
-
-          overlays = [
-            (
-              # expose flake packages directly
-              _: prev:
-              builtins.mapAttrs (
-                name: value:
-                if value ? packages then
-                  (
-                    let
-                      packages = value.packages.${system};
-                    in
-                    # if there's only a default package expose it directly
-                    if builtins.all (name: name == "default") (builtins.attrNames packages) then
-                      packages.default
-                    else
-                      packages
-                  )
-                else
-                  prev.${name} or throw "package '${name}' not found"
-              ) flakeInputs
-            )
-            (final: _: {
-              unstable = import nixpkgs-unstable {
-                inherit system;
-                inherit (final) config;
-              };
-            })
-          ];
-        };
+        pkgs = import nixpkgs { inherit system overlays; };
 
         # generic attrs to pass to system & host-config
-        configAttrs = rec {
-          inherit pkgs flakeInputs stateVersion;
+        configAttrs = {
+          inherit system flakeInputs stateVersion;
 
           specialArgs = {
             inherit flakeInputs currentVersion configAttrs;
-            originalPkgs = pkgs;
+            flakeOverlays = overlays;
 
-            dLib = import ./src/lib pkgs.lib;
+            dLib = import ./src/lib nixpkgs.lib;
             nixFormatter = formatter;
             self = ./.;
           };
@@ -106,14 +86,14 @@
         formatter = pkgs.nixfmt-tree;
       in
       {
-        packages = import src/pkgs pkgsExternal // {
+        packages = builtins.intersectAttrs (import src/pkgs pkgs) pkgs // {
           homeConfigurations = homeConfig.users;
           nixosConfigurations = systemConfig.hosts;
         };
 
         nixdOptions = {
           home-manager = (homeConfig.buildUser "module-export" { }).options;
-          nixos = (systemConfig.buildHost "module-export" { }).options;
+          nixos = (systemConfig.buildHost "module-export" { nixpkgs.hostPlatform = system; }).options;
         };
 
         inherit formatter;

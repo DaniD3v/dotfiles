@@ -94,15 +94,13 @@
       nix.enable = true;
       cpp.enable = true;
     };
-
-    unfree.whiteList = [
-      "ciscoPacketTracer8"
-      "datagrip"
-      "spotify"
-
-      "geogebra"
-    ];
   };
+
+  nixpkgs.config.allowUnfreePackages = [
+    "datagrip"
+    "spotify"
+    "geogebra"
+  ];
 
   home.packages = with pkgs; [
     pkg-shell

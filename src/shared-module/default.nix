@@ -1,3 +1,3 @@
 [
-  ./unfree.nix
+  ./nixpkgs.nix
 ]

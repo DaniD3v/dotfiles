@@ -82,6 +82,8 @@ in
         };
       };
 
+      nixpkgs.config.allowUnfreePackages = [ "ciscoPacketTracer8" ];
+
       home.packages = with pkgs; [
         patchedCiscoPacketTracer8
         screen
