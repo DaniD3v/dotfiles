@@ -175,8 +175,6 @@ in
 
     xdg.configFile."hypr/base.lua".source = ./base.lua;
 
-    programs.uwsm.envVariables = config.dotfiles.desktop.envVariables;
-
     dotfiles.programs.librewolf.bookmarks."Toolbar".bookmarks."Ricing".bookmarks =
       mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;
   };
