@@ -165,6 +165,8 @@ in
 
         git_branch = {
           format = "[$branch[(:$remote_branch)](fg:git_remote_branch)](fg:git_branch bg:bg)";
+
+          only_attached = true;
           ignore_branches = [
             "main"
             "master"
