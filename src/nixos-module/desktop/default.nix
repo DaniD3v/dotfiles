@@ -23,7 +23,7 @@ in
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     dotfiles.desktops.${cfg.default}.enable = true;
   };
 }
