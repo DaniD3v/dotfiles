@@ -25,7 +25,7 @@ with lib;
     };
   };
 
-  config = {
+  config = mkIf config.dotfiles.desktop.enable {
     dconf = {
       enable = true;
       settings = {
