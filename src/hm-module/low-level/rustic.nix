@@ -83,9 +83,8 @@ in
 
   config = mkIf cfg.enable {
     xdg.configFile."rustic/rustic.toml".source = tomlFormat.generate "rustic.toml" (
-      cfg.settings
-      // {
-        backup.snapshots = lib.mapAttrsToList (
+      recursiveUpdate cfg.settings {
+        backup.snapshots = mapAttrsToList (
           _: value:
           value.settings
           // {

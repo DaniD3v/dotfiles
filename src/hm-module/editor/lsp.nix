@@ -110,8 +110,8 @@ in
           '';
         in
         {
-          nixos.expr = optionsPath "home-manager";
-          home-manager.expr = optionsPath "nixos";
+          nixos.expr = optionsPath "nixos";
+          home-manager.expr = optionsPath "home-manager";
         };
 
       dotfiles.editors.helix.language.nix = {

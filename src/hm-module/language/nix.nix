@@ -36,11 +36,11 @@ in
 
           "Nixpkgs" = {
             url = "https://github.com/NixOS/nixpkgs";
-            keyword = "home-manager";
+            keyword = "nixpkgs";
           };
           "Home manager" = {
             url = "https://github.com/nix-community/home-manager";
-            keyword = "nixpkgs";
+            keyword = "home-manager";
           };
         };
       };

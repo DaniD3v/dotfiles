@@ -148,7 +148,7 @@ in
                   };
 
                   "Docker Hub" = mkSearchEngine "dh" {
-                    url = "https://hub.docker.com/search?q=aa";
+                    url = "https://hub.docker.com/search";
                     params."q" = "{searchTerms}";
                   };
 

@@ -49,6 +49,7 @@ in
 
       sudo = mkColorOption "fg" "color of the sudo-unlock indicator";
       jobs = mkColorOption "#7c7c7c" "color to use for the number of background jobs";
+      duration = mkColorOption "#87875F" "color of the last command's execution time";
       shlvl = mkColorOption "#088167" "color to use to display depth of nested shells";
       package = mkColorOption "#AC7647" "color used to display version of a package";
 
@@ -163,7 +164,7 @@ in
         };
 
         git_branch = {
-          format = "[$branch[(:$remote_branch)](fg:git_branch_remote)](fg:git_branch bg:bg)";
+          format = "[$branch[(:$remote_branch)](fg:git_remote_branch)](fg:git_branch bg:bg)";
           ignore_branches = [
             "main"
             "master"
