@@ -1,10 +1,10 @@
-{ config, lib, ... }:
 {
   imports = [
     ./hardware.nix
     ./disko.nix
 
     ./containers
+    ./network.nix
     ./nftables.nix
     ./netbird.nix
     ./vm.nix
@@ -28,47 +28,6 @@
     isNormalUser = true;
     openssh.authorizedKeys.keyFiles = [ ../../user/eschb/ssh_key.pub ];
   };
-
-  networking = lib.mkMerge [
-    { nameservers = [ "127.0.0.1" ]; }
-    (lib.mkIf config.virtualisation.isPhysicalHost {
-      firewall.interfaces."enp15s0" = {
-        allowedTCPPorts = [
-          53 # dns
-
-          # web
-          80
-          443
-
-          25565 # minecraft
-        ];
-        allowedUDPPorts = [
-          53 # dns
-
-          # web
-          80
-          443
-
-          3478 # stun server (netbird)
-        ];
-      };
-
-      # TODO IPv6 doesn't work due to ISP
-      interfaces."enp15s0" = {
-        ipv4.addresses = [
-          {
-            address = "192.168.0.10";
-            prefixLength = 24;
-          }
-        ];
-      };
-
-      defaultGateway = {
-        address = "192.168.0.1";
-        interface = "enp15s0";
-      };
-    })
-  ];
 
   dotfiles = {
     users = {
