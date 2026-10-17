@@ -63,13 +63,6 @@
         extensions = with pkgs.firefox-extensions; [
           bitwarden
         ];
-
-        bookmarks = {
-          "Docker Hub" = {
-            url = "https://hub.docker.com/search?q=%s";
-            keyword = "@dh";
-          };
-        };
       };
     };
 
