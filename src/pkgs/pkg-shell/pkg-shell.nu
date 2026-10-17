@@ -49,7 +49,7 @@ def find-missing-deps [
  
 def "ns pkg-config" [lib_filename: string, --include-deps (-i)] {
   nix-locate --minimal -w $"/pkgconfig/($lib_filename)" | lines
-    | filter {$include_deps or not ($in | str starts-with "(")}
+    | where {$include_deps or not ($in | str starts-with "(")}
 }
 
 def "pkg-config-exports" []: list<string> -> string {
