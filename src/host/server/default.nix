@@ -44,7 +44,6 @@
         ];
         allowedUDPPorts = [
           53 # dns
-          67 # dhcp
 
           # web
           80

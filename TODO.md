@@ -5,6 +5,8 @@
 
 ## TODO
 
+- [ ] remove server dnsmasq once OpenWrt does NAT reflection (also `nameservers`, port 53, caddy `dns_bind_port` hack)
+
 - [ ] fix `pm-suspend`
 - [ ] fix python duplicate lsp errors
 

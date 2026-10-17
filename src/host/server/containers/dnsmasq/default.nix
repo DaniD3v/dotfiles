@@ -14,10 +14,6 @@
       };
 
       extraOptions = [ "--network=host" ];
-      capabilities = {
-        NET_ADMIN = true;
-        NET_RAW = true;
-      };
 
       volumes = [
         "${./dnsmasq.conf}:/etc/dnsmasq.conf"
