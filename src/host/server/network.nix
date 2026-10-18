@@ -94,8 +94,8 @@
     # TODO: IPv6 doesn't work due to ISP
     uplink = {
       name = "uplink";
-      address = [ "192.168.0.10/24" ];
-      gateway = [ "192.168.0.1" ];
+      address = [ "10.90.0.8/16" ];
+      gateway = [ "10.90.0.1" ];
     };
   };
 }

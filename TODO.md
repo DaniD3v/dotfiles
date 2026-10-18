@@ -6,6 +6,8 @@
 ## TODO
 
 - [ ] remove server dnsmasq once OpenWrt does NAT reflection (also `nameservers`, port 53, caddy `dns_bind_port` hack)
+- [ ] move the `mac-dnat` forward (port 11228 → `192.168.0.11:22`) to the Mac's new `10.90.0.0/16` address
+- [ ] document the AP model in `docs/home-network.md`
 
 - [ ] fix `pm-suspend`
 - [ ] fix python duplicate lsp errors
