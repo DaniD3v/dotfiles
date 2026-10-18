@@ -156,11 +156,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792339834,
-        "narHash": "sha256-bAIrkK2Jj0VNmB8n/6QoNPFMRT7ZyIuyhHDA6V7LK6Q=",
+        "lastModified": 1792340381,
+        "narHash": "sha256-OzUO5gyd55lZs30vUO0cMRw8nWmPAAVgvmmoSFLBx/8=",
         "owner": "DaniD3v",
         "repo": "hostcolor",
-        "rev": "7c90483bb74f9380000530852a45e11608999fcc",
+        "rev": "772a2375b73624f18d3b47daaec7beb7422e4a2f",
         "type": "github"
       },
       "original": {
