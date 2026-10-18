@@ -14,9 +14,9 @@ in
       default = false;
 
       description = ''
-        Whether to immeditely select the latest generation on boot.
-        Another generation can still be picked when holding the space key on boot.
-      ''; # TODO verify it actually is space
+        Whether to immediately select the latest generation on boot.
+        Another generation can still be picked by holding space before systemd-boot starts.
+      '';
     };
 
     animation.enable = mkEnableOption "Plymouth boot animation";

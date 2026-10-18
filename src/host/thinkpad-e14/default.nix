@@ -73,6 +73,7 @@
   };
 
   services = {
+    # enrolled imperatively with `fprintd-enroll`
     fprintd.enable = true;
 
     gvfs.enable = true;

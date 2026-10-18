@@ -16,7 +16,7 @@
   };
 
   programs = {
-    # HACK: Leaving this at the default is deprecated
+    # use openssh's defaults instead of home-manager's deprecated default block
     ssh.enableDefaultConfig = false;
 
     nushell = {
