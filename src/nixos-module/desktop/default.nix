@@ -13,7 +13,7 @@ in
   ];
 
   options.dotfiles.desktop = {
-    enable = mkEnableOption "Whether to require a desktop to be installed before building";
+    enable = mkEnableOption "requiring a desktop to be installed before building";
 
     default = mkOption {
       type = types.enum [ "hyprland" ];

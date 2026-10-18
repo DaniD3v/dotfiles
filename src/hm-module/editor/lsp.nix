@@ -18,8 +18,8 @@ in
     angular.enable = mkLspEnableOption "Angular";
     python.enable = mkLspEnableOption "Python";
     csharp.enable = mkLspEnableOption "Csharp";
-    java.enable = mkEnableOption "Java";
-    dot.enable = mkEnableOption "Graphviz dot";
+    java.enable = mkLspEnableOption "Java";
+    dot.enable = mkLspEnableOption "Graphviz dot";
     nix.enable = mkLspEnableOption "Nix";
     cpp.enable = mkLspEnableOption "C++";
   };

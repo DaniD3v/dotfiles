@@ -44,7 +44,7 @@ in
       default = { };
 
       example = {
-        "/home".git-ignore = true;
+        "/home".settings.git-ignore = true;
         "/etc" = { };
       };
       description = ''

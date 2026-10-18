@@ -36,13 +36,13 @@ in
     };
 
     sshKey = {
-      enable = mkEnableOption "Whether to use ssh keys for authentication";
+      enable = mkEnableOption "ssh key authentication";
 
       keyFile = mkOption {
         type = types.str;
 
         description = "The ssh key used";
-        example = "${config.home.homeDir}/secrets/ssh/git";
+        example = "${config.home.homeDirectory}/secrets/ssh/git";
       };
 
       identities = mkOption {
@@ -73,7 +73,7 @@ in
           );
       };
 
-      useForSigning = mkEnableOption "Whether to use the ssh key for signing git commits";
+      useForSigning = mkEnableOption "signing git commits with the ssh key";
     };
   };
 

@@ -36,8 +36,8 @@ in
                 example = "/home/notyou";
               };
 
-              isNormalUser = mkEnableOption "Whether the user has a uid in range >-1000";
-              isSystemUser = mkEnableOption "Whether the user is a system user and has a uid <1000";
+              isNormalUser = mkEnableOption "a normal user (uid >= 1000)";
+              isSystemUser = mkEnableOption "a system user (uid < 1000)";
 
               extraGroups = mkOption {
                 type = types.listOf types.str;
@@ -55,7 +55,7 @@ in
     default = { };
 
     example = {
-      "notyou".groups = [
+      "notyou".extraGroups = [
         "wheel"
       ];
     };
