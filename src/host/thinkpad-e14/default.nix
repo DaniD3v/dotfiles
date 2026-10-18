@@ -22,6 +22,10 @@
     git
   ];
 
+  networking.networkmanager.enable = true;
+  # HACK: don't hold back user services until the network is online
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   networking.firewall = {
     # allow KDE Connect
     allowedTCPPortRanges = [

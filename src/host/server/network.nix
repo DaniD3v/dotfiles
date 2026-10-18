@@ -1,7 +1,4 @@
 {
-  # HACK: the shared dotfiles modules enable NetworkManager on every host
-  dotfiles.networkManager.enable = false;
-
   networking = {
     useNetworkd = true;
 
