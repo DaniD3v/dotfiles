@@ -10,6 +10,7 @@ in
 {
   imports = [
     ./hyprland.nix
+    ./sound.nix
   ];
 
   options.dotfiles.desktop = {
@@ -20,6 +21,13 @@ in
       default = "hyprland";
 
       description = "Default desktop environment to use";
+    };
+
+    sound.enable = mkOption {
+      type = types.bool;
+      default = cfg.enable;
+
+      description = "Whether to enable sound-support";
     };
   };
 
