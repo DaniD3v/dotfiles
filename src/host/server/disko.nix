@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   disko.devices =
     let
@@ -79,4 +84,7 @@
         };
       };
     };
+
+  # report array events (e.g. a failed disk) to the journal
+  boot.swraid.mdadmConf = "PROGRAM ${lib.getExe' pkgs.util-linux "logger"}";
 }
