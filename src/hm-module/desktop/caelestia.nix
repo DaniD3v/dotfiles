@@ -44,7 +44,7 @@ in
           };
 
           services = {
-            useTwelveHourClock = false;
+            clockFormat = "TwentyFourHour";
             weatherUnits = "Celsius";
           };
         };
