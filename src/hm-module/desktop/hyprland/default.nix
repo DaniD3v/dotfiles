@@ -175,6 +175,10 @@ in
 
     xdg.configFile."hypr/base.lua".source = ./base.lua;
 
+    # HACK: hyprland's portal config falls back to gtk,
+    # but the home-manager module only installs the hyprland portal
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
     dotfiles.programs.librewolf.bookmarks."Toolbar".bookmarks."Ricing".bookmarks =
       mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;
   };

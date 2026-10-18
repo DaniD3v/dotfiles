@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -34,10 +33,5 @@ with lib;
         };
       };
     };
-
-    # this is required to allow setting the xdg darkmode
-    xdg.portal.extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-    ];
   };
 }
