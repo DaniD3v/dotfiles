@@ -8,10 +8,6 @@ let
 in
 with lib;
 {
-  imports = [
-    ./wallpaper.nix
-  ];
-
   options.dotfiles.desktop.theme = {
     mode = mkOption {
       type = types.enum [
