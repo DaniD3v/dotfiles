@@ -146,6 +146,29 @@
         "type": "github"
       }
     },
+    "hostcolor": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792339834,
+        "narHash": "sha256-bAIrkK2Jj0VNmB8n/6QoNPFMRT7ZyIuyhHDA6V7LK6Q=",
+        "owner": "DaniD3v",
+        "repo": "hostcolor",
+        "rev": "7c90483bb74f9380000530852a45e11608999fcc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DaniD3v",
+        "repo": "hostcolor",
+        "type": "github"
+      }
+    },
     "m3shapes": {
       "inputs": {
         "nixpkgs": [
@@ -248,6 +271,7 @@
         "firefox-extensions": "firefox-extensions",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "hostcolor": "hostcolor",
         "monique": "monique",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable"

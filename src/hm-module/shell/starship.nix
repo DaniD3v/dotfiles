@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   dLib,
   ...
 }:
@@ -38,14 +39,11 @@ in
       fg = mkColorOption "#87875F" "foreground color";
       bg = mkColorOption "#303030" "background color";
 
-      frame = mkColorOption "#6C6C6C" "color of the frame connecting the prompt components";
+      os = mkColorOption "#303030" "color of the NixOS logo";
       dir = mkColorOption "#00AFFF" "color used to display directories";
 
       success_character = mkColorOption "#5FD700" "color of the ❯ arrow if the last command executed successfully";
       failure = mkColorOption "#FF0000" "color indicating the last command failed";
-
-      os = mkColorOption "#EEEEEE" "color of the NixOS logo";
-      os_bg = mkColorOption "#484848" "color of the NixOS logo background";
 
       sudo = mkColorOption "fg" "color of the sudo-unlock indicator";
       jobs = mkColorOption "#7c7c7c" "color to use for the number of background jobs";
@@ -74,14 +72,18 @@ in
 
       settings = {
         format =
-          "[╭─](fg:frame)"
+          let
+            accentFg = "\${custom.accent_fg}";
+            accentBg = "\${custom.accent_bg}";
+          in
+          "${accentFg}╭─"
+          # Left prompt
+          + ""
+          + "${accentBg}[](fg:os)"
+          + "${accentFg}[](bg:bg)"
           + "["
           + (
-            # Left prompt
-            "[](fg:os_bg)"
-            + "[](fg:os bg:os_bg)"
-            + "[](fg:os_bg bg:bg) "
-            + "$directory"
+            " $directory"
             + "( | $custom)( $git_branch)( $git_status)( $git_state)"
             + "[](fg:bg)"
             # Right prompt
@@ -101,7 +103,7 @@ in
             )
           )
           + "](fg:fg bg:bg)\n"
-          + "[╰─](fg:frame)$character";
+          + "${accentFg}╰─$character";
 
         palette = "home-manager";
         palettes.home-manager = {
@@ -161,6 +163,22 @@ in
           require_repo = true;
 
           description = "Displays a git icon when in a git repository";
+        };
+
+        # host color as raw ANSI escapes, coloring the text that follows
+        custom.accent_fg = {
+          when = true;
+          format = "$output";
+
+          command = "${getExe pkgs.hostcolor} -f fg";
+          shell = [ "sh" ];
+        };
+        custom.accent_bg = {
+          when = true;
+          format = "$output";
+
+          command = "${getExe pkgs.hostcolor} -f bg";
+          shell = [ "sh" ];
         };
 
         git_branch = {

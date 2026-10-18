@@ -25,6 +25,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hostcolor = {
+      url = "github:DaniD3v/hostcolor";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
     disko.inputs.nixpkgs.follows = "nixpkgs";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
   };
