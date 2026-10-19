@@ -84,7 +84,6 @@
 
             dLib = import ./src/lib nixpkgs.lib;
             nixFormatter = formatter;
-            self = ./.;
           };
         };
 
@@ -97,11 +96,6 @@
         packages = builtins.intersectAttrs (import src/pkgs pkgs) pkgs // {
           homeConfigurations = homeConfig.users;
           nixosConfigurations = systemConfig.hosts;
-        };
-
-        nixdOptions = {
-          home-manager = (homeConfig.buildUser "module-export" { }).options;
-          nixos = (systemConfig.buildHost "module-export" { nixpkgs.hostPlatform = system; }).options;
         };
 
         inherit formatter;
