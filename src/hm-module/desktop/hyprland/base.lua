@@ -166,3 +166,30 @@ hl.config({
         force_default_wallpaper = 0,
     },
 })
+
+---------------------------
+---- APPLICATION FIXES ----
+---------------------------
+
+-- the bitwarden popout requests maximize once it is named
+hl.window_rule({
+    name = "librewolf-suppress-maximize",
+    match = { class = "^librewolf$" },
+
+    suppress_event = "maximize",
+})
+
+-- the bitwarden popout opens as "LibreWolf" and only sets its title afterwards,
+-- so a static float rule can't match it
+local bitwardenTitle = "Extension: (Bitwarden Password Manager) - Bitwarden"
+hl.on("window.title", function(w)
+    if
+        not w.floating
+        and w.class == "librewolf"
+        and w.title:sub(1, #bitwardenTitle) == bitwardenTitle
+    then
+        hl.dispatch(hl.dsp.window.float({ window = w, action = "set" }))
+        hl.dispatch(hl.dsp.window.resize({ window = w, x = 460, y = 630 }))
+        hl.dispatch(hl.dsp.window.center({ window = w }))
+    end
+end)
