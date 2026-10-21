@@ -171,6 +171,7 @@ hl.config({
 ---- APPLICATION FIXES ----
 ---------------------------
 
+-- HACK: Firefox will fix this upstream in https://bugzilla.mozilla.org/show_bug.cgi?id=2042229#c4
 -- the bitwarden popout requests maximize once it is named
 hl.window_rule({
     name = "librewolf-suppress-maximize",
