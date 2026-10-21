@@ -174,7 +174,7 @@ hl.config({
 -- the bitwarden popout requests maximize once it is named
 hl.window_rule({
     name = "librewolf-suppress-maximize",
-    match = { class = "^librewolf$" },
+    match = { class = "librewolf" },
 
     suppress_event = "maximize",
 })
