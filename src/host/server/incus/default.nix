@@ -38,23 +38,60 @@
         }
       ];
 
-      profiles = [
-        {
-          name = "default";
-          devices = {
-            root = {
-              type = "disk";
-              path = "/";
-              pool = "images";
-            };
-
-            eth0 = {
-              type = "nic";
-              network = "vms";
-            };
+      profiles =
+        let
+          rootDisk = {
+            type = "disk";
+            path = "/";
+            pool = "images";
           };
-        }
-      ];
+        in
+        [
+          {
+            name = "default";
+            devices = {
+              root = rootDisk;
+
+              eth0 = {
+                type = "nic";
+                network = "vms";
+              };
+            };
+          }
+
+          {
+            name = "router";
+            devices = {
+              root = rootDisk;
+
+              # Incus orders eth{0-2} alphabetically
+
+              # eth0: the Incus OpenWrt image's default wan
+              "0-uplink" = {
+                type = "nic";
+                nictype = "bridged";
+
+                parent = "br-trunk";
+                vlan = "90";
+              };
+
+              # eth1
+              "1-management" = {
+                type = "nic";
+                nictype = "bridged";
+
+                parent = "br-trunk";
+                vlan = "10";
+              };
+
+              # eth2
+              "2-vms" = {
+                type = "nic";
+                network = "vms";
+              };
+            };
+          }
+        ];
 
       certificates = [
         {
