@@ -33,14 +33,16 @@
 | switch       | `10.10.0.2` |
 | AP           | `10.10.0.3` |
 | AP           | `10.10.0.4` |
+| OpenWrt      | `10.10.0.6` |
 | thinkpad-e14 | `10.10.0.7` |
-| server       | `10.10.0.9` |
+| server       | `10.10.0.8` |
 
 ### `uplink`
 
 | Device            | Address         |
 |-------------------|-----------------|
 | ISP router        | `10.90.0.1`     |
+| OpenWrt           | `10.90.0.6`     |
 | thinkpad-e14      | `10.90.0.7`     |
 | server            | `10.90.0.8`     |
 | DHCP pool - start | `10.90.1.1`     |
@@ -53,7 +55,7 @@ so you reach the switch, the APs and the server.
 
 Switch: 10.10.0.2
 AP: 10.10.0.3 & 10.10.0.4
-Server: 10.10.0.9
+Server: 10.10.0.8
 
 If the server is down, the backup Wi-Fi still has Internet through the ISP
 router.

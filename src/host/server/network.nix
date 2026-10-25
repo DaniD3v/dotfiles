@@ -85,7 +85,7 @@
 
     management = {
       name = "management";
-      address = [ "10.10.0.9/16" ];
+      address = [ "10.10.0.8/16" ];
     };
 
     # TODO: IPv6 doesn't work due to ISP
