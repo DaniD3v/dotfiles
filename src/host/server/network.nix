@@ -63,6 +63,7 @@
 
       bridgeVLANs = [
         { VLAN = 10; }
+        { VLAN = 20; }
         { VLAN = 90; }
       ];
     };

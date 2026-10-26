@@ -64,7 +64,7 @@
             devices = {
               root = rootDisk;
 
-              # Incus orders eth{0-2} alphabetically
+              # Incus orders eth{0-3} alphabetically
 
               # eth0: the Incus OpenWrt image's default wan
               "0-uplink" = {
@@ -85,7 +85,16 @@
               };
 
               # eth2
-              "2-vms" = {
+              "2-lan" = {
+                type = "nic";
+                nictype = "bridged";
+
+                parent = "br-trunk";
+                vlan = "20";
+              };
+
+              # eth3
+              "3-vms" = {
                 type = "nic";
                 network = "vms";
               };
