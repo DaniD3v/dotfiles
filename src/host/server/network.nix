@@ -2,13 +2,14 @@
   networking = {
     useNetworkd = true;
 
-    nameservers = [ "127.0.0.1" ];
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
     useDHCP = false;
 
     firewall.interfaces.uplink = {
       allowedTCPPorts = [
-        53 # dns
-
         # web
         80
         443
@@ -16,8 +17,6 @@
         25565 # minecraft
       ];
       allowedUDPPorts = [
-        53 # dns
-
         # web
         80
         443
@@ -26,6 +25,8 @@
       ];
     };
   };
+
+  services.resolved.settings.Resolve.DNSOverTLS = true;
 
   systemd.network.netdevs = {
     br-trunk = {

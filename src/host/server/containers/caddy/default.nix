@@ -16,8 +16,6 @@
   virtualisation = {
     # allow containers to resolve each other using hostname
     podman.defaultNetwork.settings.dns_enabled = true;
-    # HACK: port 53 is already taken due to dnsmasq
-    containers.containersConf.settings.network.dns_bind_port = 1053;
 
     oci-containers.containers.ingress-caddy =
       let
