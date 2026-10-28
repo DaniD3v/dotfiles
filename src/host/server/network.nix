@@ -72,8 +72,24 @@
       bridgeVLANs = [
         { VLAN = 10; }
         { VLAN = 20; }
+        { VLAN = 40; }
         { VLAN = 90; }
       ];
+    };
+
+    # untagged untrusted
+    enp1s0f0 = {
+      name = "enp1s0f0";
+      networkConfig.Bridge = "br-trunk";
+
+      bridgeVLANs = [
+        {
+          VLAN = 40;
+          PVID = 40;
+          EgressUntagged = 40;
+        }
+      ];
+      linkConfig.RequiredForOnline = "no";
     };
 
     br-trunk = {

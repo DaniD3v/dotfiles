@@ -23,6 +23,7 @@
 |------|--------------|------------------|
 | 10   | `management` | `10.10.0.0/16`   |
 | 20   | `lan`        | `10.20.0.0/16`   |
+| 40   | `untrusted`  | `10.40.0.0/16`   |
 | 90   | `uplink`     | `10.90.0.0/16`   |
 
 ## Addresses
@@ -64,6 +65,17 @@
 | OpenWrt           | `10.30.0.1`   |
 | DHCP pool - start | `10.30.1.1`   |
 | DHCP pool - end   | `10.30.1.254` |
+
+### `untrusted`
+
+The Mac is plugged into the server's `enp1s0f0`.
+
+| Device            | Address       |
+|-------------------|---------------|
+| OpenWrt           | `10.40.0.1`   |
+| Mac               | `10.40.0.9`   |
+| DHCP pool - start | `10.40.1.1`   |
+| DHCP pool - end   | `10.40.1.254` |
 
 ## Break-glass access
 

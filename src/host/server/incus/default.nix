@@ -54,7 +54,7 @@
             devices = {
               root = rootDisk;
 
-              # Incus orders eth{0-3} alphabetically
+              # Incus orders eth{0-4} alphabetically
 
               # eth0: the Incus OpenWrt image's default wan
               "0-uplink" = {
@@ -90,6 +90,15 @@
 
                 parent = "br-vms";
               };
+
+              # eth4
+              "4-untrusted" = {
+                type = "nic";
+                nictype = "bridged";
+
+                parent = "br-trunk";
+                vlan = "40";
+              };
             };
           }
         ];
@@ -104,7 +113,10 @@
     };
   };
 
-  networking.firewall.interfaces.management.allowedTCPPorts = [ 8443 ];
+  networking = {
+    nftables.enable = true; # incus doesn't support iptables
+    firewall.interfaces.management.allowedTCPPorts = [ 8443 ];
+  };
 
   # HACK: the incus module loads br_netfilter, which runs bridged frames through
   # NAT on br-trunk instead of uplink and loses the replies to masqueraded traffic.
