@@ -194,3 +194,12 @@ hl.on("window.title", function(w)
         hl.dispatch(hl.dsp.window.center({ window = w }))
     end
 end)
+
+------------------
+---- MONITORS ----
+------------------
+
+-- per-machine layout written by monique
+if package.searchpath("monitors", package.path) then
+    require("monitors")
+end
