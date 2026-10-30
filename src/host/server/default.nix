@@ -3,9 +3,7 @@
     ./hardware.nix
     ./disko.nix
 
-    ./containers
     ./network.nix
-    ./netbird.nix
     ./incus
     ./vm.nix
   ];

@@ -7,23 +7,6 @@
       "1.0.0.1"
     ];
     useDHCP = false;
-
-    firewall.interfaces.uplink = {
-      allowedTCPPorts = [
-        # web
-        80
-        443
-
-        25565 # minecraft
-      ];
-      allowedUDPPorts = [
-        # web
-        80
-        443
-
-        3478 # stun server (netbird)
-      ];
-    };
   };
 
   services.resolved.settings.Resolve.DNSOverTLS = true;

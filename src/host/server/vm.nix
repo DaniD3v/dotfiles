@@ -17,9 +17,7 @@
       vmCommon = {
         virtualisation = {
           isPhysicalHost = false;
-          memorySize = 8 * 1024; # k3s needs a decent amount of memory
 
-          # forward k3s
           forwardPorts = [
             {
               from = "host";
@@ -28,23 +26,12 @@
             }
             {
               from = "host";
-              host.port = 36443;
-              guest.port = 6443;
-            }
-            {
-              from = "host";
               host.port = 38443;
               guest.port = 8443;
             }
           ];
         };
-        networking.firewall = {
-          allowedTCPPorts = [
-            6443
-            8443 # incus
-          ];
-          allowedUDPPorts = [ 6443 ];
-        };
+        networking.firewall.allowedTCPPorts = [ 8443 ]; # incus
 
         systemd.network = {
           # rename QEMU's NIC to the server's
