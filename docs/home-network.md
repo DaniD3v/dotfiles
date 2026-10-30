@@ -77,6 +77,13 @@ The Mac is plugged into the server's `enp1s0f0`.
 | DHCP pool - start | `10.40.1.1`   |
 | DHCP pool - end   | `10.40.1.254` |
 
+## Inbound
+
+The ISP router only forwards SSH (TCP 22) to the server.
+Everything else goes through the DMZ to OpenWrt.
+
+The SSH forward from the ISP router takes precedence over the DMZ.
+
 ## Break-glass access
 
 Port 1 is untagged `management`,
