@@ -43,6 +43,12 @@ in
             };
           };
 
+          # drop the frame around the screen edges
+          border = {
+            thickness = 0;
+            rounding = 0;
+          };
+
           services = {
             clockFormat = "TwentyFourHour";
             weatherUnits = "Celsius";
