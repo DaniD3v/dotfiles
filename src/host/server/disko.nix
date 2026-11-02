@@ -7,10 +7,10 @@
 {
   disko.devices =
     let
-      mkRaidDevice = number: device: {
+      mkRaidDevice = number: id: {
         "hdd${toString number}" = {
           type = "disk";
-          inherit device;
+          device = "/dev/disk/by-id/${id}";
 
           content = {
             type = "mdraid";
@@ -23,7 +23,7 @@
       disk = {
         nvme = {
           type = "disk";
-          device = "/dev/nvme0n1"; # TODO
+          device = "/dev/disk/by-id/nvme-CT1000P5PSSD8_21364242C262";
 
           content = {
             type = "gpt";
@@ -61,14 +61,14 @@
           };
         };
       }
-      // (mkRaidDevice 1 "/dev/sda") # TODO
-      // (mkRaidDevice 2 "/dev/sdb") # TODO
-      // (mkRaidDevice 3 "/dev/sdc") # TODO
-      // (mkRaidDevice 4 "/dev/sdd") # TODO
-      // (mkRaidDevice 5 "/dev/sde") # TODO
-      // (mkRaidDevice 6 "/dev/sdf") # TODO
-      // (mkRaidDevice 7 "/dev/sdg") # TODO
-      // (mkRaidDevice 8 "/dev/sdh"); # TODO
+      // (mkRaidDevice 1 "ata-TOSHIBA_HDWT840_93C2S1G6SRZH")
+      // (mkRaidDevice 2 "ata-TOSHIBA_HDWT840_73R3S1XDSRZH")
+      // (mkRaidDevice 3 "ata-TOSHIBA_HDWT840_93C2S1EPSRZH")
+      // (mkRaidDevice 4 "ata-TOSHIBA_HDWT840_73R3S1KGSRZH")
+      // (mkRaidDevice 5 "ata-TOSHIBA_HDWT840_93C2S1FRSRZH")
+      // (mkRaidDevice 6 "ata-TOSHIBA_HDWT840_93C2S1G4SRZH")
+      // (mkRaidDevice 7 "ata-TOSHIBA_HDWT840_93C2S1G2SRZH")
+      // (mkRaidDevice 8 "ata-TOSHIBA_HDWT840_93C2S1EQSRZH");
 
       mdadm = {
         data_raid = {
