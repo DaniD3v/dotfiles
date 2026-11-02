@@ -40,6 +40,13 @@
       };
     };
 
+    br-vms = {
+      netdevConfig = {
+        Kind = "bridge";
+        Name = "br-vms";
+      };
+    };
+
     management = {
       netdevConfig = {
         Kind = "vlan";
@@ -83,6 +90,13 @@
         { VLAN = 10; }
         { VLAN = 90; }
       ];
+    };
+
+    # no host address
+    br-vms = {
+      name = "br-vms";
+      networkConfig.LinkLocalAddressing = "no";
+      linkConfig.RequiredForOnline = "no";
     };
 
     management = {

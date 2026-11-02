@@ -24,20 +24,6 @@
         }
       ];
 
-      networks = [
-        {
-          name = "vms";
-          type = "bridge";
-          config = {
-            # TODO: hand gateway, NAT and DHCP over to OpenWrt once it runs
-            "ipv4.address" = "10.30.0.1/16";
-            "ipv4.nat" = "true";
-
-            "ipv6.address" = "none";
-          };
-        }
-      ];
-
       profiles =
         let
           rootDisk = {
@@ -54,7 +40,11 @@
 
               eth0 = {
                 type = "nic";
-                network = "vms";
+                nictype = "bridged";
+
+                parent = "br-vms";
+                # prevents devices from communicating on Layer 2
+                "security.port_isolation" = "true";
               };
             };
           }
@@ -96,7 +86,9 @@
               # eth3
               "3-vms" = {
                 type = "nic";
-                network = "vms";
+                nictype = "bridged";
+
+                parent = "br-vms";
               };
             };
           }
@@ -112,20 +104,7 @@
     };
   };
 
-  networking.firewall.interfaces = {
-    management.allowedTCPPorts = [ 8443 ];
-
-    # incus' dnsmasq
-    vms = {
-      allowedTCPPorts = [
-        53 # dns
-      ];
-      allowedUDPPorts = [
-        53 # dns
-        67 # dhcp
-      ];
-    };
-  };
+  networking.firewall.interfaces.management.allowedTCPPorts = [ 8443 ];
 
   # HACK: the incus module loads br_netfilter, which runs bridged frames through
   # NAT on br-trunk instead of uplink and loses the replies to masqueraded traffic.

@@ -57,6 +57,14 @@
 | DHCP pool - start | `10.90.1.1`     |
 | DHCP pool - end   | `10.90.255.253` |
 
+### `vms`
+
+| Device            | Address       |
+|-------------------|---------------|
+| OpenWrt           | `10.30.0.1`   |
+| DHCP pool - start | `10.30.1.1`   |
+| DHCP pool - end   | `10.30.1.254` |
+
 ## Break-glass access
 
 Port 1 is untagged `management`,
