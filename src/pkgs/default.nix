@@ -3,6 +3,7 @@ prev:
   inherit (import ./firefox-extension.nix) buildFirefoxExtension;
 
   ccnace = import ./ccnace;
+  claude-desktop = import ./claude-desktop.nix;
   lombok = import ./lombok.nix;
   pkg-shell = import ./pkg-shell;
   k3d-podman = import ./k3d-podman.nix;
