@@ -49,6 +49,8 @@ in
             rounding = 0;
           };
 
+          paths.wallpaperDir = "${config.xdg.userDirs.pictures}/wallpapers";
+
           services = {
             clockFormat = "TwentyFourHour";
             weatherUnits = "Celsius";

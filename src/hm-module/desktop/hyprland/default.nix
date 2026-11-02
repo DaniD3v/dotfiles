@@ -154,7 +154,7 @@ in
 
             (
               let
-                hyprshot = "${lib.getExe pkgs.hyprshot} -o ~/Pictures/screenshots";
+                hyprshot = "${lib.getExe pkgs.hyprshot} -o ${config.xdg.userDirs.pictures}/screenshots";
               in
               mkIf cfg.screenshots.enable [
                 (execBind "PRINT" "${hyprshot} -m output --current")

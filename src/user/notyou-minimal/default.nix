@@ -13,6 +13,17 @@
   xdg.userDirs = {
     enable = true;
     setSessionVariables = false;
+
+    documents = "${config.home.homeDirectory}/documents";
+    download = "${config.home.homeDirectory}/downloads";
+    pictures = "${config.home.homeDirectory}/pictures";
+    projects = "${config.home.homeDirectory}/projects";
+
+    desktop = null;
+    music = null;
+    publicShare = null;
+    templates = null;
+    videos = null;
   };
 
   programs = {
