@@ -4,6 +4,7 @@
     ./hardware.nix
 
     ./sddm.nix
+    ./netbird.nix
     ./tailscale.nix
   ];
 
