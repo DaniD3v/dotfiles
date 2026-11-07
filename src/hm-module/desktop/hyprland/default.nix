@@ -175,6 +175,9 @@ in
 
     xdg.configFile."hypr/base.lua".source = ./base.lua;
 
+    # HACK: Electron apps default to X11 until upstream switches to Wayland
+    xdg.configFile."uwsm/env-hyprland".text = "export NIXOS_OZONE_WL=1\n";
+
     # HACK: hyprland's portal config falls back to gtk,
     # but the home-manager module only installs the hyprland portal
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
