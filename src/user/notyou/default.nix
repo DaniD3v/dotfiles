@@ -113,6 +113,7 @@
     gimp
     eog
     bruno
+    herdr-app
 
     teams-for-linux
     jetbrains.datagrip

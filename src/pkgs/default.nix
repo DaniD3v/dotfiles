@@ -4,6 +4,7 @@ prev:
 
   ccnace = import ./ccnace;
   claude-desktop = import ./claude-desktop.nix;
+  herdr-app = import ./herdr-app;
   lombok = import ./lombok.nix;
   pkg-shell = import ./pkg-shell;
   k3d-podman = import ./k3d-podman.nix;
