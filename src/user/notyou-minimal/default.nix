@@ -65,6 +65,7 @@
           keyFile = "~/secrets/git_key";
           identities = {
             "github.com".user = "git";
+            "git.srinohosting.com".user = "git";
           };
         };
       };
