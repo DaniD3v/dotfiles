@@ -34,6 +34,13 @@
       settings."*".identityFile = "~/secrets/ssh_key";
     };
 
+    jujutsu.settings.ui.diff-formatter = [
+      (lib.getExe pkgs.difftastic)
+      "--color=always"
+      "$left"
+      "$right"
+    ];
+
     nushell = {
       shellAliases = {
         "c" = "with-env {\"SHLVL\": 0} {job spawn {alacritty --working-directory .}}";
@@ -85,8 +92,6 @@
     man-pages
     man-pages-posix
     ripgrep
-    difftastic
-    jujutsu
     jq
     tokei
     btop

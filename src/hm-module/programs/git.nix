@@ -95,6 +95,20 @@ in
         };
       };
 
+      jujutsu = {
+        inherit (cfg) enable;
+
+        settings = {
+          inherit (cfg) user;
+
+          signing = mkIf (cfg.sshKey.enable && cfg.sshKey.useForSigning) {
+            behavior = "own";
+            backend = "ssh";
+            key = cfg.sshKey.keyFile;
+          };
+        };
+      };
+
       ssh = mkIf cfg.sshKey.enable {
         enable = true;
         settings = lib.mapAttrs (
