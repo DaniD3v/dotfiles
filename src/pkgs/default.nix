@@ -14,4 +14,7 @@ prev:
 })
 // {
   dLib = import ../lib prev.lib;
+
+  # not callPackage: .override must reach the upstream package
+  hyprland-patched = import ./hyprland prev;
 }

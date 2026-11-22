@@ -1,0 +1,28 @@
+Create a capture source without a monitor for removed outputs instead of a protocol error, so a shell racing an unplug can still lock.
+
+TODO: upstream to hyprwm/Hyprland (unfixed in main and v0.57.2 as of 2026-11-22), then drop this patch.
+
+diff --git a/src/protocols/ImageCaptureSource.cpp b/src/protocols/ImageCaptureSource.cpp
+index 0c3e0cd3..6a04118e 100644
+--- a/src/protocols/ImageCaptureSource.cpp
++++ b/src/protocols/ImageCaptureSource.cpp
+@@ -99,17 +99,12 @@ void COutputImageCaptureSourceProtocol::bindManager(wl_client* client, void* dat
+         }
+ 
+         PHLMONITOR pMonitor = OUTPUT->m_monitor.lock();
+-        if (!pMonitor) {
+-            LOG(Log::ERR, "Client tried to create source from invalid output resource");
+-            pMgr->error(-1, "invalid output resource");
+-            return;
+-        }
+ 
+-        auto PSOURCE =
++        auto       PSOURCE =
+             PROTO::imageCaptureSource->m_sources.emplace_back(makeShared<CImageCaptureSource>(makeShared<CExtImageCaptureSourceV1>(pMgr->client(), pMgr->version(), id), pMonitor));
+         PSOURCE->m_self = PSOURCE;
+ 
+-        LOG(Log::INFO, "New capture source for monitor: {}", pMonitor->m_name);
++        LOG(Log::INFO, "New capture source for monitor: {}", PSOURCE->getName());
+     });
+ }
+ 

@@ -1,0 +1,34 @@
+Create lock surfaces for inert (denied) locks, so destroying them later is no protocol error.
+
+TODO: upstream to hyprwm/Hyprland (unfixed in main and v0.57.2 as of 2026-11-22), then drop this patch.
+
+diff --git a/src/protocols/SessionLock.cpp b/src/protocols/SessionLock.cpp
+index c8868d75..7f4ec072 100644
+--- a/src/protocols/SessionLock.cpp
++++ b/src/protocols/SessionLock.cpp
+@@ -118,14 +118,7 @@ CSessionLock::CSessionLock(SP<CExtSessionLockV1> resource_) : m_resource(resourc
+     m_resource->setDestroy([this](CExtSessionLockV1* r) { PROTO::sessionLock->destroyResource(this); });
+     m_resource->setOnDestroy([this](CExtSessionLockV1* r) { PROTO::sessionLock->destroyResource(this); });
+ 
+-    m_resource->setGetLockSurface([this](CExtSessionLockV1* r, uint32_t id, wl_resource* surf, wl_resource* output) {
+-        if (m_inert) {
+-            LOG(Log::ERR, "Lock is trying to send getLockSurface after it's inert");
+-            return;
+-        }
+-
+-        PROTO::sessionLock->onGetLockSurface(r, id, surf, output);
+-    });
++    m_resource->setGetLockSurface([](CExtSessionLockV1* r, uint32_t id, wl_resource* surf, wl_resource* output) { PROTO::sessionLock->onGetLockSurface(r, id, surf, output); });
+ 
+     m_resource->setUnlockAndDestroy([this](CExtSessionLockV1* r) {
+         if (m_inert) {
+@@ -227,6 +220,9 @@ void CSessionLockProtocol::onGetLockSurface(CExtSessionLockV1* lock, uint32_t id
+         }
+     }
+ 
++    if (sessionLock->m_inert)
++        PMONITOR.reset();
++
+     const auto RESOURCE =
+         m_lockSurfaces.emplace_back(makeShared<CSessionLockSurface>(makeShared<CExtSessionLockSurfaceV1>(lock->client(), lock->version(), id), PSURFACE, PMONITOR, sessionLock));
+ 
