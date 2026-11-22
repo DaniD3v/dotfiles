@@ -8,13 +8,12 @@ prev:
   pkg-shell = import ./pkg-shell;
   k3d-podman = import ./k3d-podman.nix;
   patchedCiscoPacketTracer8 = import ./packetTracer.nix;
-
-  firefox-with-hidden-extensions = import ./hidden-extensions/firefox.nix;
-  librewolf-with-hidden-extensions = import ./hidden-extensions/librewolf.nix;
 })
 // {
   dLib = import ../lib prev.lib;
 
   # not callPackage: .override must reach the upstream package
   hyprland-patched = import ./hyprland prev;
+  firefox-with-hidden-extensions = import ./hidden-extensions/firefox.nix prev;
+  librewolf-with-hidden-extensions = import ./hidden-extensions/librewolf.nix prev;
 }
