@@ -2,6 +2,7 @@
   imports = [
     ./hardware.nix
     ./disko.nix
+    ./zfs.nix
 
     ./network.nix
     ./incus
