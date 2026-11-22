@@ -27,8 +27,12 @@
   };
 
   programs = {
-    # use openssh's defaults instead of home-manager's deprecated default block
-    ssh.enableDefaultConfig = false;
+    ssh = {
+      # use openssh's defaults instead of home-manager's deprecated default block
+      enableDefaultConfig = false;
+
+      settings."*".identityFile = "~/secrets/ssh_key";
+    };
 
     nushell = {
       shellAliases = {
