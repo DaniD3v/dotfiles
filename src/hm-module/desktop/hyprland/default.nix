@@ -108,6 +108,13 @@ in
   config = mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       enable = true;
+
+      # HACK:
+      # home-manager would add a second Hyprland and shadow the system portals,
+      # which the NixOS module already provides
+      package = null;
+      portalPackage = null;
+
       configType = "lua";
       systemd.enable = false; # for UWSM
 
@@ -181,10 +188,6 @@ in
       export NIXOS_OZONE_WL=1
       export EDITOR=${config.home.sessionVariables.EDITOR}
     '';
-
-    # HACK: hyprland's portal config falls back to gtk,
-    # but the home-manager module only installs the hyprland portal
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
     dotfiles.programs.librewolf.bookmarks."Toolbar".bookmarks."Ricing".bookmarks =
       mkIf cfg.browserBookmarks.enable cfg.browserBookmarks.export;

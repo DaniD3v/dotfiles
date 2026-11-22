@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
@@ -16,6 +17,9 @@ in
     programs.hyprland = {
       enable = true;
       withUWSM = true;
+
+      package = pkgs.hyprland-patched;
+      portalPackage = pkgs.unstable.xdg-desktop-portal-hyprland;
     };
   };
 }
