@@ -55,7 +55,7 @@
           enable = true;
           useForSigning = true;
 
-          keyFile = "~/secrets/git.key";
+          keyFile = "~/secrets/git_key";
           identities = {
             "github.com".user = "git";
           };
