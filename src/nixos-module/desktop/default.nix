@@ -10,6 +10,7 @@ in
 {
   imports = [
     ./hyprland.nix
+    ./keyring.nix
     ./sound.nix
   ];
 
