@@ -42,4 +42,7 @@
 
   time.timeZone = "Europe/Vienna";
   i18n.defaultLocale = "en_US.UTF-8";
+
+  # boot past failed mounts so the router and sshd still come up
+  systemd.enableEmergencyMode = false;
 }

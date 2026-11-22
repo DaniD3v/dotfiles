@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -13,8 +12,8 @@
           device = "/dev/disk/by-id/${id}";
 
           content = {
-            type = "mdraid";
-            name = "data_raid";
+            type = "zfs";
+            pool = "data";
           };
         };
       };
@@ -70,21 +69,15 @@
       // (mkRaidDevice 7 "ata-TOSHIBA_HDWT840_93C2S1G2SRZH")
       // (mkRaidDevice 8 "ata-TOSHIBA_HDWT840_93C2S1EQSRZH");
 
-      mdadm = {
-        data_raid = {
-          type = "mdadm";
-          level = 6;
+      zpool.data = {
+        type = "zpool";
+        mode = "raidz2";
+        rootFsOptions.mountpoint = "none";
 
-          content = {
-            type = "filesystem";
-            format = "ext4";
-
-            mountpoint = "/data";
-          };
+        datasets.files = {
+          type = "zfs_fs";
+          mountpoint = "/data";
         };
       };
     };
-
-  # report array events (e.g. a failed disk) to the journal
-  boot.swraid.mdadmConf = "PROGRAM ${lib.getExe' pkgs.util-linux "logger"}";
 }

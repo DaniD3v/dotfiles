@@ -19,8 +19,8 @@
         }
         {
           name = "data";
-          driver = "dir";
-          config.source = "/data/incus";
+          driver = "zfs";
+          config.source = "data/incus";
         }
       ];
 
@@ -126,7 +126,4 @@
     "net.bridge.bridge-nf-call-ip6tables" = 0;
     "net.bridge.bridge-nf-call-arptables" = 0;
   };
-
-  # HACK: the dir driver requires an existing source
-  systemd.tmpfiles.settings."10-incus"."/data/incus".d.mode = "0711";
 }
